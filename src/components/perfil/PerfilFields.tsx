@@ -2,7 +2,7 @@ import {
   EXPERIENCIA_MAX,
   GRADO_ACADEMICO_LABELS,
   HABILIDADES_MAX,
-  HABILIDADES_SUGERIDAS,
+  HABILIDADES_CATALOGO,
   NIVEL_ESTUDIOS_LABELS,
   toOptions,
 } from '../../lib/perfilOptions'
@@ -57,10 +57,10 @@ export function PerfilFields({ mode, values, errors, onChange }: PerfilFieldsPro
       </div>
       <TagInput
         label={req ? 'Habilidades clave e idiomas requeridos' : 'Tus habilidades e idiomas'}
-        hint={req ? 'Cada etiqueta cuenta para el match con los candidatos.' : 'Escribe o elige las que dominas.'}
+        hint={req ? 'Cada habilidad que el candidato tenga suma 2% a su compatibilidad.' : 'Escribe y elige de la lista las que dominas.'}
         value={values.habilidades}
         onChange={(tags) => onChange('habilidades', tags)}
-        suggestions={HABILIDADES_SUGERIDAS}
+        options={HABILIDADES_CATALOGO}
         max={HABILIDADES_MAX}
       />
     </div>

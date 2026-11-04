@@ -5,10 +5,15 @@ import type { Vacante } from '../types/vacante'
 
 /**
  * Match automático candidato ↔ vacante.
- * Solo cuentan los criterios que la vacante define; el porcentaje es el
- * promedio ponderado de la compatibilidad de cada criterio activo.
+ * Solo cuentan los criterios que la vacante define; el porcentaje base es el
+ * promedio ponderado de la compatibilidad de cada criterio activo (sin
+ * habilidades). Cada habilidad requerida que el candidato tenga suma un
+ * bono fijo al porcentaje global, con tope de 100.
  */
-export const PESOS = { edad: 15, nivel: 20, grado: 20, experiencia: 20, habilidades: 25 } as const
+export const PESOS = { edad: 15, nivel: 20, grado: 20, experiencia: 20 } as const
+
+/** Puntos porcentuales que suma cada habilidad que hace match */
+export const BONO_HABILIDAD = 2
 
 export const NIVEL_RANK: Record<NivelEstudios, number> = {
   secundaria: 1,
@@ -37,13 +42,16 @@ export interface MatchResultado {
   /** 0–100, o null si la vacante no define requisitos estructurados */
   porcentaje: number | null
   criterios: CriterioResultado[]
+  /** Habilidades requeridas por la vacante que el candidato tiene */
+  habilidadesCoincidentes: string[]
+  habilidadesRequeridas: number
 }
 
 const clamp01 = (value: number) => Math.min(Math.max(value, 0), 1)
 
-function scoreHabilidades(required: string[], actual: string[]): number {
+function habilidadesCoincidentes(required: string[], actual: string[]): string[] {
   const have = new Set(actual.map(normalize))
-  return required.filter((tag) => have.has(normalize(tag))).length / required.length
+  return required.filter((tag) => have.has(normalize(tag)))
 }
 
 export function calcularMatch(vacante: Vacante, candidato: Postulacion): MatchResultado {
@@ -82,19 +90,21 @@ export function calcularMatch(vacante: Vacante, candidato: Postulacion): MatchRe
     criterios.push({ id: 'experiencia', label: 'Experiencia', score })
   }
 
-  if (vacante.habilidades.length > 0) {
-    criterios.push({
-      id: 'habilidades',
-      label: 'Habilidades',
-      score: scoreHabilidades(vacante.habilidades, candidato.habilidades),
-    })
+  const coincidentes = habilidadesCoincidentes(vacante.habilidades, candidato.habilidades)
+  const habilidades = {
+    habilidadesCoincidentes: coincidentes,
+    habilidadesRequeridas: vacante.habilidades.length,
   }
 
-  if (criterios.length === 0) return { porcentaje: null, criterios }
+  if (criterios.length === 0 && vacante.habilidades.length === 0) {
+    return { porcentaje: null, criterios, ...habilidades }
+  }
 
   const total = criterios.reduce((sum, c) => sum + PESOS[c.id], 0)
   const obtenido = criterios.reduce((sum, c) => sum + PESOS[c.id] * c.score, 0)
-  return { porcentaje: Math.round((obtenido / total) * 100), criterios }
+  const base = total > 0 ? Math.round((obtenido / total) * 100) : 0
+  const porcentaje = Math.min(100, base + coincidentes.length * BONO_HABILIDAD)
+  return { porcentaje, criterios, ...habilidades }
 }
 
 export interface PostulacionConMatch {

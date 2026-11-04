@@ -55,6 +55,7 @@ Ejecutar en Supabase (SQL Editor) **en orden**; cada archivo asume los anteriore
 3.  `supabase/03_vacantes.sql` — tabla `vacantes` + RLS.
 4.  `supabase/04_postulaciones.sql` — tabla `postulaciones` + bucket privado `cvs` (solo PDF, máx. 5 MB) + RLS.
 5.  `supabase/05_match.sql` — campos estructurados del Match automático (sección 7).
+6.  `supabase/06_etiquetas.sql` — amplía el límite de cada etiqueta de habilidad a 1–60 caracteres (el catálogo incluye "C" y etiquetas de 41 caracteres).
 
 Este proyecto **no concede privilegios por defecto** a `anon`/`authenticated`: toda tabla nueva necesita `grant` explícito además de RLS.
 
@@ -68,25 +69,26 @@ Este proyecto **no concede privilegios por defecto** a `anon`/`authenticated`: t
 | `nivel_estudios` | enum `nivel_estudios` | `secundaria` < `preparatoria` < `universidad` < `posgrado` |
 | `grado_academico` | enum `grado_academico` | `tecnico`, `licenciado`, `ingeniero`, `maestro`, `doctor` |
 | `experiencia_anios` | `smallint` | 0–60 |
-| `habilidades` | `text[]` (default `{}`) | Habilidades clave e idiomas; máx. 20 etiquetas de 2–40 caracteres (`etiquetas_validas()`) |
+| `habilidades` | `text[]` (default `{}`) | Habilidades clave e idiomas; máx. 20 etiquetas de 1–60 caracteres (`etiquetas_validas()`, ajustada en la migración 06) |
 
 **`postulaciones` (perfil del candidato, *snapshot* al postularse):** `edad` (16–99), `nivel_estudios`, `grado_academico`, `experiencia_anios` (0–60), `habilidades` (`text[]`). Son nullable solo para no romper postulaciones anteriores a la migración 05; el formulario exige edad, nivel de estudios y experiencia. Las políticas RLS no cambiaron (el publicador solo ve las postulaciones de sus vacantes).
 
 ### 7.2 Flujo de formularios
-*   **Reclutador — "Publicar vacante"** (`VacanteForm`): bloque "Perfil buscado" con edad mínima/máxima (numéricos), nivel de estudios y grado académico (listas con opción "Sin requisito"), años de experiencia (numérico) y habilidades/idiomas (etiquetas con sugerencias, `TagInput`). Todo es opcional.
+*   **Reclutador — "Publicar vacante"** (`VacanteForm`): bloque "Perfil buscado" con edad mínima/máxima (numéricos), nivel de estudios y grado académico (listas con opción "Sin requisito"), años de experiencia (numérico) y habilidades/idiomas (autocompletado multi-selección, `TagInput`). Todo es opcional.
 *   **Candidato — "Postularme"** (`PostulacionForm`): CV en PDF + bloque "Tu perfil" con los mismos campos (`PerfilFields` en modo `candidato`). Edad, nivel de estudios y experiencia son obligatorios; grado ("Ninguno") y habilidades son opcionales. Los datos se guardan en la propia postulación (no en `profiles`).
+*   **Catálogo de habilidades:** `etiquetas_habilidades.json` (raíz del proyecto, arreglo de strings) se importa en `src/lib/perfilOptions.ts` como `HABILIDADES_CATALOGO`. `TagInput` filtra el catálogo mientras se escribe (sin distinguir mayúsculas ni acentos; primero las que empiezan con el texto, luego las que lo contienen; máx. 50 resultados), se elige con clic o con teclado (↑ ↓ Enter, Esc cierra), permite varias etiquetas y **solo acepta etiquetas del catálogo** para que el match sea exacto. Se guardan en `habilidades text[]` tal como aparecen en el catálogo. Para añadir habilidades basta con editar el JSON (cada una de 1–60 caracteres, sin duplicados).
 *   `PerfilFields` es el componente compartido por ambos formularios; las opciones y etiquetas viven en `src/lib/perfilOptions.ts`.
 *   El detalle de la vacante muestra "Perfil buscado" (`VacantePerfilBuscado`) para que el candidato conozca los requisitos antes de postularse.
 
 ### 7.3 Reglas de negocio del match (`src/lib/match.ts`)
-*   Solo cuentan los **criterios que la vacante define**. El porcentaje es el promedio ponderado de la compatibilidad (0–1) de los criterios activos, redondeado al entero: `round(Σ peso·score / Σ peso activos · 100)`.
-*   Pesos: **edad 15, nivel de estudios 20, grado académico 20, experiencia 20, habilidades 25**.
+*   Solo cuentan los **criterios que la vacante define**. El porcentaje base es el promedio ponderado de la compatibilidad (0–1) de los criterios activos (sin habilidades), redondeado al entero: `round(Σ peso·score / Σ peso activos · 100)`. Si la vacante solo exige habilidades, la base es 0 y el porcentaje es `2 · coincidencias`.
+*   Pesos del promedio: **edad 15, nivel de estudios 20, grado académico 20, experiencia 20**. Las **habilidades NO entran en el promedio**: cada habilidad requerida que el candidato tenga **suma 2 puntos porcentuales** (`BONO_HABILIDAD`) al porcentaje global, que **nunca supera el 100%**: `porcentaje = min(100, base + 2 · coincidencias)`.
 *   Cálculo por criterio:
     *   **Edad:** 1 si está dentro del rango (un límite ausente es abierto); 0 si queda fuera o no hay dato.
     *   **Nivel de estudios / grado académico:** `min(rango_candidato / rango_requerido, 1)`. Ingeniero y licenciado tienen el mismo rango (2); técnico 1, maestro 3, doctor 4. Sin dato = 0. Un grado superior al requerido cuenta como cumplido.
     *   **Experiencia:** `min(años_candidato / años_requeridos, 1)`; si se exigen 0 años, 1.
-    *   **Habilidades:** proporción de las habilidades requeridas que el candidato tiene (comparación sin mayúsculas ni acentos).
-*   Si la vacante no define ningún requisito estructurado, el porcentaje es `null` y se muestra el aviso "no se calcula compatibilidad".
+    *   **Habilidades (bono):** se cuenta cuántas de las habilidades requeridas tiene el candidato (comparación sin mayúsculas ni acentos); las habilidades extra del candidato no suman.
+*   Si la vacante no define ningún requisito estructurado (ni criterios ni habilidades), el porcentaje es `null` y se muestra el aviso "no se calcula compatibilidad".
 *   El cálculo es del lado del cliente (función pura `calcularMatch`); si cambian los pesos o reglas, actualizar esta sección.
 
 ### 7.4 Regla de ordenamiento (estricta)

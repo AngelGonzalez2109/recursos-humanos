@@ -1,4 +1,4 @@
-import type { MatchResultado } from '../../lib/match'
+import { BONO_HABILIDAD, type MatchResultado } from '../../lib/match'
 
 function barColor(porcentaje: number): string {
   if (porcentaje >= 75) return 'bg-emerald-500'
@@ -38,6 +38,12 @@ export function MatchIndicator({ match }: { match: MatchResultado }) {
             {c.label}: <span className="font-medium">{Math.round(c.score * 100)}%</span>
           </li>
         ))}
+        {match.habilidadesRequeridas > 0 && (
+          <li>
+            Habilidades: <span className="font-medium">{match.habilidadesCoincidentes.length}</span> de{' '}
+            {match.habilidadesRequeridas} (+{match.habilidadesCoincidentes.length * BONO_HABILIDAD}%)
+          </li>
+        )}
       </ul>
     </div>
   )

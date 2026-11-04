@@ -1,3 +1,4 @@
+import catalogo from '../../etiquetas_habilidades.json'
 import type { GradoAcademico, NivelEstudios } from '../types/perfil'
 
 export const NIVEL_ESTUDIOS_LABELS: Record<NivelEstudios, string> = {
@@ -15,27 +16,12 @@ export const GRADO_ACADEMICO_LABELS: Record<GradoAcademico, string> = {
   doctor: 'Doctor',
 }
 
-/** Etiquetas sugeridas (habilidades e idiomas); el usuario también puede escribir las suyas */
-export const HABILIDADES_SUGERIDAS = [
-  'Inglés',
-  'Francés',
-  'Excel',
-  'Comunicación',
-  'Trabajo en equipo',
-  'Liderazgo',
-  'Atención al cliente',
-  'Ventas',
-  'Contabilidad',
-  'Reclutamiento',
-  'SQL',
-  'JavaScript',
-  'Python',
-  'Gestión de proyectos',
-]
+/** Catálogo de habilidades e idiomas (etiquetas_habilidades.json, en la raíz del proyecto) */
+export const HABILIDADES_CATALOGO: string[] = catalogo
 
 export const HABILIDADES_MAX = 20
-export const HABILIDAD_MIN_LEN = 2
-export const HABILIDAD_MAX_LEN = 40
+export const HABILIDAD_MIN_LEN = 1
+export const HABILIDAD_MAX_LEN = 60
 export const EDAD_MIN = 16
 export const EDAD_MAX = 99
 export const EXPERIENCIA_MAX = 60
