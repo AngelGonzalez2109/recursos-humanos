@@ -11,12 +11,13 @@ interface MisVacantesListProps {
   onRetry: () => void
   onChanged: () => void
   onCreate: () => void
+  onEdit: (vacante: Vacante) => void
 }
 
 const LIST_CLASS =
   'divide-y divide-slate-200 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm dark:divide-slate-800 dark:border-slate-800 dark:bg-slate-900'
 
-export function MisVacantesList({ vacantes, loading, error, onRetry, onChanged, onCreate }: MisVacantesListProps) {
+export function MisVacantesList({ vacantes, loading, error, onRetry, onChanged, onCreate, onEdit }: MisVacantesListProps) {
   if (loading) {
     return (
       <ul className={LIST_CLASS} aria-busy="true">
@@ -49,7 +50,7 @@ export function MisVacantesList({ vacantes, loading, error, onRetry, onChanged, 
       </p>
       <ul className={LIST_CLASS}>
         {vacantes.map((vacante) => (
-          <MisVacanteRow key={vacante.id} vacante={vacante} onChanged={onChanged} />
+          <MisVacanteRow key={vacante.id} vacante={vacante} onChanged={onChanged} onEdit={onEdit} />
         ))}
       </ul>
     </div>

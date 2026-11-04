@@ -1,6 +1,6 @@
 import { supabase } from './supabaseClient'
 import { parseEntero } from './vacanteValidation'
-import type { Postulacion, PostulacionFormValues } from '../types/postulacion'
+import type { EstadoPostulacion, MiPostulacion, Postulacion, PostulacionFormValues } from '../types/postulacion'
 
 const CV_BUCKET = 'cvs'
 export const CV_MAX_BYTES = 5 * 1024 * 1024
@@ -82,4 +82,27 @@ export async function getCvUrl(cvPath: string): Promise<string> {
   const { data, error } = await supabase.storage.from(CV_BUCKET).createSignedUrl(cvPath, 60)
   if (error) throw error
   return data.signedUrl
+}
+
+/** Cambia el estado (RLS: solo el publicador de la vacante). Falla si no se actualizó ninguna fila. */
+export async function updateEstadoPostulacion(id: string, estado: EstadoPostulacion): Promise<Postulacion> {
+  const { data, error } = await supabase
+    .from('postulaciones')
+    .update({ estado })
+    .eq('id', id)
+    .select('*')
+    .single<Postulacion>()
+  if (error) throw error
+  return data
+}
+
+/** Postulaciones del candidato con los datos de cada vacante, más recientes primero */
+export async function listMisPostulaciones(postulanteId: string): Promise<MiPostulacion[]> {
+  const { data, error } = await supabase
+    .from('postulaciones')
+    .select('*, vacantes(id, titulo, empresa, ubicacion, estado)')
+    .eq('postulante_id', postulanteId)
+    .order('created_at', { ascending: false })
+  if (error) throw error
+  return (data ?? []) as MiPostulacion[]
 }

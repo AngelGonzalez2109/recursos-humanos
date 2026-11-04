@@ -6,9 +6,10 @@ interface ModalProps {
   title: string
   onClose: () => void
   children: ReactNode
+  size?: 'md' | 'lg'
 }
 
-export function Modal({ open, title, onClose, children }: ModalProps) {
+export function Modal({ open, title, onClose, children, size = 'lg' }: ModalProps) {
   const titleId = useId()
 
   // Cerrar con Escape y bloquear el scroll del fondo
@@ -34,7 +35,7 @@ export function Modal({ open, title, onClose, children }: ModalProps) {
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="h-fit w-full max-w-2xl rounded-xl border border-slate-200 bg-white shadow-xl dark:border-slate-800 dark:bg-slate-900"
+        className={`h-fit w-full ${size === 'md' ? 'max-w-md' : 'max-w-2xl'} rounded-xl border border-slate-200 bg-white shadow-xl dark:border-slate-800 dark:bg-slate-900`}
       >
         <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4 dark:border-slate-800">
           <h2 id={titleId} className="text-lg font-semibold">

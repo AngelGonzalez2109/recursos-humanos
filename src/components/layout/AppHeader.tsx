@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useAuth } from '../../hooks/useAuth'
 import { ROLE_LABELS } from '../../lib/roles'
+import { HeaderNav } from './HeaderNav'
 import { BrandLogo } from '../ui/BrandLogo'
 import { Button } from '../ui/Button'
 import { ThemeToggle } from '../ui/ThemeToggle'
@@ -22,7 +23,10 @@ export function AppHeader() {
   return (
     <header className="sticky top-0 z-10 border-b border-slate-200 bg-white/90 backdrop-blur transition-colors duration-300 dark:border-slate-800 dark:bg-slate-900/90">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
-        <BrandLogo />
+        <div className="flex items-center gap-4">
+          <BrandLogo />
+          {profile && <HeaderNav role={profile.role} />}
+        </div>
         <div className="flex items-center gap-3">
           {profile && (
             <div className="mr-1 hidden text-right sm:block">

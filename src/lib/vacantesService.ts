@@ -34,28 +34,41 @@ export async function getVacante(id: string): Promise<Vacante | null> {
   return data
 }
 
+/** Columnas editables de la vacante a partir de los valores del formulario */
+function toRow(values: VacanteFormValues) {
+  return {
+    titulo: values.titulo.trim(),
+    empresa: values.empresa.trim(),
+    ubicacion: values.ubicacion.trim(),
+    modalidad: values.modalidad,
+    tipo_contrato: values.tipoContrato,
+    descripcion: values.descripcion.trim(),
+    requisitos: values.requisitos.trim(),
+    salario_min: parseSalario(values.salarioMin),
+    salario_max: parseSalario(values.salarioMax),
+    moneda: values.moneda,
+    edad_min: parseEntero(values.edadMin),
+    edad_max: parseEntero(values.edadMax),
+    nivel_estudios: values.nivelEstudios || null,
+    grado_academico: values.gradoAcademico || null,
+    experiencia_anios: parseEntero(values.experienciaAnios),
+    habilidades: values.habilidades,
+  }
+}
+
 /** publicador_id lo asigna la base de datos (default auth.uid()) */
 export async function createVacante(values: VacanteFormValues): Promise<Vacante> {
+  const { data, error } = await supabase.from('vacantes').insert(toRow(values)).select('*').single<Vacante>()
+  if (error) throw error
+  return data
+}
+
+/** Edita una vacante propia (RLS: solo su publicador; falla si no se actualizó ninguna fila) */
+export async function updateVacante(id: string, values: VacanteFormValues): Promise<Vacante> {
   const { data, error } = await supabase
     .from('vacantes')
-    .insert({
-      titulo: values.titulo.trim(),
-      empresa: values.empresa.trim(),
-      ubicacion: values.ubicacion.trim(),
-      modalidad: values.modalidad,
-      tipo_contrato: values.tipoContrato,
-      descripcion: values.descripcion.trim(),
-      requisitos: values.requisitos.trim(),
-      salario_min: parseSalario(values.salarioMin),
-      salario_max: parseSalario(values.salarioMax),
-      moneda: values.moneda,
-      edad_min: parseEntero(values.edadMin),
-      edad_max: parseEntero(values.edadMax),
-      nivel_estudios: values.nivelEstudios || null,
-      grado_academico: values.gradoAcademico || null,
-      experiencia_anios: parseEntero(values.experienciaAnios),
-      habilidades: values.habilidades,
-    })
+    .update(toRow(values))
+    .eq('id', id)
     .select('*')
     .single<Vacante>()
   if (error) throw error

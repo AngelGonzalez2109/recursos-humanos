@@ -11,9 +11,10 @@ import { VacanteBadges } from './VacanteBadges'
 interface MisVacanteRowProps {
   vacante: Vacante
   onChanged: () => void
+  onEdit: (vacante: Vacante) => void
 }
 
-export function MisVacanteRow({ vacante, onChanged }: MisVacanteRowProps) {
+export function MisVacanteRow({ vacante, onChanged, onEdit }: MisVacanteRowProps) {
   const [updating, setUpdating] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const abierta = vacante.estado === 'abierta'
@@ -52,9 +53,14 @@ export function MisVacanteRow({ vacante, onChanged }: MisVacanteRowProps) {
         </div>
         {error && <p className="mt-2 text-xs text-red-600 dark:text-red-400">{error}</p>}
       </div>
-      <Button variant="secondary" loading={updating} onClick={toggleEstado} className="shrink-0">
-        {abierta ? 'Cerrar vacante' : 'Reabrir'}
-      </Button>
+      <div className="flex shrink-0 gap-2">
+        <Button variant="secondary" onClick={() => onEdit(vacante)}>
+          Editar
+        </Button>
+        <Button variant="secondary" loading={updating} onClick={toggleEstado}>
+          {abierta ? 'Cerrar vacante' : 'Reabrir'}
+        </Button>
+      </div>
     </li>
   )
 }

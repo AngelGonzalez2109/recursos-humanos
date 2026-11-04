@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react'
 import { useAuth } from '../../hooks/useAuth'
 import { useMiPostulacion } from '../../hooks/usePostulaciones'
+import { ESTADO_POSTULACION_LABELS } from '../../lib/postulacionEstados'
 import { formatFechaRelativa } from '../../lib/vacanteFormat'
 import { Alert } from '../ui/Alert'
 import { Button } from '../ui/Button'
@@ -29,7 +30,8 @@ export function PostularPanel({ vacanteId }: { vacanteId: string }) {
     return (
       <div className="mt-6">
         <Alert variant="success">
-          Ya te postulaste a esta vacante {formatFechaRelativa(enviada.created_at)}.
+          Ya te postulaste a esta vacante {formatFechaRelativa(enviada.created_at)}. Estado:{' '}
+          <strong>{ESTADO_POSTULACION_LABELS[enviada.estado]}</strong>.
         </Alert>
       </div>
     )

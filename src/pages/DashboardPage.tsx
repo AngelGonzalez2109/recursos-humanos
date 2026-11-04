@@ -14,17 +14,24 @@ export function DashboardPage() {
   const { profile } = useAuth()
   const { data, loading, error, reload } = useMisVacantes(profile?.id ?? null)
   const [formOpen, setFormOpen] = useState(false)
+  const [editing, setEditing] = useState<Vacante | null>(null)
   const [notice, setNotice] = useState<string | null>(null)
 
   const openForm = useCallback(() => {
     setNotice(null)
+    setEditing(null)
+    setFormOpen(true)
+  }, [])
+  const openEdit = useCallback((vacante: Vacante) => {
+    setNotice(null)
+    setEditing(vacante)
     setFormOpen(true)
   }, [])
   const closeForm = useCallback(() => setFormOpen(false), [])
 
-  function handleCreated(vacante: Vacante) {
+  function handleSaved(vacante: Vacante) {
     setFormOpen(false)
-    setNotice(`La vacante «${vacante.titulo}» se publicó correctamente.`)
+    setNotice(`La vacante «${vacante.titulo}» se ${editing ? 'actualizó' : 'publicó'} correctamente.`)
     reload()
   }
 
@@ -47,12 +54,15 @@ export function DashboardPage() {
         onRetry={reload}
         onChanged={reload}
         onCreate={openForm}
+        onEdit={openEdit}
       />
 
-      <Modal open={formOpen} title="Publicar nueva vacante" onClose={closeForm}>
+      <Modal open={formOpen} title={editing ? 'Editar vacante' : 'Publicar nueva vacante'} onClose={closeForm}>
         <VacanteForm
+          key={editing?.id ?? 'nueva'}
+          vacante={editing ?? undefined}
           defaultEmpresa={profile?.company_name ?? ''}
-          onCreated={handleCreated}
+          onSaved={handleSaved}
           onCancel={closeForm}
         />
       </Modal>

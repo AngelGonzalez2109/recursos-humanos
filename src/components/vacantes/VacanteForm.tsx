@@ -1,11 +1,12 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react'
-import { createVacante } from '../../lib/vacantesService'
+import { createVacante, updateVacante } from '../../lib/vacantesService'
+import { emptyVacanteForm, vacanteToFormValues } from '../../lib/vacanteForm'
 import { validateVacante } from '../../lib/vacanteValidation'
 import { getDbErrorMessage } from '../../lib/dbErrors'
 import { MODALIDAD_LABELS, MONEDAS, TIPO_CONTRATO_LABELS } from '../../lib/vacanteFormat'
 import type { PerfilFormValues } from '../../types/perfil'
 import type { Vacante, VacanteFieldErrors, VacanteFormValues } from '../../types/vacante'
-import { PerfilFields } from '../perfil/PerfilFields'
+import { VacantePerfilFieldset } from './VacantePerfilFieldset'
 import { Alert } from '../ui/Alert'
 import { Button } from '../ui/Button'
 import { Input } from '../ui/Input'
@@ -22,30 +23,18 @@ const MONEDA_OPTIONS = MONEDAS.map((m) => ({ value: m, label: m }))
 type FieldElement = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
 
 interface VacanteFormProps {
+  /** Si se indica, el formulario edita esa vacante; si no, crea una nueva */
+  vacante?: Vacante
   defaultEmpresa: string
-  onCreated: (vacante: Vacante) => void
+  onSaved: (vacante: Vacante) => void
   onCancel: () => void
 }
 
-export function VacanteForm({ defaultEmpresa, onCreated, onCancel }: VacanteFormProps) {
-  const [values, setValues] = useState<VacanteFormValues>({
-    titulo: '',
-    empresa: defaultEmpresa,
-    ubicacion: '',
-    modalidad: 'presencial',
-    tipoContrato: 'tiempo_completo',
-    descripcion: '',
-    requisitos: '',
-    salarioMin: '',
-    salarioMax: '',
-    moneda: 'MXN',
-    edadMin: '',
-    edadMax: '',
-    nivelEstudios: '',
-    gradoAcademico: '',
-    experienciaAnios: '',
-    habilidades: [],
-  })
+export function VacanteForm({ vacante, defaultEmpresa, onSaved, onCancel }: VacanteFormProps) {
+  const editing = vacante !== undefined
+  const [values, setValues] = useState<VacanteFormValues>(() =>
+    vacante ? vacanteToFormValues(vacante) : emptyVacanteForm(defaultEmpresa),
+  )
   const [errors, setErrors] = useState<VacanteFieldErrors>({})
   const [submitError, setSubmitError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
@@ -76,9 +65,9 @@ export function VacanteForm({ defaultEmpresa, onCreated, onCancel }: VacanteForm
     setSubmitting(true)
     setSubmitError(null)
     try {
-      onCreated(await createVacante(values))
+      onSaved(vacante ? await updateVacante(vacante.id, values) : await createVacante(values))
     } catch (error) {
-      console.error('Error al publicar la vacante:', error)
+      console.error('Error al guardar la vacante:', error)
       setSubmitError(getDbErrorMessage(error))
       setSubmitting(false)
     }
@@ -116,24 +105,22 @@ export function VacanteForm({ defaultEmpresa, onCreated, onCancel }: VacanteForm
         <Select label="Moneda" options={MONEDA_OPTIONS} {...bind('moneda')} />
       </div>
 
-      <fieldset className="space-y-4 rounded-lg border border-slate-200 p-4 dark:border-slate-800">
-        <legend className="px-2 text-sm font-semibold">Perfil buscado (para el match automático)</legend>
-        <p className="text-xs text-slate-500 dark:text-slate-400">
-          Todos son opcionales. Solo los que completes se usarán para calcular la compatibilidad de cada candidato.
-        </p>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <Input label="Edad mínima" type="number" inputMode="numeric" min={16} max={99} placeholder="Opcional" {...bind('edadMin')} />
-          <Input label="Edad máxima" type="number" inputMode="numeric" min={16} max={99} placeholder="Opcional" {...bind('edadMax')} />
-        </div>
-        <PerfilFields mode="requisito" values={values} errors={errors} onChange={setPerfil} />
-      </fieldset>
+      <VacantePerfilFieldset
+        values={values}
+        errors={errors}
+        onPerfil={setPerfil}
+        onField={(field) => (event) => {
+          setValues((prev) => ({ ...prev, [field]: event.target.value }))
+          setErrors((prev) => ({ ...prev, [field]: undefined }))
+        }}
+      />
 
       <div className="flex flex-col-reverse gap-3 border-t border-slate-200 pt-5 sm:flex-row sm:justify-end dark:border-slate-800">
         <Button variant="secondary" onClick={onCancel} disabled={submitting}>
           Cancelar
         </Button>
         <Button type="submit" loading={submitting}>
-          Publicar vacante
+          {editing ? 'Guardar cambios' : 'Publicar vacante'}
         </Button>
       </div>
     </form>

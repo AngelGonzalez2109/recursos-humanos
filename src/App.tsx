@@ -11,6 +11,9 @@ const LoginPage = lazy(() => import('./pages/LoginPage').then((m) => ({ default:
 const RegisterPage = lazy(() => import('./pages/RegisterPage').then((m) => ({ default: m.RegisterPage })))
 const DashboardPage = lazy(() => import('./pages/DashboardPage').then((m) => ({ default: m.DashboardPage })))
 const VacantesPage = lazy(() => import('./pages/VacantesPage').then((m) => ({ default: m.VacantesPage })))
+const MisPostulacionesPage = lazy(() =>
+  import('./pages/MisPostulacionesPage').then((m) => ({ default: m.MisPostulacionesPage })),
+)
 const VacanteDetailPage = lazy(() =>
   import('./pages/VacanteDetailPage').then((m) => ({ default: m.VacanteDetailPage })),
 )
@@ -35,6 +38,7 @@ function App() {
             {/* Postulante (candidato) */}
             <Route element={<ProtectedRoute allowedRole="postulante" />}>
               <Route path="/vacantes" element={<VacantesPage />} />
+              <Route path="/mis-postulaciones" element={<MisPostulacionesPage />} />
             </Route>
 
             {/* Cualquier usuario autenticado */}

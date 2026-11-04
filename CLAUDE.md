@@ -56,6 +56,7 @@ Ejecutar en Supabase (SQL Editor) **en orden**; cada archivo asume los anteriore
 4.  `supabase/04_postulaciones.sql` — tabla `postulaciones` + bucket privado `cvs` (solo PDF, máx. 5 MB) + RLS.
 5.  `supabase/05_match.sql` — campos estructurados del Match automático (sección 7).
 6.  `supabase/06_etiquetas.sql` — amplía el límite de cada etiqueta de habilidad a 1–60 caracteres (el catálogo incluye "C" y etiquetas de 41 caracteres).
+7.  `supabase/07_estados_postulacion.sql` — estado de cada postulación, política de UPDATE para el publicador y lectura de vacantes para quien se postuló (sección 8).
 
 Este proyecto **no concede privilegios por defecto** a `anon`/`authenticated`: toda tabla nueva necesita `grant` explícito además de RLS.
 
@@ -94,3 +95,35 @@ Este proyecto **no concede privilegios por defecto** a `anon`/`authenticated`: t
 ### 7.4 Regla de ordenamiento (estricta)
 En el detalle de una vacante propia, "Postulaciones recibidas" **siempre** se ordena de **mayor a menor porcentaje de compatibilidad** (`ordenarPorMatch`). Desempates (y vacantes sin porcentaje): primero la postulación más antigua. No hay otros criterios de orden ni controles para alterarlo.
 Cada candidato muestra "Cumple con el N% de los requisitos", una barra de progreso, el desglose por criterio, sus datos y etiquetas, y el botón "Ver CV" (URL firmada de 60 s).
+
+## 8. SEGUIMIENTO DE POSTULACIONES
+
+### 8.1 Estados (`postulaciones.estado`, enum `estado_postulacion`)
+| Valor | Etiqueta en la UI | Cómo se asigna |
+|---|---|---|
+| `recibida` | Recibida | **Automático**: es el `default` de la columna, se fija cuando el CV y los datos se guardan correctamente en la base de datos. La política de INSERT exige `estado = 'recibida'`, así que el candidato no puede elegir otro. |
+| `en_revision` | En revisión | Lo asigna el reclutador |
+| `rechazada` | Rechazada | Lo asigna el reclutador |
+| `pruebas_psicometricas` | Avanzar a pruebas psicométricas | Lo asigna el reclutador |
+
+Las etiquetas y colores (`Badge`) viven en `src/lib/postulacionEstados.ts`. "Recibida" **no** aparece en la lista desplegable: solo es el estado inicial y no se puede volver a ella. El reclutador puede pasar entre los tres estados asignables en cualquier momento (incluso desde "Rechazada").
+
+### 8.2 Permisos (RLS)
+*   Solo el **publicador de la vacante** puede actualizar una postulación, y solo la columna `estado` (`grant update (estado)`; `updated_at` lo mantiene un trigger). El candidato no puede modificar ni borrar su postulación.
+*   Un candidato puede leer las vacantes a las que se postuló aunque luego se cierren (función `security definer` `ha_postulado()`, necesaria para evitar recursión infinita de RLS entre `vacantes` y `postulaciones`).
+
+### 8.3 Cambio de estado con confirmación obligatoria
+*   En la tarjeta de cada candidato (`PostulacionCard`) hay una lista **"Cambiar estado"** (`EstadoPostulacionSelect`) con las 3 opciones asignables y una etiqueta con el estado actual.
+*   Al elegir una opción **no se guarda nada**: se abre un diálogo (`ConfirmDialog`) con el texto **"¿Seguro que quieres establecer este estado como «[estado elegido]»?"** y los botones *Cancelar* / *Sí, cambiar estado*.
+*   Solo al aceptar se llama a `updateEstadoPostulacion`. Si se cancela, la lista conserva el estado anterior; si falla, el error se muestra en el diálogo. Elegir el estado que ya tiene no hace nada.
+*   Esta confirmación es obligatoria y no debe eliminarse ni saltarse al añadir nuevos estados.
+
+### 8.4 "Mis postulaciones" (candidato)
+*   Ruta `/mis-postulaciones` (solo rol `postulante`, enlace en el encabezado vía `HeaderNav`). Lista cada postulación con puesto, empresa, ubicación, fecha y estado; enlaza al detalle de la vacante e indica si la vacante ya está cerrada.
+*   En el detalle de una vacante, si ya se postuló, el candidato ve el estado actual.
+
+## 9. EDICIÓN Y CIERRE DE VACANTES
+*   **Cerrar / reabrir:** botón en cada fila del panel (`MisVacanteRow` → `updateEstadoVacante`). Una vacante cerrada deja de aparecer en el feed y no admite nuevas postulaciones.
+*   **Editar:** botón "Editar" en cada fila abre el mismo `VacanteForm` en un modal, con los datos guardados (`vacanteToFormValues`) y el botón "Guardar cambios" (`updateVacante`). Se pueden modificar todos los campos, incluido el perfil buscado y las habilidades. Mismas validaciones que al publicar; RLS (`vacantes_update_owner`) garantiza que solo el dueño edita y no puede transferir la vacante.
+*   Al editar los requisitos, el porcentaje de match de los candidatos ya postulados se **recalcula** con los requisitos nuevos (se calcula al mostrar la lista); los datos que cada candidato envió no cambian.
+*   `VacanteForm` sirve para crear y editar (prop opcional `vacante`); el bloque "Perfil buscado" está en `VacantePerfilFieldset`.
