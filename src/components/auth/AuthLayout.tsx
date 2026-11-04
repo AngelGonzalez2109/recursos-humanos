@@ -1,0 +1,33 @@
+import type { ReactNode } from 'react'
+import { BrandLogo } from '../ui/BrandLogo'
+import { ThemeToggle } from '../ui/ThemeToggle'
+
+interface AuthLayoutProps {
+  title: string
+  subtitle: string
+  children: ReactNode
+  footer?: ReactNode
+}
+
+export function AuthLayout({ title, subtitle, children, footer }: AuthLayoutProps) {
+  return (
+    <main className="relative flex min-h-screen flex-col items-center justify-center px-4 py-16">
+      <div className="absolute top-4 right-4">
+        <ThemeToggle />
+      </div>
+      <div className="w-full max-w-md animate-fade-in">
+        <div className="mb-8 flex justify-center">
+          <BrandLogo />
+        </div>
+        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-colors duration-300 sm:p-8 dark:border-slate-800 dark:bg-slate-900 dark:shadow-black/20">
+          <h1 className="text-xl font-semibold">{title}</h1>
+          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{subtitle}</p>
+          <div className="mt-6">{children}</div>
+        </div>
+        {footer && (
+          <p className="mt-6 text-center text-sm text-slate-500 dark:text-slate-400">{footer}</p>
+        )}
+      </div>
+    </main>
+  )
+}

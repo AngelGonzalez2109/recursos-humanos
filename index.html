@@ -1,10 +1,28 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>recursos-humanos</title>
+    <meta
+      name="description"
+      content="Plataforma de Recursos Humanos: publica vacantes o postúlate con tu CV."
+    />
+    <meta name="theme-color" content="#2563eb" />
+    <title>Plataforma RH · Vacantes</title>
+    <!-- Aplica el tema antes de pintar para evitar el parpadeo -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme')
+          var dark = stored
+            ? stored === 'dark'
+            : window.matchMedia('(prefers-color-scheme: dark)').matches
+          document.documentElement.classList.toggle('dark', dark)
+          document.documentElement.style.colorScheme = dark ? 'dark' : 'light'
+        } catch (e) {}
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>
