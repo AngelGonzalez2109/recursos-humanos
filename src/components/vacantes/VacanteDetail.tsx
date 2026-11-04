@@ -1,8 +1,9 @@
 import { formatFechaRelativa, formatSalario } from '../../lib/vacanteFormat'
 import type { UserRole } from '../../types/database'
 import type { Vacante } from '../../types/vacante'
+import { PostulacionesRecibidas } from '../postulaciones/PostulacionesRecibidas'
+import { PostularPanel } from '../postulaciones/PostularPanel'
 import { Alert } from '../ui/Alert'
-import { Button } from '../ui/Button'
 import { VacanteBadges } from './VacanteBadges'
 
 const CARD = 'rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900'
@@ -39,6 +40,7 @@ export function VacanteDetail({ vacante, viewerRole, isOwner }: VacanteDetailPro
         </header>
         <Section title="Descripción del puesto" text={vacante.descripcion} />
         <Section title="Requisitos" text={vacante.requisitos} />
+        {isOwner && <PostulacionesRecibidas vacanteId={vacante.id} />}
       </div>
 
       <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">
@@ -55,16 +57,7 @@ export function VacanteDetail({ vacante, viewerRole, isOwner }: VacanteDetailPro
               </dd>
             </div>
           </dl>
-          {viewerRole === 'postulante' && !cerrada && (
-            <div className="mt-6 space-y-2">
-              <Button fullWidth disabled>
-                Postularme
-              </Button>
-              <p className="text-center text-xs text-slate-500 dark:text-slate-400">
-                La postulación con CV estará disponible muy pronto.
-              </p>
-            </div>
-          )}
+          {viewerRole === 'postulante' && !cerrada && <PostularPanel vacanteId={vacante.id} />}
         </div>
         {cerrada && (
           <Alert variant="info">
