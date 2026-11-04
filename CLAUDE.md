@@ -9,11 +9,14 @@ La aplicación debe manejar autenticación y diferenciar estrictamente entre dos
     *   Acceso a un panel (Dashboard) de administración.
     *   Interfaz con un formulario intuitivo para ingresar los datos del puesto (título, descripción, requisitos, salario, etc.).
     *   Al guardar, la vacante se publica y se inserta automáticamente en la base de datos.
+    *   Editar, cerrar y reabrir sus vacantes (sección 9).
+    *   Ver los candidatos de cada vacante **ordenados de mayor a menor compatibilidad** (match automático, sección 7), abrir su CV y cambiar el estado de la postulación con confirmación (sección 8).
 *   **Postulante (Candidato):**
     *   Inicio de sesión / Registro.
     *   Feed principal para visualizar las vacantes disponibles.
     *   Opción para ver el detalle completo de cada vacante.
-    *   Funcionalidad para postularse subiendo su CV (archivo PDF) directamente a la plataforma.
+    *   Funcionalidad para postularse subiendo su CV (archivo PDF) y declarando su perfil (edad, estudios, experiencia, habilidades) para el match.
+    *   Sección "Mis postulaciones" para consultar el estado de cada solicitud (sección 8.4).
 
 ## 2. STACK TECNOLÓGICO Y HERRAMIENTAS
 *   **Frontend:** React (SPA), Vite, TypeScript.
@@ -127,3 +130,18 @@ Las etiquetas y colores (`Badge`) viven en `src/lib/postulacionEstados.ts`. "Rec
 *   **Editar:** botón "Editar" en cada fila abre el mismo `VacanteForm` en un modal, con los datos guardados (`vacanteToFormValues`) y el botón "Guardar cambios" (`updateVacante`). Se pueden modificar todos los campos, incluido el perfil buscado y las habilidades. Mismas validaciones que al publicar; RLS (`vacantes_update_owner`) garantiza que solo el dueño edita y no puede transferir la vacante.
 *   Al editar los requisitos, el porcentaje de match de los candidatos ya postulados se **recalcula** con los requisitos nuevos (se calcula al mostrar la lista); los datos que cada candidato envió no cambian.
 *   `VacanteForm` sirve para crear y editar (prop opcional `vacante`); el bloque "Perfil buscado" está en `VacantePerfilFieldset`.
+
+## 10. MAPA DE RUTAS Y ESTADO DEL PROYECTO
+| Ruta | Acceso | Pantalla |
+|---|---|---|
+| `/login`, `/registro` | Solo sin sesión | Autenticación (el rol se elige al registrarse) |
+| `/dashboard` | `publicador` | Panel: publicar, editar, cerrar/reabrir vacantes |
+| `/vacantes` | `postulante` | Feed de vacantes abiertas con búsqueda |
+| `/mis-postulaciones` | `postulante` | Postulaciones propias y su estado |
+| `/vacantes/:id` | Cualquier usuario autenticado | Detalle; el candidato ve "Postularme", el dueño ve las postulaciones ordenadas por match |
+
+**Funcionalidades completadas y verificadas en producción:** autenticación por roles, publicar/editar/cerrar vacantes, feed y detalle, postulación con CV (PDF), match automático con ordenamiento estricto, autocompletado de habilidades, estados de postulación con confirmación y "Mis postulaciones".
+
+**Fuera de alcance por ahora (no implementar sin pedirlo):** filtros avanzados en el feed y pulido para entrega (README de instalación, ESLint — falla por la incompatibilidad de `typescript-eslint` con TypeScript 7).
+
+**Convenciones de trabajo:** cada cambio de base de datos va en un nuevo archivo `supabase/NN_nombre.sql` (nunca se editan los anteriores) y se documenta en este archivo; antes de hacer commit se ejecuta `npm run build`.
