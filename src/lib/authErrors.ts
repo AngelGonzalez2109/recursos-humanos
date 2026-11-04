@@ -12,7 +12,8 @@ const AUTH_ERROR_MESSAGES: Record<string, string> = {
   weak_password: 'La contraseña es demasiado débil. Usa al menos 8 caracteres.',
   email_address_invalid: 'El correo electrónico no es válido.',
   signup_disabled: 'El registro de nuevas cuentas está deshabilitado.',
-  over_email_send_rate_limit: RATE_LIMIT,
+  over_email_send_rate_limit:
+    'Se alcanzó el límite de correos de confirmación por hora del servidor. Inténtalo más tarde.',
   over_request_rate_limit: RATE_LIMIT,
 }
 
