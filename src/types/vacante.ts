@@ -1,10 +1,12 @@
+import type { DatosPerfil, PerfilFormValues } from './perfil'
+
 export type Modalidad = 'presencial' | 'remoto' | 'hibrido'
 export type TipoContrato = 'tiempo_completo' | 'medio_tiempo' | 'temporal' | 'practicas'
 export type EstadoVacante = 'abierta' | 'cerrada'
 export type Moneda = 'MXN' | 'USD' | 'EUR'
 
 /** Fila de la tabla public.vacantes */
-export interface Vacante {
+export interface Vacante extends DatosPerfil {
   id: string
   publicador_id: string
   titulo: string
@@ -17,13 +19,15 @@ export interface Vacante {
   salario_min: number | null
   salario_max: number | null
   moneda: Moneda
+  edad_min: number | null
+  edad_max: number | null
   estado: EstadoVacante
   created_at: string
   updated_at: string
 }
 
 /** Valores del formulario de publicación (todo como texto) */
-export interface VacanteFormValues {
+export interface VacanteFormValues extends PerfilFormValues {
   titulo: string
   empresa: string
   ubicacion: string
@@ -34,6 +38,8 @@ export interface VacanteFormValues {
   salarioMin: string
   salarioMax: string
   moneda: Moneda
+  edadMin: string
+  edadMax: string
 }
 
 export type VacanteFieldErrors = Partial<Record<keyof VacanteFormValues, string>>

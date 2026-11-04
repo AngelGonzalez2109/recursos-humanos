@@ -4,6 +4,7 @@ import type { Vacante } from '../../types/vacante'
 import { PostulacionesRecibidas } from '../postulaciones/PostulacionesRecibidas'
 import { PostularPanel } from '../postulaciones/PostularPanel'
 import { Alert } from '../ui/Alert'
+import { VacantePerfilBuscado } from './VacantePerfilBuscado'
 import { VacanteBadges } from './VacanteBadges'
 
 const CARD = 'rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900'
@@ -40,7 +41,8 @@ export function VacanteDetail({ vacante, viewerRole, isOwner }: VacanteDetailPro
         </header>
         <Section title="Descripción del puesto" text={vacante.descripcion} />
         <Section title="Requisitos" text={vacante.requisitos} />
-        {isOwner && <PostulacionesRecibidas vacanteId={vacante.id} />}
+        <VacantePerfilBuscado vacante={vacante} />
+        {isOwner && <PostulacionesRecibidas vacante={vacante} />}
       </div>
 
       <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">

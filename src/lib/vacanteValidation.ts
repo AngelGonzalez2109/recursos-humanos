@@ -1,3 +1,4 @@
+import { EDAD_MAX, EDAD_MIN, EXPERIENCIA_MAX } from './perfilOptions'
 import type { VacanteFieldErrors, VacanteFormValues } from '../types/vacante'
 
 /** Convierte "25,000" o "25000.50" a número; vacío → null; inválido → NaN */
@@ -5,6 +6,21 @@ export function parseSalario(value: string): number | null {
   const clean = value.replace(/[\s,$]/g, '')
   if (clean === '') return null
   return /^\d+(\.\d{1,2})?$/.test(clean) ? Number(clean) : Number.NaN
+}
+
+/** Entero opcional: vacío → null; inválido → NaN */
+export function parseEntero(value: string): number | null {
+  const clean = value.trim()
+  if (clean === '') return null
+  return /^\d{1,3}$/.test(clean) ? Number(clean) : Number.NaN
+}
+
+/** Valida un entero opcional dentro de [min, max] */
+export function checkEntero(value: string, min: number, max: number, label: string): string | undefined {
+  const n = parseEntero(value)
+  if (n === null) return undefined
+  if (Number.isNaN(n) || n < min || n > max) return `${label}: entre ${min} y ${max}.`
+  return undefined
 }
 
 function checkLength(value: string, min: number, max: number, label: string): string | undefined {
@@ -31,6 +47,15 @@ export function validateVacante(values: VacanteFormValues): VacanteFieldErrors {
   if (min !== null && max !== null && !Number.isNaN(min) && !Number.isNaN(max) && max < min) {
     errors.salarioMax = 'Debe ser mayor o igual al mínimo.'
   }
+
+  errors.edadMin = checkEntero(values.edadMin, EDAD_MIN, EDAD_MAX, 'Edad mínima')
+  errors.edadMax = checkEntero(values.edadMax, EDAD_MIN, EDAD_MAX, 'Edad máxima')
+  const edadMin = parseEntero(values.edadMin)
+  const edadMax = parseEntero(values.edadMax)
+  if (!errors.edadMin && !errors.edadMax && edadMin !== null && edadMax !== null && edadMax < edadMin) {
+    errors.edadMax = 'Debe ser mayor o igual a la mínima.'
+  }
+  errors.experienciaAnios = checkEntero(values.experienciaAnios, 0, EXPERIENCIA_MAX, 'Experiencia')
 
   // Quita las claves sin error
   return Object.fromEntries(

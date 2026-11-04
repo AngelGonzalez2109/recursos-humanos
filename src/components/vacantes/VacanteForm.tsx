@@ -3,7 +3,9 @@ import { createVacante } from '../../lib/vacantesService'
 import { validateVacante } from '../../lib/vacanteValidation'
 import { getDbErrorMessage } from '../../lib/dbErrors'
 import { MODALIDAD_LABELS, MONEDAS, TIPO_CONTRATO_LABELS } from '../../lib/vacanteFormat'
+import type { PerfilFormValues } from '../../types/perfil'
 import type { Vacante, VacanteFieldErrors, VacanteFormValues } from '../../types/vacante'
+import { PerfilFields } from '../perfil/PerfilFields'
 import { Alert } from '../ui/Alert'
 import { Button } from '../ui/Button'
 import { Input } from '../ui/Input'
@@ -37,6 +39,12 @@ export function VacanteForm({ defaultEmpresa, onCreated, onCancel }: VacanteForm
     salarioMin: '',
     salarioMax: '',
     moneda: 'MXN',
+    edadMin: '',
+    edadMax: '',
+    nivelEstudios: '',
+    gradoAcademico: '',
+    experienciaAnios: '',
+    habilidades: [],
   })
   const [errors, setErrors] = useState<VacanteFieldErrors>({})
   const [submitError, setSubmitError] = useState<string | null>(null)
@@ -50,6 +58,11 @@ export function VacanteForm({ defaultEmpresa, onCreated, onCancel }: VacanteForm
       setErrors((prev) => ({ ...prev, [field]: undefined }))
     },
   })
+
+  const setPerfil = <K extends keyof PerfilFormValues>(field: K, value: PerfilFormValues[K]) => {
+    setValues((prev) => ({ ...prev, [field]: value }))
+    setErrors((prev) => ({ ...prev, [field]: undefined }))
+  }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -102,6 +115,18 @@ export function VacanteForm({ defaultEmpresa, onCreated, onCancel }: VacanteForm
         <Input label="Salario máximo (mensual)" inputMode="decimal" placeholder="Opcional" {...bind('salarioMax')} />
         <Select label="Moneda" options={MONEDA_OPTIONS} {...bind('moneda')} />
       </div>
+
+      <fieldset className="space-y-4 rounded-lg border border-slate-200 p-4 dark:border-slate-800">
+        <legend className="px-2 text-sm font-semibold">Perfil buscado (para el match automático)</legend>
+        <p className="text-xs text-slate-500 dark:text-slate-400">
+          Todos son opcionales. Solo los que completes se usarán para calcular la compatibilidad de cada candidato.
+        </p>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Input label="Edad mínima" type="number" inputMode="numeric" min={16} max={99} placeholder="Opcional" {...bind('edadMin')} />
+          <Input label="Edad máxima" type="number" inputMode="numeric" min={16} max={99} placeholder="Opcional" {...bind('edadMax')} />
+        </div>
+        <PerfilFields mode="requisito" values={values} errors={errors} onChange={setPerfil} />
+      </fieldset>
 
       <div className="flex flex-col-reverse gap-3 border-t border-slate-200 pt-5 sm:flex-row sm:justify-end dark:border-slate-800">
         <Button variant="secondary" onClick={onCancel} disabled={submitting}>

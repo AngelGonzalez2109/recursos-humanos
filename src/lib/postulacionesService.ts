@@ -1,5 +1,6 @@
 import { supabase } from './supabaseClient'
-import type { Postulacion } from '../types/postulacion'
+import { parseEntero } from './vacanteValidation'
+import type { Postulacion, PostulacionFormValues } from '../types/postulacion'
 
 const CV_BUCKET = 'cvs'
 export const CV_MAX_BYTES = 5 * 1024 * 1024
@@ -45,7 +46,7 @@ export async function postular(
   vacanteId: string,
   userId: string,
   file: File,
-  mensaje: string,
+  values: PostulacionFormValues,
 ): Promise<Postulacion> {
   const cvPath = `${userId}/${crypto.randomUUID()}.pdf`
 
@@ -56,7 +57,16 @@ export async function postular(
 
   const { data, error } = await supabase
     .from('postulaciones')
-    .insert({ vacante_id: vacanteId, cv_path: cvPath, mensaje: mensaje.trim() || null })
+    .insert({
+      vacante_id: vacanteId,
+      cv_path: cvPath,
+      mensaje: values.mensaje.trim() || null,
+      edad: parseEntero(values.edad),
+      nivel_estudios: values.nivelEstudios || null,
+      grado_academico: values.gradoAcademico || null,
+      experiencia_anios: parseEntero(values.experienciaAnios),
+      habilidades: values.habilidades,
+    })
     .select('*')
     .single<Postulacion>()
 

@@ -1,5 +1,5 @@
 import { supabase } from './supabaseClient'
-import { parseSalario } from './vacanteValidation'
+import { parseEntero, parseSalario } from './vacanteValidation'
 import type { EstadoVacante, Vacante, VacanteFormValues } from '../types/vacante'
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
@@ -49,6 +49,12 @@ export async function createVacante(values: VacanteFormValues): Promise<Vacante>
       salario_min: parseSalario(values.salarioMin),
       salario_max: parseSalario(values.salarioMax),
       moneda: values.moneda,
+      edad_min: parseEntero(values.edadMin),
+      edad_max: parseEntero(values.edadMax),
+      nivel_estudios: values.nivelEstudios || null,
+      grado_academico: values.gradoAcademico || null,
+      experiencia_anios: parseEntero(values.experienciaAnios),
+      habilidades: values.habilidades,
     })
     .select('*')
     .single<Vacante>()

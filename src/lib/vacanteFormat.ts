@@ -51,7 +51,7 @@ export function formatFechaRelativa(iso: string): string {
   return new Intl.RelativeTimeFormat('es', { numeric: 'auto' }).format(-Math.max(days, 0), 'day')
 }
 
-function normalize(text: string): string {
+export function normalize(text: string): string {
   return text.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
 }
 
