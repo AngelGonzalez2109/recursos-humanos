@@ -60,6 +60,7 @@ Ejecutar en Supabase (SQL Editor) **en orden**; cada archivo asume los anteriore
 5.  `supabase/05_match.sql` — campos estructurados del Match automático (sección 7).
 6.  `supabase/06_etiquetas.sql` — amplía el límite de cada etiqueta de habilidad a 1–60 caracteres (el catálogo incluye "C" y etiquetas de 41 caracteres).
 7.  `supabase/07_estados_postulacion.sql` — estado de cada postulación, política de UPDATE para el publicador y lectura de vacantes para quien se postuló (sección 8).
+8.  `supabase/08_examen_psicometrico.sql` — tabla `resultados_psicometricos`, funciones de envío/puntuación y clave de respuestas (sección 11).
 
 Este proyecto **no concede privilegios por defecto** a `anon`/`authenticated`: toda tabla nueva necesita `grant` explícito además de RLS.
 
@@ -138,10 +139,50 @@ Las etiquetas y colores (`Badge`) viven en `src/lib/postulacionEstados.ts`. "Rec
 | `/dashboard` | `publicador` | Panel: publicar, editar, cerrar/reabrir vacantes |
 | `/vacantes` | `postulante` | Feed de vacantes abiertas con búsqueda |
 | `/mis-postulaciones` | `postulante` | Postulaciones propias y su estado |
+| `/evaluacion/:postulacionId` | `postulante` | Evaluación de Perfil Profesional (solo con estado `pruebas_psicometricas`) |
 | `/vacantes/:id` | Cualquier usuario autenticado | Detalle; el candidato ve "Postularme", el dueño ve las postulaciones ordenadas por match |
 
-**Funcionalidades completadas y verificadas en producción:** autenticación por roles, publicar/editar/cerrar vacantes, feed y detalle, postulación con CV (PDF), match automático con ordenamiento estricto, autocompletado de habilidades, estados de postulación con confirmación y "Mis postulaciones".
+**Funcionalidades completadas y verificadas en producción:** autenticación por roles, publicar/editar/cerrar vacantes, feed y detalle, postulación con CV (PDF), match automático con ordenamiento estricto, autocompletado de habilidades, estados de postulación con confirmación, "Mis postulaciones" y la Evaluación de Perfil Profesional (pendiente de verificar en producción).
 
 **Fuera de alcance por ahora (no implementar sin pedirlo):** filtros avanzados en el feed y pulido para entrega (README de instalación, ESLint — falla por la incompatibilidad de `typescript-eslint` con TypeScript 7).
 
 **Convenciones de trabajo:** cada cambio de base de datos va en un nuevo archivo `supabase/NN_nombre.sql` (nunca se editan los anteriores) y se documenta en este archivo; antes de hacer commit se ejecuta `npm run build`.
+
+## 11. EVALUACIÓN DE PERFIL PROFESIONAL (EXAMEN PSICOMÉTRICO)
+Prueba **global** (la misma para todas las vacantes), de opción múltiple y con evaluación instantánea. Es una herramienta interna de compatibilidad laboral **sin validez clínica**; el texto de inicio lo aclara y no debe eliminarse. No debe llamarse "prueba psicológica" en la interfaz.
+
+### 11.1 Archivos y reparto de responsabilidades
+| Qué | Dónde |
+|---|---|
+| Preguntas, opciones, escala Likert, dimensiones, niveles, textos | `examen_psicometrico.json` (raíz). **No contiene respuestas correctas ni ítems inversos.** |
+| Clave de respuestas, ítems inversos y fórmulas de puntuación | `supabase/08_examen_psicometrico.sql`, dentro de `enviar_examen_psicometrico()` (nunca llegan al navegador) |
+| Resultados | Tabla `resultados_psicometricos` |
+
+Si se modifican preguntas o la clave: actualizar el JSON **y** la función SQL, y subir `version` en ambos (`v_version` en SQL). Cada resultado guarda la versión con la que se respondió.
+
+### 11.2 Contenido (30 preguntas, versión 1)
+*   **Parte 1 – Lógica y resolución de problemas (L01–L10):** opción múltiple A–D con una sola correcta.
+*   **Parte 2 – Estilo de trabajo (P01–P20):** escala Likert 1–5 (Totalmente en desacuerdo … Totalmente de acuerdo), 5 ítems por dimensión: **Adaptabilidad, Trabajo en equipo, Liderazgo y Tolerancia al estrés**. 6 ítems están redactados en sentido inverso (puntúan `6 − valor`).
+
+### 11.3 Puntuación (se calcula en la base de datos)
+*   **Lógica:** `aciertos / 10 · 100` (las preguntas omitidas cuentan como incorrectas). Se muestra como porcentaje ("Lógica: 80%").
+*   **Dimensiones Likert:** `(suma − n) / (4n) · 100`, con `n` = ítems respondidos de la dimensión (si `n = 0`, sin resultado). Se muestran como nivel: **Bajo** < 50 %, **Medio** 50–74 %, **Alto** ≥ 75 % (umbrales en el JSON, `niveles`).
+
+### 11.4 Reglas de acceso (RLS y funciones)
+*   Solo puede presentarla el **dueño de la postulación** y **únicamente si su estado es `pruebas_psicometricas`** (lo valida `enviar_examen_psicometrico`, no la interfaz).
+*   **Un único intento por postulación:** `unique(postulacion_id)`; un segundo envío falla con 23505 y la interfaz lo trata como "ya enviado".
+*   La tabla no tiene políticas ni privilegios de escritura: la **única** vía de escritura es la función `security definer`. El candidato **no puede leer** su resultado; `examenes_completados()` solo devuelve los ids ya enviados.
+*   El **reclutador** de la vacante lee los resultados (`resultados_select_publicador`).
+*   Las respuestas se validan en SQL (preguntas conocidas, letras a–d, valores 1–5).
+
+### 11.5 Flujo del candidato
+1.  El reclutador cambia el estado a "Avanzar a pruebas psicométricas" (con su confirmación habitual).
+2.  En "Mis postulaciones" aparece **"Realizar evaluación"** (o "Evaluación enviada" si ya la presentó) → `/evaluacion/:postulacionId`.
+3.  Pantalla de inicio (`ExamenIntro`): 30 preguntas, 15 minutos, único intento y el aviso de que no tiene validez clínica. El temporizador arranca al pulsar **Comenzar**.
+4.  Una pregunta por pantalla, mapa de preguntas, barra de avance y **rueda de 15 minutos** con el tiempo restante dentro (`TimerRing`; ámbar < 5 min, rojo y parpadeo < 1 min).
+5.  **Temporizador de 15 min para toda la prueba, solo en el cliente** (no se valida en el servidor): se calcula con la hora de inicio guardada, así que recargar o salir no lo reinicia. Al llegar a 0 se dispara el envío automático (`useEnviarExamen`) con lo respondido (`por_tiempo = true`); si falla, hay botón "Reintentar envío" (sin bucle automático).
+6.  **Progreso en `localStorage`** (clave `examen:{usuario}:{postulación}:v{versión}`): hora de inicio, respuestas y pregunta actual; se borra al enviar. Si el navegador no permite almacenamiento, funciona en memoria.
+7.  Al enviar (manual, con confirmación, o por tiempo) el candidato **solo ve** "Examen enviado con éxito. El reclutador ha sido notificado." — nunca su puntaje.
+
+### 11.6 Vista del reclutador
+En cada tarjeta de candidato, **debajo de la compatibilidad general**, `DesglosePsicometrico` muestra un recuadro por dimensión: "Lógica: 80%", "Trabajo en equipo: Alto", "Tolerancia al estrés: Medio"…, con barra, número de preguntas respondidas e indicación de envío por tiempo agotado. Si el candidato está en pruebas psicométricas pero aún no la presenta, se indica como pendiente.

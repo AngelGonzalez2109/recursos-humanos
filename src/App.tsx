@@ -14,6 +14,9 @@ const VacantesPage = lazy(() => import('./pages/VacantesPage').then((m) => ({ de
 const MisPostulacionesPage = lazy(() =>
   import('./pages/MisPostulacionesPage').then((m) => ({ default: m.MisPostulacionesPage })),
 )
+const EvaluacionPage = lazy(() =>
+  import('./pages/EvaluacionPage').then((m) => ({ default: m.EvaluacionPage })),
+)
 const VacanteDetailPage = lazy(() =>
   import('./pages/VacanteDetailPage').then((m) => ({ default: m.VacanteDetailPage })),
 )
@@ -39,6 +42,7 @@ function App() {
             <Route element={<ProtectedRoute allowedRole="postulante" />}>
               <Route path="/vacantes" element={<VacantesPage />} />
               <Route path="/mis-postulaciones" element={<MisPostulacionesPage />} />
+              <Route path="/evaluacion/:postulacionId" element={<EvaluacionPage />} />
             </Route>
 
             {/* Cualquier usuario autenticado */}

@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { useResultadosVacante } from '../../hooks/useExamen'
 import { usePostulaciones } from '../../hooks/usePostulaciones'
 import { ordenarPorMatch } from '../../lib/match'
 import type { Vacante } from '../../types/vacante'
@@ -8,6 +9,11 @@ import { PostulacionCard } from './PostulacionCard'
 /** Candidatos de una vacante, de mayor a menor compatibilidad (solo su publicador) */
 export function PostulacionesRecibidas({ vacante }: { vacante: Vacante }) {
   const { data, loading, error, reload } = usePostulaciones(vacante.id)
+  const resultados = useResultadosVacante(vacante.id)
+  const porPostulacion = useMemo(
+    () => new Map((resultados.data ?? []).map((r) => [r.postulacion_id, r])),
+    [resultados.data],
+  )
   const ordenadas = useMemo(() => (data ? ordenarPorMatch(vacante, data) : []), [vacante, data])
 
   let content
@@ -19,7 +25,15 @@ export function PostulacionesRecibidas({ vacante }: { vacante: Vacante }) {
     content = (
       <ul className="divide-y divide-slate-200 dark:divide-slate-800">
         {ordenadas.map((item) => (
-          <PostulacionCard key={item.postulacion.id} item={item} onChanged={reload} />
+          <PostulacionCard
+            key={item.postulacion.id}
+            item={item}
+            resultado={porPostulacion.get(item.postulacion.id)}
+            onChanged={() => {
+              reload()
+              resultados.reload()
+            }}
+          />
         ))}
       </ul>
     )

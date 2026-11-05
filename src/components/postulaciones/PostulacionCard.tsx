@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { PostulacionConMatch } from '../../lib/match'
+import type { ResultadoPsicometrico } from '../../types/examen'
 import { GRADO_ACADEMICO_LABELS, NIVEL_ESTUDIOS_LABELS } from '../../lib/perfilOptions'
 import { ESTADO_POSTULACION_LABELS, ESTADO_POSTULACION_VARIANT } from '../../lib/postulacionEstados'
 import { getCvUrl } from '../../lib/postulacionesService'
@@ -7,16 +8,18 @@ import { formatFechaRelativa } from '../../lib/vacanteFormat'
 import { Alert } from '../ui/Alert'
 import { Badge } from '../ui/Badge'
 import { Button } from '../ui/Button'
+import { DesglosePsicometrico } from './DesglosePsicometrico'
 import { EstadoPostulacionSelect } from './EstadoPostulacionSelect'
 import { MatchIndicator } from './MatchIndicator'
 
 interface PostulacionCardProps {
   item: PostulacionConMatch
+  resultado?: ResultadoPsicometrico
   onChanged: () => void
 }
 
 /** Tarjeta de un candidato: datos, compatibilidad, CV y cambio de estado */
-export function PostulacionCard({ item: { postulacion, match }, onChanged }: PostulacionCardProps) {
+export function PostulacionCard({ item: { postulacion, match }, resultado, onChanged }: PostulacionCardProps) {
   const [opening, setOpening] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -60,6 +63,13 @@ export function PostulacionCard({ item: { postulacion, match }, onChanged }: Pos
       </div>
 
       <MatchIndicator match={match} />
+
+      {resultado && <DesglosePsicometrico resultado={resultado} />}
+      {!resultado && postulacion.estado === 'pruebas_psicometricas' && (
+        <p className="text-xs text-slate-500 dark:text-slate-400">
+          Evaluación de Perfil Profesional pendiente: el candidato aún no la presenta.
+        </p>
+      )}
 
       {(datos.length > 0 || postulacion.habilidades.length > 0) && (
         <div className="flex flex-wrap gap-1.5">

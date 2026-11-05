@@ -1,0 +1,507 @@
+{
+  "version": 1,
+  "titulo": "Evaluación de Perfil Profesional",
+  "introduccion": "Esta evaluación es una herramienta interna de compatibilidad laboral. No es una prueba psicológica ni clínica y no tiene validez diagnóstica. Responde con sinceridad: no hay un perfil ideal y tus respuestas solo se usan para valorar tu ajuste con el puesto.",
+  "mensaje_final": "Examen enviado con éxito. El reclutador ha sido notificado.",
+  "escala_likert": [
+    {
+      "valor": 1,
+      "etiqueta": "Totalmente en desacuerdo"
+    },
+    {
+      "valor": 2,
+      "etiqueta": "En desacuerdo"
+    },
+    {
+      "valor": 3,
+      "etiqueta": "Ni de acuerdo ni en desacuerdo"
+    },
+    {
+      "valor": 4,
+      "etiqueta": "De acuerdo"
+    },
+    {
+      "valor": 5,
+      "etiqueta": "Totalmente de acuerdo"
+    }
+  ],
+  "dimensiones": [
+    {
+      "id": "logica",
+      "nombre": "Lógica y resolución de problemas",
+      "nombre_corto": "Lógica",
+      "tipo": "logica",
+      "presentacion": "porcentaje"
+    },
+    {
+      "id": "adaptabilidad",
+      "nombre": "Adaptabilidad",
+      "nombre_corto": "Adaptabilidad",
+      "tipo": "likert",
+      "presentacion": "nivel",
+      "niveles": [
+        {
+          "id": "bajo",
+          "etiqueta": "Bajo",
+          "desde": 0
+        },
+        {
+          "id": "medio",
+          "etiqueta": "Medio",
+          "desde": 50
+        },
+        {
+          "id": "alto",
+          "etiqueta": "Alto",
+          "desde": 75
+        }
+      ]
+    },
+    {
+      "id": "trabajo_equipo",
+      "nombre": "Trabajo en equipo",
+      "nombre_corto": "Trabajo en equipo",
+      "tipo": "likert",
+      "presentacion": "nivel",
+      "niveles": [
+        {
+          "id": "bajo",
+          "etiqueta": "Bajo",
+          "desde": 0
+        },
+        {
+          "id": "medio",
+          "etiqueta": "Medio",
+          "desde": 50
+        },
+        {
+          "id": "alto",
+          "etiqueta": "Alto",
+          "desde": 75
+        }
+      ]
+    },
+    {
+      "id": "liderazgo",
+      "nombre": "Liderazgo",
+      "nombre_corto": "Liderazgo",
+      "tipo": "likert",
+      "presentacion": "nivel",
+      "niveles": [
+        {
+          "id": "bajo",
+          "etiqueta": "Bajo",
+          "desde": 0
+        },
+        {
+          "id": "medio",
+          "etiqueta": "Medio",
+          "desde": 50
+        },
+        {
+          "id": "alto",
+          "etiqueta": "Alto",
+          "desde": 75
+        }
+      ]
+    },
+    {
+      "id": "tolerancia_estres",
+      "nombre": "Tolerancia al estrés",
+      "nombre_corto": "Tolerancia al estrés",
+      "tipo": "likert",
+      "presentacion": "nivel",
+      "niveles": [
+        {
+          "id": "bajo",
+          "etiqueta": "Bajo",
+          "desde": 0
+        },
+        {
+          "id": "medio",
+          "etiqueta": "Medio",
+          "desde": 50
+        },
+        {
+          "id": "alto",
+          "etiqueta": "Alto",
+          "desde": 75
+        }
+      ]
+    }
+  ],
+  "secciones": [
+    {
+      "id": "logica",
+      "titulo": "Parte 1: Lógica y resolución de problemas",
+      "indicaciones": "Elige la única respuesta correcta en cada pregunta."
+    },
+    {
+      "id": "personalidad",
+      "titulo": "Parte 2: Estilo de trabajo",
+      "indicaciones": "Indica qué tan de acuerdo estás con cada afirmación."
+    }
+  ],
+  "preguntas": [
+    {
+      "id": "L01",
+      "dimension": "logica",
+      "tipo": "opcion_multiple",
+      "enunciado": "¿Qué número continúa la serie? 2, 6, 18, 54, ...",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "108"
+        },
+        {
+          "id": "b",
+          "texto": "162"
+        },
+        {
+          "id": "c",
+          "texto": "148"
+        },
+        {
+          "id": "d",
+          "texto": "216"
+        }
+      ]
+    },
+    {
+      "id": "L02",
+      "dimension": "logica",
+      "tipo": "opcion_multiple",
+      "enunciado": "Compras 15 lapiceros de $12 cada uno y pagas con un billete de $200. ¿Cuánto cambio recibes?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "$10"
+        },
+        {
+          "id": "b",
+          "texto": "$15"
+        },
+        {
+          "id": "c",
+          "texto": "$20"
+        },
+        {
+          "id": "d",
+          "texto": "$25"
+        }
+      ]
+    },
+    {
+      "id": "L03",
+      "dimension": "logica",
+      "tipo": "opcion_multiple",
+      "enunciado": "Si 5 máquinas producen 5 piezas en 5 minutos, ¿cuántas máquinas se necesitan para producir 100 piezas en 5 minutos?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "20"
+        },
+        {
+          "id": "b",
+          "texto": "25"
+        },
+        {
+          "id": "c",
+          "texto": "100"
+        },
+        {
+          "id": "d",
+          "texto": "500"
+        }
+      ]
+    },
+    {
+      "id": "L04",
+      "dimension": "logica",
+      "tipo": "opcion_multiple",
+      "enunciado": "Un producto cuesta $800 y tiene un descuento del 25%. ¿Cuál es su precio final?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "$575"
+        },
+        {
+          "id": "b",
+          "texto": "$650"
+        },
+        {
+          "id": "c",
+          "texto": "$625"
+        },
+        {
+          "id": "d",
+          "texto": "$600"
+        }
+      ]
+    },
+    {
+      "id": "L05",
+      "dimension": "logica",
+      "tipo": "opcion_multiple",
+      "enunciado": "Todos los analistas del equipo dominan Excel. Marta es analista del equipo. ¿Qué conclusión es necesariamente cierta?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Marta domina Excel."
+        },
+        {
+          "id": "b",
+          "texto": "Marta es la mejor analista del equipo."
+        },
+        {
+          "id": "c",
+          "texto": "Solo los analistas dominan Excel."
+        },
+        {
+          "id": "d",
+          "texto": "Marta aprendió Excel en esta empresa."
+        }
+      ]
+    },
+    {
+      "id": "L06",
+      "dimension": "logica",
+      "tipo": "opcion_multiple",
+      "enunciado": "Seis personas terminan un proyecto en 10 días. Con el mismo ritmo de trabajo, ¿cuántos días tardarían 3 personas?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "5 días"
+        },
+        {
+          "id": "b",
+          "texto": "15 días"
+        },
+        {
+          "id": "c",
+          "texto": "20 días"
+        },
+        {
+          "id": "d",
+          "texto": "30 días"
+        }
+      ]
+    },
+    {
+      "id": "L07",
+      "dimension": "logica",
+      "tipo": "opcion_multiple",
+      "enunciado": "¿Qué número continúa la serie? 3, 5, 9, 17, ...",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "25"
+        },
+        {
+          "id": "b",
+          "texto": "31"
+        },
+        {
+          "id": "c",
+          "texto": "33"
+        },
+        {
+          "id": "d",
+          "texto": "35"
+        }
+      ]
+    },
+    {
+      "id": "L08",
+      "dimension": "logica",
+      "tipo": "opcion_multiple",
+      "enunciado": "Ana tiene el doble de la edad de Luis. Hace 5 años, la suma de sus edades era 20. ¿Qué edad tiene Ana hoy?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "16 años"
+        },
+        {
+          "id": "b",
+          "texto": "18 años"
+        },
+        {
+          "id": "c",
+          "texto": "20 años"
+        },
+        {
+          "id": "d",
+          "texto": "24 años"
+        }
+      ]
+    },
+    {
+      "id": "L09",
+      "dimension": "logica",
+      "tipo": "opcion_multiple",
+      "enunciado": "Un tren sale a las 8:40 y el viaje dura 2 horas con 35 minutos. ¿A qué hora llega?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "11:05"
+        },
+        {
+          "id": "b",
+          "texto": "11:15"
+        },
+        {
+          "id": "c",
+          "texto": "11:25"
+        },
+        {
+          "id": "d",
+          "texto": "11:35"
+        }
+      ]
+    },
+    {
+      "id": "L10",
+      "dimension": "logica",
+      "tipo": "opcion_multiple",
+      "enunciado": "Sofía llegó a la reunión antes que Raúl, y Tomás llegó después de Raúl. ¿Quién llegó primero?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Raúl"
+        },
+        {
+          "id": "b",
+          "texto": "Tomás"
+        },
+        {
+          "id": "c",
+          "texto": "Sofía"
+        },
+        {
+          "id": "d",
+          "texto": "No se puede saber"
+        }
+      ]
+    },
+    {
+      "id": "P01",
+      "dimension": "adaptabilidad",
+      "tipo": "likert",
+      "enunciado": "Me adapto con facilidad cuando cambian las prioridades de mi trabajo."
+    },
+    {
+      "id": "P02",
+      "dimension": "trabajo_equipo",
+      "tipo": "likert",
+      "enunciado": "Disfruto colaborar con personas que piensan distinto a mí."
+    },
+    {
+      "id": "P03",
+      "dimension": "liderazgo",
+      "tipo": "likert",
+      "enunciado": "Me siento cómodo tomando la iniciativa cuando nadie más la toma."
+    },
+    {
+      "id": "P04",
+      "dimension": "tolerancia_estres",
+      "tipo": "likert",
+      "enunciado": "Mantengo la calma cuando tengo varias fechas límite al mismo tiempo."
+    },
+    {
+      "id": "P05",
+      "dimension": "adaptabilidad",
+      "tipo": "likert",
+      "enunciado": "Prefiero que mis tareas sigan siempre el mismo procedimiento, sin cambios."
+    },
+    {
+      "id": "P06",
+      "dimension": "trabajo_equipo",
+      "tipo": "likert",
+      "enunciado": "Prefiero resolver todo por mi cuenta antes que pedir ayuda al equipo."
+    },
+    {
+      "id": "P07",
+      "dimension": "liderazgo",
+      "tipo": "likert",
+      "enunciado": "Asumo la responsabilidad de las decisiones del grupo, incluso cuando salen mal."
+    },
+    {
+      "id": "P08",
+      "dimension": "tolerancia_estres",
+      "tipo": "likert",
+      "enunciado": "La presión me hace perder la concentración con facilidad."
+    },
+    {
+      "id": "P09",
+      "dimension": "adaptabilidad",
+      "tipo": "likert",
+      "enunciado": "Aprender una herramienta o método nuevo me resulta estimulante."
+    },
+    {
+      "id": "P10",
+      "dimension": "trabajo_equipo",
+      "tipo": "likert",
+      "enunciado": "Comparto información útil con mis compañeros aunque no me la pidan."
+    },
+    {
+      "id": "P11",
+      "dimension": "liderazgo",
+      "tipo": "likert",
+      "enunciado": "Evito dirigir o coordinar a otras personas siempre que puedo."
+    },
+    {
+      "id": "P12",
+      "dimension": "tolerancia_estres",
+      "tipo": "likert",
+      "enunciado": "Después de cometer un error importante, me recupero rápido y sigo adelante."
+    },
+    {
+      "id": "P13",
+      "dimension": "adaptabilidad",
+      "tipo": "likert",
+      "enunciado": "Cuando un plan falla, busco de inmediato una alternativa en lugar de detenerme."
+    },
+    {
+      "id": "P14",
+      "dimension": "trabajo_equipo",
+      "tipo": "likert",
+      "enunciado": "Cuando hay un desacuerdo en el equipo, busco un punto medio que beneficie a todos."
+    },
+    {
+      "id": "P15",
+      "dimension": "liderazgo",
+      "tipo": "likert",
+      "enunciado": "Motivo a los demás cuando el equipo se siente desanimado."
+    },
+    {
+      "id": "P16",
+      "dimension": "tolerancia_estres",
+      "tipo": "likert",
+      "enunciado": "Puedo tomar buenas decisiones aunque tenga muy poco tiempo."
+    },
+    {
+      "id": "P17",
+      "dimension": "adaptabilidad",
+      "tipo": "likert",
+      "enunciado": "Los cambios inesperados en mi rutina me incomodan durante mucho tiempo."
+    },
+    {
+      "id": "P18",
+      "dimension": "trabajo_equipo",
+      "tipo": "likert",
+      "enunciado": "Reconozco públicamente las aportaciones de mis compañeros."
+    },
+    {
+      "id": "P19",
+      "dimension": "liderazgo",
+      "tipo": "likert",
+      "enunciado": "Delego tareas confiando en las capacidades de los demás."
+    },
+    {
+      "id": "P20",
+      "dimension": "tolerancia_estres",
+      "tipo": "likert",
+      "enunciado": "Me cuesta desconectarme de los problemas del trabajo después de la jornada."
+    }
+  ]
+}

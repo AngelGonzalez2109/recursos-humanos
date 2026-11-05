@@ -8,6 +8,8 @@ import { LoadError } from '../vacantes/LoadError'
 
 interface MisPostulacionesListProps {
   postulaciones: MiPostulacion[]
+  /** Ids de postulaciones cuya evaluación psicométrica ya se envió */
+  examenesCompletados: string[]
   loading: boolean
   error: string | null
   onRetry: () => void
@@ -16,8 +18,9 @@ interface MisPostulacionesListProps {
 const LIST_CLASS =
   'divide-y divide-slate-200 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm dark:divide-slate-800 dark:border-slate-800 dark:bg-slate-900'
 
-function Row({ postulacion }: { postulacion: MiPostulacion }) {
+function Row({ postulacion, examenCompletado }: { postulacion: MiPostulacion; examenCompletado: boolean }) {
   const vacante = postulacion.vacantes
+  const pideExamen = postulacion.estado === 'pruebas_psicometricas'
   return (
     <li className="flex flex-col gap-3 p-5 transition-colors hover:bg-slate-50 sm:flex-row sm:items-center sm:justify-between dark:hover:bg-slate-800/50">
       <div className="min-w-0">
@@ -41,12 +44,27 @@ function Row({ postulacion }: { postulacion: MiPostulacion }) {
         <Badge variant={ESTADO_POSTULACION_VARIANT[postulacion.estado]}>
           {ESTADO_POSTULACION_LABELS[postulacion.estado]}
         </Badge>
+        {pideExamen && examenCompletado && <Badge variant="success">Evaluación enviada</Badge>}
+        {pideExamen && !examenCompletado && (
+          <Link
+            to={`/evaluacion/${postulacion.id}`}
+            className="rounded-lg bg-brand-600 px-3 py-1.5 text-xs font-medium text-white shadow-sm transition-colors hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-600"
+          >
+            Realizar evaluación
+          </Link>
+        )}
       </div>
     </li>
   )
 }
 
-export function MisPostulacionesList({ postulaciones, loading, error, onRetry }: MisPostulacionesListProps) {
+export function MisPostulacionesList({
+  postulaciones,
+  examenesCompletados,
+  loading,
+  error,
+  onRetry,
+}: MisPostulacionesListProps) {
   if (loading) {
     return (
       <ul className={LIST_CLASS} aria-busy="true">
@@ -76,7 +94,7 @@ export function MisPostulacionesList({ postulaciones, loading, error, onRetry }:
   return (
     <ul className={LIST_CLASS}>
       {postulaciones.map((p) => (
-        <Row key={p.id} postulacion={p} />
+        <Row key={p.id} postulacion={p} examenCompletado={examenesCompletados.includes(p.id)} />
       ))}
     </ul>
   )
