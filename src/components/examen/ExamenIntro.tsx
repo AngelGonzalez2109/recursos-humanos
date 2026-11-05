@@ -1,7 +1,7 @@
 import { DURACION_MS, EXAMEN, TOTAL_PREGUNTAS } from '../../lib/examen'
 import { Button } from '../ui/Button'
 
-const CARD = 'rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900'
+const CARD = 'surface'
 
 function Fact({ value, label }: { value: string; label: string }) {
   return (

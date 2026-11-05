@@ -16,7 +16,7 @@ interface MisPostulacionesListProps {
 }
 
 const LIST_CLASS =
-  'divide-y divide-slate-200 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm dark:divide-slate-800 dark:border-slate-800 dark:bg-slate-900'
+  'surface divide-y divide-slate-200 overflow-hidden dark:divide-slate-800'
 
 function Row({ postulacion, examenCompletado }: { postulacion: MiPostulacion; examenCompletado: boolean }) {
   const vacante = postulacion.vacantes

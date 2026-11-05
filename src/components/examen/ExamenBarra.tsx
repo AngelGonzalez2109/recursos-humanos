@@ -11,7 +11,7 @@ export function ExamenBarra({ remainingMs, answered }: ExamenBarraProps) {
   const percent = Math.round((answered / TOTAL_PREGUNTAS) * 100)
 
   return (
-    <div className="sticky top-16 z-10 flex items-center gap-5 rounded-xl border border-slate-200 bg-white/95 px-5 py-3 shadow-sm backdrop-blur dark:border-slate-800 dark:bg-slate-900/95">
+    <div className="sticky top-16 z-10 flex items-center gap-5 surface bg-white/90 px-5 py-3 backdrop-blur-xl dark:bg-slate-900/85">
       <TimerRing remainingMs={remainingMs} />
       <div className="min-w-0 flex-1">
         <p className="truncate text-sm font-semibold">{EXAMEN.titulo}</p>

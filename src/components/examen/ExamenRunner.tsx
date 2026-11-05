@@ -56,7 +56,7 @@ export function ExamenRunner({ postulacionId, userId, vacanteTitulo, onDone }: E
         </div>
       )}
 
-      <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8 dark:border-slate-800 dark:bg-slate-900">
+      <div className="surface p-6 sm:p-8">
         <PreguntaCard
           pregunta={pregunta}
           numero={index + 1}
@@ -82,7 +82,7 @@ export function ExamenRunner({ postulacionId, userId, vacanteTitulo, onDone }: E
         </div>
       </div>
 
-      <div className="space-y-3 rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+      <div className="surface space-y-3 p-5">
         <PreguntaNav answers={answers} current={index} disabled={locked} onGo={go} />
         <Button variant="ghost" disabled={locked} onClick={() => setConfirmOpen(true)}>
           Enviar evaluación ahora

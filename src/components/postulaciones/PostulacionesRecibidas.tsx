@@ -23,7 +23,7 @@ export function PostulacionesRecibidas({ vacante }: { vacante: Vacante }) {
     content = <p className="text-sm text-slate-500 dark:text-slate-400">Aún no hay postulaciones.</p>
   } else {
     content = (
-      <ul className="divide-y divide-slate-200 dark:divide-slate-800">
+      <ul className="space-y-4">
         {ordenadas.map((item) => (
           <PostulacionCard
             key={item.postulacion.id}
@@ -40,7 +40,7 @@ export function PostulacionesRecibidas({ vacante }: { vacante: Vacante }) {
   }
 
   return (
-    <section className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+    <section>
       <h2 className="text-base font-semibold">
         Postulaciones recibidas{data ? ` (${data.length})` : ''}
       </h2>

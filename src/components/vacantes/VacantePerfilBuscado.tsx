@@ -22,7 +22,7 @@ export function VacantePerfilBuscado({ vacante }: { vacante: Vacante }) {
   if (filas.length === 0 && vacante.habilidades.length === 0) return null
 
   return (
-    <section className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+    <section className="surface p-6">
       <h2 className="text-base font-semibold">Perfil buscado</h2>
       <dl className="mt-3 grid gap-3 text-sm sm:grid-cols-2">
         {filas.map(([label, value]) => (

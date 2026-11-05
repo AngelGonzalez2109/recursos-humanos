@@ -4,10 +4,11 @@ import type { Vacante } from '../../types/vacante'
 import { PostulacionesRecibidas } from '../postulaciones/PostulacionesRecibidas'
 import { PostularPanel } from '../postulaciones/PostularPanel'
 import { Alert } from '../ui/Alert'
+import { Avatar } from '../ui/Avatar'
 import { VacantePerfilBuscado } from './VacantePerfilBuscado'
 import { VacanteBadges } from './VacanteBadges'
 
-const CARD = 'rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900'
+const CARD = 'surface p-6'
 
 function Section({ title, text }: { title: string; text: string }) {
   return (
@@ -30,12 +31,21 @@ export function VacanteDetail({ vacante, viewerRole, isOwner }: VacanteDetailPro
   return (
     <div className="grid animate-fade-in gap-6 lg:grid-cols-[1fr_20rem]">
       <div className="space-y-6">
-        <header className={CARD}>
-          <h1 className="text-2xl font-semibold tracking-tight">{vacante.titulo}</h1>
-          <p className="mt-1 text-slate-500 dark:text-slate-400">
-            {vacante.empresa} · {vacante.ubicacion}
-          </p>
-          <div className="mt-4">
+        <header className={`${CARD} relative overflow-hidden`}>
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -top-24 -right-24 h-56 w-56 rounded-full bg-brand-500/10 blur-3xl dark:bg-brand-400/15"
+          />
+          <div className="relative flex items-start gap-4">
+            <Avatar name={vacante.empresa} shape="square" />
+            <div className="min-w-0">
+              <h1 className="text-2xl font-semibold tracking-tight">{vacante.titulo}</h1>
+              <p className="mt-1 text-slate-500 dark:text-slate-400">
+                {vacante.empresa} · {vacante.ubicacion}
+              </p>
+            </div>
+          </div>
+          <div className="relative mt-4">
             <VacanteBadges vacante={vacante} />
           </div>
         </header>

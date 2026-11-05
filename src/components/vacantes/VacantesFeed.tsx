@@ -36,8 +36,8 @@ export function VacantesFeed({ vacantes, loading, error, onRetry, hasQuery }: Va
   }
   return (
     <div className={GRID}>
-      {vacantes.map((vacante) => (
-        <VacanteCard key={vacante.id} vacante={vacante} />
+      {vacantes.map((vacante, index) => (
+        <VacanteCard key={vacante.id} vacante={vacante} index={index} />
       ))}
     </div>
   )

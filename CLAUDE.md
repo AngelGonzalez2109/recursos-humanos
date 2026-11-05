@@ -34,6 +34,15 @@ La aplicación debe manejar autenticación y diferenciar estrictamente entre dos
 *   **Interacciones:** Interfaces altamente intuitivas. Uso de animaciones sutiles mediante las clases de transición de Tailwind (fade-ins, hover states suaves, skeleton loaders durante la carga de datos) sin sobrecargar la vista.
 *   **Componentes:** Minimalistas, con bordes redondeados suaves, sombras ligeras para dar profundidad (cards) y tipografía legible (sans-serif).
 
+### Sistema de diseño actual (estilo SaaS tipo Linear / Vercel)
+Los tokens viven en `src/index.css`; no hardcodear colores nuevos en los componentes.
+*   **Acento:** escala `brand-*` en azul cian eléctrico (`brand-400` `#2db4fb` es el acento principal en oscuro; `brand-600` en claro). Los botones primarios llevan texto oscuro sobre `brand-400` en modo oscuro (contraste) y texto blanco sobre `brand-600` en claro.
+*   **Neutros:** en modo oscuro la escala `slate-*` se **redefine** bajo `.dark` en `index.css` (fondo `slate-950` `#0a0c10`, tarjetas `slate-900`, bordes `slate-800`). Así los `dark:bg-slate-900`, `dark:border-slate-800`, etc. existentes obtienen la paleta profunda sin tocar cada componente.
+*   **Tema por defecto:** oscuro si el usuario nunca eligió (`index.html`); la elección del toggle se respeta (`localStorage.theme`). Fuente Inter (Google Fonts).
+*   **Tarjetas:** clase `.surface` (borde sutil, sombra interna, fondo) y `.surface-interactive` (se eleva y se ilumina con el acento al pasar el cursor). Usar siempre estas clases para tarjetas nuevas.
+*   **Animaciones** (`animate-fade-in`, `animate-modal-in`, `animate-overlay-in`, `animate-bar-fill`): suaves, ≤ 0.4 s, desactivadas con `prefers-reduced-motion`. Las barras de porcentaje usan `ui/ProgressBar` (relleno animado al aparecer y al cambiar). Las listas de vacantes entran escalonadas.
+*   **Botones** (`ui/Button`): variantes `primary`, `secondary`, `ghost` y `danger` (p. ej. "Cerrar vacante"), con feedback inmediato: hover, `active:scale-[0.97]`, spinner en `loading` y estado deshabilitado. Etiquetas con `ui/Badge` (anillo sutil por variante) y avatares con `ui/Avatar` (iniciales).
+
 ## 4. ESTRUCTURA DE DIRECTORIOS (ARQUITECTURA)
 Claude Code debe organizar el código fuente (`src/`) de la siguiente manera:
 *   `/assets`: Imágenes estáticas y logos.

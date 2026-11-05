@@ -21,7 +21,7 @@ export function AppHeader() {
   }
 
   return (
-    <header className="sticky top-0 z-10 border-b border-slate-200 bg-white/90 backdrop-blur transition-colors duration-300 dark:border-slate-800 dark:bg-slate-900/90">
+    <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/75 backdrop-blur-xl transition-colors duration-300 dark:border-slate-800/80 dark:bg-slate-950/70">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
         <div className="flex items-center gap-4">
           <BrandLogo />

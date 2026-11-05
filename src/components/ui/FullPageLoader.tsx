@@ -9,7 +9,7 @@ export function FullPageLoader() {
       </div>
       <div
         role="status"
-        className="w-full max-w-md animate-pulse space-y-4 rounded-xl border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900"
+        className="surface w-full max-w-md animate-pulse space-y-4 p-8"
       >
         <span className="sr-only">Cargando…</span>
         <div className="h-6 w-2/3 rounded bg-slate-200 dark:bg-slate-700" />

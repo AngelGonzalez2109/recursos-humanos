@@ -3,43 +3,153 @@
 /* Modo oscuro controlado por la clase .dark en <html> */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Paleta corporativa: azules de confianza y grises */
+/* Sistema de diseño: acento azul cian eléctrico sobre neutros profundos */
 @theme {
   --font-sans: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
 
-  --color-brand-50: #eff6ff;
-  --color-brand-100: #dbeafe;
-  --color-brand-500: #3b82f6;
-  --color-brand-600: #2563eb;
-  --color-brand-700: #1d4ed8;
-  --color-brand-900: #1e3a8a;
+  --color-brand-50: #eef9ff;
+  --color-brand-100: #d9f1ff;
+  --color-brand-200: #b3e4ff;
+  --color-brand-300: #70ccff;
+  --color-brand-400: #2db4fb;
+  --color-brand-500: #0a93e0;
+  --color-brand-600: #0575b8;
+  --color-brand-700: #045f96;
+  --color-brand-800: #074d78;
+  --color-brand-900: #0a3f61;
+  --color-brand-950: #06263d;
 
-  --animate-fade-in: fade-in 0.35s ease-out both;
+  --animate-fade-in: fade-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-overlay-in: overlay-in 0.2s ease-out both;
+  --animate-modal-in: modal-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-bar-fill: bar-fill 1s cubic-bezier(0.22, 1, 0.36, 1) both;
 
   @keyframes fade-in {
     from {
       opacity: 0;
-      transform: translateY(4px);
+      transform: translateY(6px);
     }
     to {
       opacity: 1;
       transform: translateY(0);
     }
   }
+
+  @keyframes overlay-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes modal-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px) scale(0.97);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* Solo define el origen: el ancho final lo da el estilo en línea */
+  @keyframes bar-fill {
+    from {
+      width: 0;
+    }
+  }
+}
+
+/* Neutros del modo oscuro: más profundos y con bordes sutiles (zinc/slate) */
+.dark {
+  --color-slate-50: #f5f6f8;
+  --color-slate-100: #eceef2;
+  --color-slate-200: #d9dce4;
+  --color-slate-300: #b7bdca;
+  --color-slate-400: #8c93a4;
+  --color-slate-500: #7b8296;
+  --color-slate-600: #4b5163;
+  --color-slate-700: #2f3442;
+  --color-slate-800: #1f232d;
+  --color-slate-900: #14171e;
+  --color-slate-950: #0a0c10;
 }
 
 @layer base {
   html {
-    @apply antialiased;
+    @apply scroll-smooth antialiased;
+    font-feature-settings: 'cv11', 'ss01';
   }
 
   body {
     @apply bg-slate-50 font-sans text-slate-700 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-300;
   }
 
+  /* Resplandor de acento al fondo de la página */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(900px 420px at 50% -140px, rgb(10 147 224 / 0.09), transparent 70%),
+      radial-gradient(600px 300px at 90% 0, rgb(45 180 251 / 0.05), transparent 70%);
+  }
+
+  .dark body::before {
+    background:
+      radial-gradient(900px 460px at 50% -160px, rgb(10 147 224 / 0.2), transparent 70%),
+      radial-gradient(600px 320px at 92% 0, rgb(45 180 251 / 0.08), transparent 70%);
+  }
+
   h1,
   h2,
   h3 {
-    @apply text-slate-900 dark:text-slate-100;
+    @apply tracking-tight text-slate-900 dark:text-slate-100;
+  }
+
+  ::selection {
+    @apply bg-brand-400/30;
+  }
+
+  .dark {
+    scrollbar-color: var(--color-slate-700) transparent;
+  }
+}
+
+@layer components {
+  /* Tarjeta base */
+  .surface {
+    @apply rounded-xl border border-slate-200 bg-white shadow-sm transition-[border-color,box-shadow,transform,background-color] duration-200 dark:border-slate-800 dark:bg-slate-900/80 dark:shadow-[inset_0_1px_0_0_rgb(255_255_255/0.03),0_12px_32px_-20px_rgb(0_0_0/0.9)];
+  }
+
+  /* Tarjeta clicable: se eleva y se ilumina con el acento */
+  .surface-interactive:hover {
+    transform: translateY(-2px);
+    border-color: rgb(10 147 224 / 0.5);
+    box-shadow:
+      0 14px 34px -16px rgb(10 147 224 / 0.45),
+      0 0 0 1px rgb(10 147 224 / 0.12);
+  }
+
+  .surface-interactive:active {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,
+  .animate-overlay-in,
+  .animate-modal-in,
+  .animate-bar-fill {
+    animation: none;
+  }
+
+  .surface-interactive:hover {
+    transform: none;
   }
 }

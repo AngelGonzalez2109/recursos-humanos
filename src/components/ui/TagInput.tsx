@@ -116,7 +116,7 @@ export function TagInput({ label, value, onChange, options, max, hint }: TagInpu
         <ul
           id={listId}
           role="listbox"
-          className="absolute z-20 mt-1 max-h-56 w-full animate-fade-in overflow-y-auto rounded-lg border border-slate-200 bg-white py-1 shadow-lg dark:border-slate-700 dark:bg-slate-900"
+          className="absolute z-20 mt-1 max-h-56 w-full animate-fade-in overflow-y-auto rounded-lg border border-slate-200 bg-white py-1 shadow-xl dark:border-slate-700 dark:bg-slate-900"
         >
           {results.length === 0 ? (
             <li className="px-3 py-2 text-sm text-slate-500 dark:text-slate-400">Sin coincidencias</li>

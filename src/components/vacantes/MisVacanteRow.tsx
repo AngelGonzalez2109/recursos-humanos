@@ -4,6 +4,7 @@ import { updateEstadoVacante } from '../../lib/vacantesService'
 import { getDbErrorMessage } from '../../lib/dbErrors'
 import { ESTADO_LABELS, formatFechaRelativa, formatSalario } from '../../lib/vacanteFormat'
 import type { Vacante } from '../../types/vacante'
+import { Avatar } from '../ui/Avatar'
 import { Badge } from '../ui/Badge'
 import { Button } from '../ui/Button'
 import { VacanteBadges } from './VacanteBadges'
@@ -34,12 +35,13 @@ export function MisVacanteRow({ vacante, onChanged, onEdit }: MisVacanteRowProps
   }
 
   return (
-    <li className="flex flex-col gap-4 p-5 transition-colors hover:bg-slate-50 sm:flex-row sm:items-center dark:hover:bg-slate-800/50">
+    <li className="flex flex-col gap-4 p-5 transition-colors hover:bg-slate-50 sm:flex-row sm:items-center dark:hover:bg-white/[0.03]">
+      <Avatar name={vacante.empresa} shape="square" />
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">
           <Link
             to={`/vacantes/${vacante.id}`}
-            className="truncate font-semibold text-slate-900 transition-colors hover:text-brand-600 dark:text-slate-100 dark:hover:text-brand-500"
+            className="truncate font-semibold text-slate-900 transition-colors hover:text-brand-600 dark:text-slate-100 dark:hover:text-brand-400"
           >
             {vacante.titulo}
           </Link>
@@ -57,7 +59,7 @@ export function MisVacanteRow({ vacante, onChanged, onEdit }: MisVacanteRowProps
         <Button variant="secondary" onClick={() => onEdit(vacante)}>
           Editar
         </Button>
-        <Button variant="secondary" loading={updating} onClick={toggleEstado}>
+        <Button variant={abierta ? 'danger' : 'secondary'} loading={updating} onClick={toggleEstado}>
           {abierta ? 'Cerrar vacante' : 'Reabrir'}
         </Button>
       </div>
