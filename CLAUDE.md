@@ -151,9 +151,11 @@ Las etiquetas y colores (`Badge`) viven en `src/lib/postulacionEstados.ts`. "Rec
 | `/evaluacion/:postulacionId` | `postulante` | Evaluación de Perfil Profesional (solo con estado `pruebas_psicometricas`) |
 | `/vacantes/:id` | Cualquier usuario autenticado | Detalle; el candidato ve "Postularme", el dueño ve las postulaciones ordenadas por match |
 
-**Funcionalidades completadas y verificadas en producción:** autenticación por roles, publicar/editar/cerrar vacantes, feed y detalle, postulación con CV (PDF), match automático con ordenamiento estricto, autocompletado de habilidades, estados de postulación con confirmación, "Mis postulaciones" y la Evaluación de Perfil Profesional (examen psicométrico global, un intento, 15 minutos).
+**Funcionalidades completadas y verificadas en producción:** autenticación por roles, publicar/editar/cerrar vacantes, feed y detalle, postulación con CV (PDF), match automático con ordenamiento estricto, autocompletado de habilidades, estados de postulación con confirmación, "Mis postulaciones" y la Evaluación de Perfil Profesional (examen psicométrico global, un intento, 15 minutos) y el rediseño visual SaaS oscuro con acento cian eléctrico (sección 3).
 
 **Fuera de alcance por ahora (no implementar sin pedirlo):** filtros avanzados en el feed y pulido para entrega (README de instalación, ESLint — falla por la incompatibilidad de `typescript-eslint` con TypeScript 7).
+
+**Convenciones de diseño:** toda pantalla o componente nuevo debe seguir el sistema de diseño de la sección 3 (tokens en `src/index.css`, `.surface`, `ui/Button`, `ui/Badge`, `ui/ProgressBar`, `ui/Avatar`); no introducir colores ni sombras sueltas.
 
 **Convenciones de trabajo:** cada cambio de base de datos va en un nuevo archivo `supabase/NN_nombre.sql` (nunca se editan los anteriores) y se documenta en este archivo; antes de hacer commit se ejecuta `npm run build`.
 
