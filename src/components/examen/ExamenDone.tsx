@@ -13,7 +13,7 @@ export function ExamenDone() {
           <path d="m5 12 5 5L20 7" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </div>
-      <h1 className="mt-6 text-3xl leading-tight">{EXAMEN.mensaje_final}</h1>
+      <h1 className="mt-6 text-2xl leading-tight">{EXAMEN.mensaje_final}</h1>
       <p className="mx-auto mt-3 max-w-sm text-sm text-slate-600 dark:text-slate-400">
         Gracias por completar la {EXAMEN.titulo}. Puedes seguir el estado de tu postulación en cualquier momento.
       </p>

@@ -26,12 +26,12 @@ function Row({ postulacion, examenCompletado }: { postulacion: MiPostulacion; ex
         {vacante ? (
           <Link
             to={`/vacantes/${vacante.id}`}
-            className="font-serif text-2xl leading-tight underline-offset-4 transition-colors hover:underline"
+            className="font-display text-xl leading-tight underline-offset-4 transition-colors hover:underline"
           >
             {vacante.titulo}
           </Link>
         ) : (
-          <p className="font-serif text-2xl leading-tight">Vacante no disponible</p>
+          <p className="font-display text-xl leading-tight">Vacante no disponible</p>
         )}
         <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
           {vacante ? `${vacante.empresa} · ${vacante.ubicacion} · ` : ''}

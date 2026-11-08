@@ -21,7 +21,7 @@ export function AppLayout({ title, description, eyebrow, actions, children }: Ap
           <div className="hairline-b mb-12 flex flex-col gap-6 pb-10 sm:flex-row sm:items-end sm:justify-between">
             <div>
               {eyebrow && <p className="eyebrow mb-4">{eyebrow}</p>}
-              <h1 className="text-[2.75rem] leading-[1.1] sm:text-[3.375rem]">{title}</h1>
+              <h1 className="text-4xl leading-[1.1] sm:text-5xl">{title}</h1>
               {description && (
                 <p className="mt-4 max-w-xl text-lg leading-relaxed text-slate-600 dark:text-slate-400">
                   {description}

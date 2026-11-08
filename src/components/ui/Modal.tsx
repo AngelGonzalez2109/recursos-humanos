@@ -38,7 +38,7 @@ export function Modal({ open, title, onClose, children, size = 'lg' }: ModalProp
         className={`surface h-fit w-full animate-modal-in border-solid border-bistre/30 bg-slate-50 dark:border-white/25 dark:bg-slate-900 ${size === 'md' ? 'max-w-md' : 'max-w-2xl'}`}
       >
         <div className="hairline-b flex items-center justify-between px-6 py-4">
-          <h2 id={titleId} className="text-2xl">
+          <h2 id={titleId} className="text-xl">
             {title}
           </h2>
           <button

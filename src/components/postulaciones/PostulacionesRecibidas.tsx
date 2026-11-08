@@ -58,7 +58,7 @@ export function PostulacionesRecibidas({ vacante }: { vacante: Vacante }) {
       <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="eyebrow mb-2">Candidatos</p>
-          <h2 className="text-3xl">Postulaciones recibidas{data ? ` (${data.length})` : ''}</h2>
+          <h2 className="text-2xl">Postulaciones recibidas{data ? ` (${data.length})` : ''}</h2>
           <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">Ordenadas de mayor a menor compatibilidad.</p>
         </div>
         {ordenadas.length > 1 && (

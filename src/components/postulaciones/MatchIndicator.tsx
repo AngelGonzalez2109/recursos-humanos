@@ -20,9 +20,9 @@ export function MatchIndicator({ match }: { match: MatchResultado }) {
   return (
     <div className="inset-panel space-y-4 p-5">
       <div className="flex items-center gap-4">
-        <p className={`font-serif text-5xl leading-none tabular-nums ${text}`}>
+        <p className={`font-display text-4xl leading-none tabular-nums ${text}`}>
           {match.porcentaje}
-          <span className="text-2xl">%</span>
+          <span className="text-xl">%</span>
         </p>
         <div className="min-w-0 flex-1 space-y-2">
           <p className="text-sm font-medium text-slate-900 dark:text-slate-100">

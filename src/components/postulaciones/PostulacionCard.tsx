@@ -53,7 +53,7 @@ export function PostulacionCard({ item, resultado, open, onToggle, onChanged }: 
       >
         <Avatar name={nombre} />
         <div className="min-w-0 flex-1">
-          <p className="line-clamp-2 font-serif text-2xl leading-tight text-slate-900 dark:text-slate-100">{nombre}</p>
+          <p className="line-clamp-2 font-display text-xl leading-tight text-slate-900 dark:text-slate-100">{nombre}</p>
           <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1.5">
             <Badge variant={ESTADO_POSTULACION_VARIANT[postulacion.estado]}>
               {ESTADO_POSTULACION_LABELS[postulacion.estado]}
@@ -66,9 +66,9 @@ export function PostulacionCard({ item, resultado, open, onToggle, onChanged }: 
         <div className="w-20 shrink-0 text-right sm:w-28">
           {match.porcentaje !== null && tone ? (
             <>
-              <p className={`font-serif text-4xl leading-none tabular-nums ${tone.text}`}>
+              <p className={`font-display text-3xl leading-none tabular-nums ${tone.text}`}>
                 {match.porcentaje}
-                <span className="text-xl">%</span>
+                <span className="text-lg">%</span>
               </p>
               <div className="mt-2">
                 <ProgressBar

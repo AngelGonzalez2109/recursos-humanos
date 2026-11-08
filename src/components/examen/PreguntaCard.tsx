@@ -28,7 +28,7 @@ export function PreguntaCard({ pregunta, numero, value, disabled, onAnswer }: Pr
         <p className="mt-1 text-xs text-slate-600 dark:text-slate-400">{seccion.indicaciones}</p>
       </div>
 
-      <h2 id={`q-${pregunta.id}`} className="text-3xl leading-tight sm:text-4xl">
+      <h2 id={`q-${pregunta.id}`} className="text-2xl leading-snug sm:text-3xl">
         <span className="mr-2 text-slate-500 tabular-nums">{numero}.</span>
         {pregunta.enunciado}
       </h2>

@@ -6,7 +6,7 @@ const CARD = 'surface'
 function Fact({ value, label }: { value: string; label: string }) {
   return (
     <div className="inset-panel px-4 py-6 text-center">
-      <p className="font-serif text-5xl leading-none text-slate-900 tabular-nums dark:text-slate-100">{value}</p>
+      <p className="font-display text-4xl leading-none text-slate-900 tabular-nums dark:text-slate-100">{value}</p>
       <p className="eyebrow mt-3">{label}</p>
     </div>
   )
@@ -18,7 +18,7 @@ export function ExamenIntro({ vacanteTitulo, onStart }: { vacanteTitulo: string 
     <div className={`${CARD} animate-fade-in overflow-hidden`}>
       <div className="hairline-b px-6 py-10 sm:px-10">
         <p className="eyebrow">{vacanteTitulo ? `Postulación: ${vacanteTitulo}` : 'Postulación'}</p>
-        <h1 className="mt-4 text-4xl leading-[1.1] sm:text-5xl">{EXAMEN.titulo}</h1>
+        <h1 className="mt-4 text-3xl leading-[1.15] sm:text-4xl">{EXAMEN.titulo}</h1>
       </div>
 
       <div className="space-y-6 px-6 py-8 sm:px-10">

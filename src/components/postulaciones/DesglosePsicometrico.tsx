@@ -25,7 +25,7 @@ const NIVEL_FILL: Record<NivelId, string> = {
 const TILE =
   'rounded-sm bg-white p-4 ring-1 ring-bistre/10 ring-inset dark:bg-slate-900/60 dark:ring-white/10'
 
-/** Medidor de tres tramos (Bajo · Medio · Alto): el nivel alcanzado se ilumina y se nombra */
+/** Medidor de tres tramos: se iluminan los alcanzados; el nivel se dice en el texto de la tarjeta */
 function NivelMeter({ nivel, nombre }: { nivel: NivelId | null; nombre: string }) {
   const alcanzado = nivel ? NIVELES.findIndex((n) => n.id === nivel) : -1
   const etiqueta = nivel ? NIVELES[alcanzado].etiqueta : 'sin resultado'
@@ -42,16 +42,6 @@ function NivelMeter({ nivel, nombre }: { nivel: NivelId | null; nombre: string }
           />
         ))}
       </div>
-      <div className="mt-1.5 flex justify-between font-mono text-[10px] tracking-[0.1em] uppercase">
-        {NIVELES.map((n, i) => (
-          <span
-            key={n.id}
-            className={i === alcanzado ? 'text-slate-900 dark:text-slate-100' : 'text-slate-500 dark:text-slate-500'}
-          >
-            {n.etiqueta}
-          </span>
-        ))}
-      </div>
     </div>
   )
 }
@@ -62,8 +52,8 @@ function NivelTile({ dimension, valor }: { dimension: DimensionExamen; valor: nu
 
   return (
     <div className={TILE}>
-      <p className="eyebrow">{dimension.nombre_corto}</p>
-      <p className={`mt-3 mb-4 font-serif text-4xl leading-none ${nivel ? NIVEL_TEXT[nivel] : 'text-slate-500'}`}>
+      <p className="eyebrow lg:min-h-[2.4em]">{dimension.nombre_corto}</p>
+      <p className={`mt-2 mb-4 font-display text-3xl leading-none ${nivel ? NIVEL_TEXT[nivel] : 'text-slate-500'}`}>
         {nivel ? NIVELES.find((n) => n.id === nivel)?.etiqueta : 'Sin datos'}
       </p>
       <NivelMeter nivel={nivel} nombre={dimension.nombre} />
@@ -78,8 +68,8 @@ function PorcentajeTile({ dimension, valor }: { dimension: DimensionExamen; valo
 
   return (
     <div className={TILE}>
-      <p className="eyebrow">{dimension.nombre_corto}</p>
-      <p className="mt-3 mb-4 font-serif text-4xl leading-none text-slate-900 tabular-nums dark:text-slate-100">
+      <p className="eyebrow lg:min-h-[2.4em]">{dimension.nombre_corto}</p>
+      <p className="mt-2 mb-4 font-display text-3xl leading-none text-slate-900 tabular-nums dark:text-slate-100">
         {valor === null ? 'Sin datos' : `${valor}%`}
       </p>
       <ProgressBar

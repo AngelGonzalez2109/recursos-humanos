@@ -101,7 +101,7 @@ export function PostulacionForm({ vacanteId, userId, onSent, onCancel }: Postula
       </div>
 
       <fieldset className="space-y-4 rounded-sm border border-dashed border-bistre/25 p-4 dark:border-white/20">
-        <legend className="px-2 font-serif text-xl text-slate-900 dark:text-slate-100">Tu perfil (para calcular tu compatibilidad)</legend>
+        <legend className="px-2 font-display text-lg text-slate-900 dark:text-slate-100">Tu perfil (para calcular tu compatibilidad)</legend>
         <Input
           label="Edad"
           type="number"

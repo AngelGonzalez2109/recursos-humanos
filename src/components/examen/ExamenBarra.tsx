@@ -14,7 +14,7 @@ export function ExamenBarra({ remainingMs, answered }: ExamenBarraProps) {
     <div className="sticky top-24 z-10 flex items-center gap-5 surface bg-slate-50/90 px-5 py-3 backdrop-blur-xl dark:bg-slate-900/85">
       <TimerRing remainingMs={remainingMs} />
       <div className="min-w-0 flex-1">
-        <p className="truncate font-serif text-xl leading-tight">{EXAMEN.titulo}</p>
+        <p className="truncate font-display text-lg leading-tight">{EXAMEN.titulo}</p>
         <p className="eyebrow mt-1">
           {answered} de {TOTAL_PREGUNTAS} respondidas
         </p>

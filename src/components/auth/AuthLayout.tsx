@@ -22,7 +22,7 @@ export function AuthLayout({ title, subtitle, children, footer }: AuthLayoutProp
         </div>
         <div className="surface p-6 sm:p-10">
           <p className="eyebrow mb-4">Acceso</p>
-          <h1 className="text-4xl leading-none">{title}</h1>
+          <h1 className="text-3xl leading-none">{title}</h1>
           <p className="mt-3 text-sm text-slate-600 dark:text-slate-400">{subtitle}</p>
           <div className="hairline-t mt-8 pt-8">{children}</div>
         </div>

@@ -15,7 +15,7 @@ interface VacantePerfilFieldsetProps {
 export function VacantePerfilFieldset({ values, errors, onField, onPerfil }: VacantePerfilFieldsetProps) {
   return (
     <fieldset className="space-y-4 rounded-sm border border-dashed border-bistre/25 p-4 dark:border-white/20">
-      <legend className="px-2 font-serif text-xl text-slate-900 dark:text-slate-100">Perfil buscado (para el match automático)</legend>
+      <legend className="px-2 font-display text-lg text-slate-900 dark:text-slate-100">Perfil buscado (para el match automático)</legend>
       <p className="text-xs text-slate-600 dark:text-slate-400">
         Todos son opcionales. Solo los que completes se usarán para calcular la compatibilidad de cada candidato.
       </p>

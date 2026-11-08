@@ -17,9 +17,9 @@ export function Avatar({ name, shape = 'round', size = 'md' }: AvatarProps) {
   return (
     <span
       aria-hidden="true"
-      className={`flex shrink-0 items-center justify-center bg-slate-200 font-serif text-slate-900 ring-1 ring-bistre/10 ring-inset dark:bg-white/10 dark:text-slate-100 dark:ring-white/15 ${
+      className={`flex shrink-0 items-center justify-center bg-slate-200 font-display text-slate-900 ring-1 ring-bistre/10 ring-inset dark:bg-white/10 dark:text-slate-100 dark:ring-white/15 ${
         shape === 'round' ? 'rounded-full' : 'rounded-sm'
-      } ${size === 'md' ? 'h-11 w-11 text-xl' : 'h-9 w-9 text-lg'}`}
+      } ${size === 'md' ? 'h-11 w-11 text-base' : 'h-9 w-9 text-sm'}`}
     >
       {initials(name)}
     </span>

@@ -23,7 +23,7 @@ export function VacantePerfilBuscado({ vacante }: { vacante: Vacante }) {
 
   return (
     <section className="surface p-6 sm:p-8">
-      <h2 className="text-3xl">Perfil buscado</h2>
+      <h2 className="text-2xl">Perfil buscado</h2>
       <dl className="mt-5 grid gap-5 text-sm sm:grid-cols-2">
         {filas.map(([label, value]) => (
           <div key={label}>

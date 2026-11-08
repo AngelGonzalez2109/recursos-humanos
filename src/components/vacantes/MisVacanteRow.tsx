@@ -41,7 +41,7 @@ export function MisVacanteRow({ vacante, onChanged, onEdit }: MisVacanteRowProps
         <div className="flex flex-wrap items-center gap-2">
           <Link
             to={`/vacantes/${vacante.id}`}
-            className="truncate font-serif text-2xl leading-tight text-slate-900 underline-offset-4 transition-colors hover:underline dark:text-slate-100"
+            className="truncate font-display text-xl leading-tight text-slate-900 underline-offset-4 transition-colors hover:underline dark:text-slate-100"
           >
             {vacante.titulo}
           </Link>

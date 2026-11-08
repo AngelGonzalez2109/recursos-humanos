@@ -13,7 +13,7 @@ const CARD = 'surface p-6 sm:p-8'
 function Section({ title, text }: { title: string; text: string }) {
   return (
     <section className={CARD}>
-      <h2 className="text-3xl">{title}</h2>
+      <h2 className="text-2xl">{title}</h2>
       <p className="mt-4 max-w-prose text-base leading-relaxed whitespace-pre-line">{text}</p>
     </section>
   )
@@ -35,7 +35,7 @@ export function VacanteDetail({ vacante, viewerRole, isOwner }: VacanteDetailPro
           <div className="flex items-start gap-4">
             <Avatar name={vacante.empresa} shape="square" />
             <div className="min-w-0">
-              <h1 className="text-4xl leading-[1.1] sm:text-5xl">{vacante.titulo}</h1>
+              <h1 className="text-3xl leading-[1.15] sm:text-4xl">{vacante.titulo}</h1>
               <p className="mt-2 text-slate-600 dark:text-slate-400">
                 {vacante.empresa} · {vacante.ubicacion}
               </p>

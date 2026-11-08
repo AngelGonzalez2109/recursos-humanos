@@ -41,7 +41,8 @@ export function AppHeader() {
           )}
           <ThemeToggle />
           <Button variant="secondary" loading={signingOut} onClick={handleSignOut}>
-            Cerrar sesión
+            <span className="sm:hidden">Salir</span>
+            <span className="hidden sm:inline">Cerrar sesión</span>
           </Button>
         </div>
       </div>
