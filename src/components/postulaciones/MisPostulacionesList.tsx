@@ -17,11 +17,22 @@ interface MisPostulacionesListProps {
 
 const LIST_CLASS = 'surface list-hairline overflow-hidden'
 
-function Row({ postulacion, examenCompletado }: { postulacion: MiPostulacion; examenCompletado: boolean }) {
+function Row({
+  postulacion,
+  examenCompletado,
+  index,
+}: {
+  postulacion: MiPostulacion
+  examenCompletado: boolean
+  index: number
+}) {
   const vacante = postulacion.vacantes
   const pideExamen = postulacion.estado === 'pruebas_psicometricas'
   return (
-    <li className="flex flex-col gap-3 p-6 transition-colors hover:bg-bone/70 sm:flex-row sm:items-center sm:justify-between dark:hover:bg-white/[0.03]">
+    <li
+      style={{ animationDelay: `${Math.min(index, 8) * 50}ms` }}
+      className="flex animate-fade-in flex-col gap-3 p-6 transition-colors hover:bg-bone/70 sm:flex-row sm:items-center sm:justify-between dark:hover:bg-white/[0.03]"
+    >
       <div className="min-w-0">
         {vacante ? (
           <Link
@@ -92,8 +103,8 @@ export function MisPostulacionesList({
   }
   return (
     <ul className={LIST_CLASS}>
-      {postulaciones.map((p) => (
-        <Row key={p.id} postulacion={p} examenCompletado={examenesCompletados.includes(p.id)} />
+      {postulaciones.map((p, index) => (
+        <Row key={p.id} postulacion={p} examenCompletado={examenesCompletados.includes(p.id)} index={index} />
       ))}
     </ul>
   )

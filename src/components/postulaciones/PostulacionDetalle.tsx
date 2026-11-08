@@ -45,57 +45,59 @@ export function PostulacionDetalle({ id, item: { postulacion, match }, resultado
   const coincidentes = new Set(match.habilidadesCoincidentes.map(normalize))
 
   return (
-    <div id={id} className="hairline-t animate-fade-in space-y-5 p-5 sm:p-6">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        {datos.length > 0 ? (
-          <div className="flex flex-wrap gap-1.5">
-            {datos.map((d) => (
-              <Badge key={d}>{d}</Badge>
-            ))}
-          </div>
-        ) : (
-          <span />
-        )}
-        <Button variant="secondary" onClick={openCv} loading={opening}>
-          Ver CV
-        </Button>
-      </div>
-
-      <MatchIndicator match={match} />
-
-      {resultado && <DesglosePsicometrico resultado={resultado} />}
-      {!resultado && postulacion.estado === 'pruebas_psicometricas' && (
-        <p className="text-xs text-slate-600 dark:text-slate-400">
-          Evaluación de Perfil Profesional pendiente: el candidato aún no la presenta.
-        </p>
-      )}
-
-      {postulacion.habilidades.length > 0 && (
-        <div>
-          <p className="eyebrow mb-2">Habilidades</p>
-          <div className="flex flex-wrap gap-1.5">
-            {postulacion.habilidades.map((h) => {
-              const coincide = coincidentes.has(normalize(h))
-              return (
-                <Badge key={h} variant={coincide ? 'brand' : 'muted'}>
-                  {coincide && '✓ '}
-                  {h}
-                </Badge>
-              )
-            })}
-          </div>
+    <div id={id} className="grid animate-expand grid-rows-[1fr]">
+      <div className="hairline-t min-h-0 space-y-5 overflow-hidden p-5 sm:p-6">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          {datos.length > 0 ? (
+            <div className="flex flex-wrap gap-1.5">
+              {datos.map((d) => (
+                <Badge key={d}>{d}</Badge>
+              ))}
+            </div>
+          ) : (
+            <span />
+          )}
+          <Button variant="secondary" onClick={openCv} loading={opening}>
+            Ver CV
+          </Button>
         </div>
-      )}
 
-      {postulacion.mensaje && (
-        <p className="inset-panel px-4 py-3 text-sm whitespace-pre-line text-slate-700 dark:text-slate-300">
-          {postulacion.mensaje}
-        </p>
-      )}
-      {error && <Alert variant="error">{error}</Alert>}
+        <MatchIndicator match={match} />
 
-      <div className="hairline-t pt-4">
-        <EstadoPostulacionSelect postulacion={postulacion} onChanged={onChanged} />
+        {resultado && <DesglosePsicometrico resultado={resultado} />}
+        {!resultado && postulacion.estado === 'pruebas_psicometricas' && (
+          <p className="text-xs text-slate-600 dark:text-slate-400">
+            Evaluación de Perfil Profesional pendiente: el candidato aún no la presenta.
+          </p>
+        )}
+
+        {postulacion.habilidades.length > 0 && (
+          <div>
+            <p className="eyebrow mb-2">Habilidades</p>
+            <div className="flex flex-wrap gap-1.5">
+              {postulacion.habilidades.map((h) => {
+                const coincide = coincidentes.has(normalize(h))
+                return (
+                  <Badge key={h} variant={coincide ? 'brand' : 'muted'}>
+                    {coincide && '✓ '}
+                    {h}
+                  </Badge>
+                )
+              })}
+            </div>
+          </div>
+        )}
+
+        {postulacion.mensaje && (
+          <p className="inset-panel px-4 py-3 text-sm whitespace-pre-line text-slate-700 dark:text-slate-300">
+            {postulacion.mensaje}
+          </p>
+        )}
+        {error && <Alert variant="error">{error}</Alert>}
+
+        <div className="hairline-t pt-4">
+          <EstadoPostulacionSelect postulacion={postulacion} onChanged={onChanged} />
+        </div>
       </div>
     </div>
   )

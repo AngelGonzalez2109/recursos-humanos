@@ -1,4 +1,5 @@
 import { EXAMEN, TOTAL_PREGUNTAS, nivelDe } from '../../lib/examen'
+import { CountUp } from '../ui/CountUp'
 import { ProgressBar } from '../ui/ProgressBar'
 import type { DimensionExamen, NivelExamen, ResultadoPsicometrico } from '../../types/examen'
 
@@ -36,8 +37,11 @@ function NivelMeter({ nivel, nombre }: { nivel: NivelId | null; nombre: string }
         {NIVELES.map((n, i) => (
           <span
             key={n.id}
-            className={`h-2 flex-1 rounded-full ${
-              nivel && i <= alcanzado ? NIVEL_FILL[nivel] : 'bg-slate-200 dark:bg-slate-800'
+            style={{ animationDelay: `${150 + i * 130}ms` }}
+            className={`h-2 flex-1 origin-left rounded-full ${
+              nivel && i <= alcanzado
+                ? `animate-seg-in ${NIVEL_FILL[nivel]}`
+                : 'bg-slate-200 dark:bg-slate-800'
             }`}
           />
         ))}
@@ -70,7 +74,13 @@ function PorcentajeTile({ dimension, valor }: { dimension: DimensionExamen; valo
     <div className={TILE}>
       <p className="eyebrow lg:min-h-[2.4em]">{dimension.nombre_corto}</p>
       <p className="mt-2 mb-4 font-display text-3xl leading-none text-slate-900 tabular-nums dark:text-slate-100">
-        {valor === null ? 'Sin datos' : `${valor}%`}
+        {valor === null ? (
+          'Sin datos'
+        ) : (
+          <>
+            <CountUp value={valor} />%
+          </>
+        )}
       </p>
       <ProgressBar
         value={valor ?? 0}

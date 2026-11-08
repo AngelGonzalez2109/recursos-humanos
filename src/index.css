@@ -99,6 +99,14 @@
   --animate-overlay-in: overlay-in 0.2s ease-out both;
   --animate-modal-in: modal-in 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-bar-fill: bar-fill 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-nav-in: nav-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-rise: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-expand: expand 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-pop: pop 0.3s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+  --animate-seg-in: seg-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-icon-in: icon-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-scale-in: scale-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  --animate-draw: draw 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
 
   @keyframes fade-in {
     from {
@@ -135,6 +143,95 @@
   @keyframes bar-fill {
     from {
       width: 0;
+    }
+  }
+
+  /* La cápsula de navegación baja y se asienta al cargar la pantalla */
+  @keyframes nav-in {
+    from {
+      opacity: 0;
+      transform: translateY(-14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Entrada de títulos y bloques: sube desde abajo (se escalona con animation-delay) */
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Despliegue de un detalle: la altura crece de 0 a su tamaño */
+  @keyframes expand {
+    from {
+      grid-template-rows: 0fr;
+      opacity: 0;
+    }
+    to {
+      grid-template-rows: 1fr;
+      opacity: 1;
+    }
+  }
+
+  /* Confirma una selección con un pequeño rebote */
+  @keyframes pop {
+    from {
+      transform: scale(0.965);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+
+  /* Tramo del medidor: se llena de izquierda a derecha */
+  @keyframes seg-in {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  /* Icono que cambia (tema): gira y aparece */
+  @keyframes icon-in {
+    from {
+      opacity: 0;
+      transform: rotate(-70deg) scale(0.5);
+    }
+    to {
+      opacity: 1;
+      transform: rotate(0) scale(1);
+    }
+  }
+
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.4);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Trazo que se dibuja (pathLength="1") */
+  @keyframes draw {
+    from {
+      stroke-dashoffset: 1;
+    }
+    to {
+      stroke-dashoffset: 0;
     }
   }
 }
@@ -273,7 +370,15 @@
   .animate-fade-in,
   .animate-overlay-in,
   .animate-modal-in,
-  .animate-bar-fill {
+  .animate-bar-fill,
+  .animate-nav-in,
+  .animate-rise,
+  .animate-expand,
+  .animate-pop,
+  .animate-seg-in,
+  .animate-icon-in,
+  .animate-scale-in,
+  .animate-draw {
     animation: none;
   }
 

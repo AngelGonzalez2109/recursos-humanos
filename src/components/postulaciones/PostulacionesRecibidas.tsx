@@ -36,10 +36,11 @@ export function PostulacionesRecibidas({ vacante }: { vacante: Vacante }) {
   } else {
     content = (
       <ul className="space-y-3">
-        {ordenadas.map((item) => (
+        {ordenadas.map((item, index) => (
           <PostulacionCard
             key={item.postulacion.id}
             item={item}
+            index={index}
             resultado={porPostulacion.get(item.postulacion.id)}
             open={abiertos.has(item.postulacion.id)}
             onToggle={() => toggle(item.postulacion.id)}

@@ -16,19 +16,23 @@ export function AuthLayout({ title, subtitle, children, footer }: AuthLayoutProp
       <div className="absolute top-4 right-4">
         <ThemeToggle />
       </div>
-      <div className="w-full max-w-md animate-fade-in">
-        <div className="mb-10 flex justify-center">
+      <div className="w-full max-w-md">
+        <div className="mb-10 flex animate-rise justify-center">
           <BrandLogo />
         </div>
-        <div className="surface p-6 sm:p-10">
+        <div className="surface animate-rise p-6 [animation-delay:100ms] sm:p-10">
           <p className="eyebrow mb-4">Acceso</p>
           <h1 className="text-3xl leading-none">{title}</h1>
           <p className="mt-3 text-sm text-slate-600 dark:text-slate-400">{subtitle}</p>
           <div className="hairline-t mt-8 pt-8">{children}</div>
         </div>
-        {footer && <p className="mt-8 text-center text-sm text-slate-600 dark:text-slate-400">{footer}</p>}
+        {footer && (
+          <p className="mt-8 animate-rise text-center text-sm text-slate-600 [animation-delay:200ms] dark:text-slate-400">
+            {footer}
+          </p>
+        )}
       </div>
-      <DevCredits className="mt-16" />
+      <DevCredits className="mt-16 animate-rise [animation-delay:300ms]" />
     </main>
   )
 }

@@ -5,6 +5,7 @@ import { ESTADO_POSTULACION_LABELS, ESTADO_POSTULACION_VARIANT } from '../../lib
 import { formatFechaRelativa } from '../../lib/vacanteFormat'
 import { Avatar } from '../ui/Avatar'
 import { Badge } from '../ui/Badge'
+import { CountUp } from '../ui/CountUp'
 import { ProgressBar } from '../ui/ProgressBar'
 import { PostulacionDetalle } from './PostulacionDetalle'
 import { matchTone } from './matchTone'
@@ -15,6 +16,8 @@ interface PostulacionCardProps {
   open: boolean
   onToggle: () => void
   onChanged: () => void
+  /** Posición en la lista: escalona la animación de entrada */
+  index?: number
 }
 
 function Chevron({ open }: { open: boolean }) {
@@ -35,7 +38,7 @@ function Chevron({ open }: { open: boolean }) {
 }
 
 /** Candidato desplegable: la cabecera resume (nombre, estado, compatibilidad) y el detalle se abre al pulsarla */
-export function PostulacionCard({ item, resultado, open, onToggle, onChanged }: PostulacionCardProps) {
+export function PostulacionCard({ item, resultado, open, onToggle, onChanged, index = 0 }: PostulacionCardProps) {
   const panelId = useId()
   const { postulacion, match } = item
   const nombre = postulacion.postulante_nombre || 'Candidato'
@@ -43,7 +46,7 @@ export function PostulacionCard({ item, resultado, open, onToggle, onChanged }: 
   const tone = match.porcentaje === null ? null : matchTone(match.porcentaje)
 
   return (
-    <li className="surface animate-fade-in overflow-hidden">
+    <li style={{ animationDelay: `${Math.min(index, 8) * 50}ms` }} className="surface animate-fade-in overflow-hidden">
       <button
         type="button"
         onClick={onToggle}
@@ -67,7 +70,7 @@ export function PostulacionCard({ item, resultado, open, onToggle, onChanged }: 
           {match.porcentaje !== null && tone ? (
             <>
               <p className={`font-display text-3xl leading-none tabular-nums ${tone.text}`}>
-                {match.porcentaje}
+                <CountUp value={match.porcentaje} />
                 <span className="text-lg">%</span>
               </p>
               <div className="mt-2">

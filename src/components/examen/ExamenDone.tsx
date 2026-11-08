@@ -8,9 +8,16 @@ export function ExamenDone() {
       role="status"
       className="mx-auto max-w-lg animate-fade-in surface px-6 py-14 text-center"
     >
-      <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100/70 text-emerald-700 ring-1 ring-emerald-600/25 dark:bg-emerald-400/10 dark:text-emerald-400 dark:ring-emerald-400/25">
+      <div className="mx-auto flex h-16 w-16 animate-scale-in items-center justify-center rounded-full bg-emerald-100/70 text-emerald-700 ring-1 ring-emerald-600/25 dark:bg-emerald-400/10 dark:text-emerald-400 dark:ring-emerald-400/25">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="h-8 w-8" aria-hidden="true">
-          <path d="m5 12 5 5L20 7" strokeLinecap="round" strokeLinejoin="round" />
+          <path
+            d="m5 12 5 5L20 7"
+            pathLength="1"
+            strokeDasharray="1"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="animate-draw"
+          />
         </svg>
       </div>
       <h1 className="mt-6 text-2xl leading-tight">{EXAMEN.mensaje_final}</h1>

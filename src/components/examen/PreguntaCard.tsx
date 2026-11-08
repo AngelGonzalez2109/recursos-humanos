@@ -13,7 +13,8 @@ const BASE =
   'cursor-pointer rounded-sm border text-left text-sm transition-[background-color,border-color] duration-200 disabled:cursor-not-allowed disabled:opacity-60'
 const IDLE =
   'border-slate-400 bg-white hover:border-bistre dark:border-slate-600 dark:bg-slate-900 dark:hover:border-cream'
-const SELECTED = 'border-bistre bg-white ring-1 ring-bistre dark:border-cream dark:bg-white/10 dark:ring-cream'
+const SELECTED =
+  'animate-pop border-bistre bg-white ring-1 ring-bistre dark:border-cream dark:bg-white/10 dark:ring-cream'
 
 /** Una pregunta: opción múltiple (A-D) o escala Likert (1-5) */
 export function PreguntaCard({ pregunta, numero, value, disabled, onAnswer }: PreguntaCardProps) {

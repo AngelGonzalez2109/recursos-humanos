@@ -21,7 +21,7 @@ export function AppHeader() {
   }
 
   return (
-    <header className="sticky top-3 z-30 px-3 sm:px-6">
+    <header className="sticky top-3 z-30 animate-nav-in px-3 sm:px-6">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-4 gap-y-2 rounded-[1.75rem] border border-bistre/10 bg-[#cfcfc8]/75 px-4 py-2.5 shadow-[inset_0_0_10px_rgba(0,0,0,0.08)] backdrop-blur-xl backdrop-saturate-150 transition-colors duration-300 sm:flex-nowrap sm:rounded-full sm:px-6 dark:border-white/10 dark:bg-slate-900/70 dark:shadow-[inset_0_0_10px_rgba(255,255,255,0.04)]">
         <BrandLogo />
         {profile && (

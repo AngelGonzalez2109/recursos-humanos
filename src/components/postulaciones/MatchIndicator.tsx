@@ -1,4 +1,5 @@
 import { BONO_HABILIDAD, type MatchResultado } from '../../lib/match'
+import { CountUp } from '../ui/CountUp'
 import { ProgressBar } from '../ui/ProgressBar'
 import { matchTone } from './matchTone'
 
@@ -21,7 +22,7 @@ export function MatchIndicator({ match }: { match: MatchResultado }) {
     <div className="inset-panel space-y-4 p-5">
       <div className="flex items-center gap-4">
         <p className={`font-display text-4xl leading-none tabular-nums ${text}`}>
-          {match.porcentaje}
+          <CountUp value={match.porcentaje} />
           <span className="text-xl">%</span>
         </p>
         <div className="min-w-0 flex-1 space-y-2">

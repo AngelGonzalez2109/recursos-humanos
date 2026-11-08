@@ -41,7 +41,9 @@ export function ThemeToggle() {
       title={label}
       className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-bistre/30 text-slate-700 transition-[background-color,border-color,color,transform] duration-200 hover:border-bistre/60 hover:bg-bistre/[0.06] hover:text-bistre active:scale-95 dark:border-white/25 dark:text-slate-300 dark:hover:border-white/50 dark:hover:bg-cream/10 dark:hover:text-cream"
     >
-      {isDark ? <SunIcon /> : <MoonIcon />}
+      <span key={theme} className="inline-flex animate-icon-in">
+        {isDark ? <SunIcon /> : <MoonIcon />}
+      </span>
     </button>
   )
 }

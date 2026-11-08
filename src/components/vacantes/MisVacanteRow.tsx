@@ -13,9 +13,11 @@ interface MisVacanteRowProps {
   vacante: Vacante
   onChanged: () => void
   onEdit: (vacante: Vacante) => void
+  /** Posición en la lista: escalona la animación de entrada */
+  index?: number
 }
 
-export function MisVacanteRow({ vacante, onChanged, onEdit }: MisVacanteRowProps) {
+export function MisVacanteRow({ vacante, onChanged, onEdit, index = 0 }: MisVacanteRowProps) {
   const [updating, setUpdating] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const abierta = vacante.estado === 'abierta'
@@ -35,7 +37,10 @@ export function MisVacanteRow({ vacante, onChanged, onEdit }: MisVacanteRowProps
   }
 
   return (
-    <li className="flex flex-col gap-4 p-6 transition-colors hover:bg-bone/70 sm:flex-row sm:items-center dark:hover:bg-white/[0.03]">
+    <li
+      style={{ animationDelay: `${Math.min(index, 8) * 50}ms` }}
+      className="flex animate-fade-in flex-col gap-4 p-6 transition-colors hover:bg-bone/70 sm:flex-row sm:items-center dark:hover:bg-white/[0.03]"
+    >
       <Avatar name={vacante.empresa} shape="square" />
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">

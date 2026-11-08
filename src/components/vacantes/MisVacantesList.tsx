@@ -48,8 +48,8 @@ export function MisVacantesList({ vacantes, loading, error, onRetry, onChanged, 
         {abiertas === 1 ? 'abierta' : 'abiertas'}
       </p>
       <ul className={LIST_CLASS}>
-        {vacantes.map((vacante) => (
-          <MisVacanteRow key={vacante.id} vacante={vacante} onChanged={onChanged} onEdit={onEdit} />
+        {vacantes.map((vacante, index) => (
+          <MisVacanteRow key={vacante.id} vacante={vacante} onChanged={onChanged} onEdit={onEdit} index={index} />
         ))}
       </ul>
     </div>
