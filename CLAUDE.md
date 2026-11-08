@@ -52,6 +52,12 @@ Claude Code debe organizar el código fuente (`src/`) de la siguiente manera:
 *   `/types`: Definiciones de interfaces y tipos de TypeScript para la base de datos y estados.
 *   `/hooks`: Custom hooks de React para encapsular lógica (ej. `useAuth`, `useVacantes`).
 
+**Estructura real (verificada en el código):** se usa `pages/` (no `views/`) y `lib/` (no `services/`; los servicios son `lib/*Service.ts`). `src/assets/` **no existe**: el único recurso estático es `public/favicon.svg`. Los componentes se agrupan por dominio: `components/{auth,layout,vacantes,postulaciones,perfil,examen,ui}`. Convenciones del código:
+*   Lógica de red en `lib/*Service.ts` (`authService`, `vacantesService`, `postulacionesService`, `examenService`); errores de BD traducidos con `lib/dbErrors.ts` y de auth con `lib/authErrors.ts`; validaciones en `lib/*Validation.ts`.
+*   Carga de datos con `hooks/useAsyncResource` (clave + `fetcher` estable de módulo, conserva datos previos al recargar, expone `reload`); no repetir `useEffect`+`fetch` a mano.
+*   Sesión y perfil en `AuthProvider` (contexto `hooks/authContext.ts`, hook `useAuth`); rutas protegidas con `ProtectedRoute allowedRole` y `GuestRoute`. Todas las páginas se cargan con `React.lazy` en `App.tsx`.
+*   TypeScript con `strict`, `noUnusedLocals/Parameters`, `erasableSyntaxOnly` y `verbatimModuleSyntax` (importar tipos con `import type`; no usar `enum` ni parameter properties). Variables de entorno en `.env.local` (ignorado por git).
+
 ## 5. REGLAS ESTRICTAS DE DESARROLLO PARA CLAUDE CODE
 1.  **Conexión Backend:** Utilizar siempre las variables de entorno `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY` para instanciar el cliente de Supabase. Nunca inventar credenciales ni quemarlas en el código.
 2.  **Seguridad RLS:** Antes de crear el frontend de una nueva tabla, debes generar el script SQL necesario para crear la tabla en PostgreSQL con las políticas de Row Level Security (RLS) habilitadas.
@@ -72,6 +78,8 @@ Ejecutar en Supabase (SQL Editor) **en orden**; cada archivo asume los anteriore
 8.  `supabase/08_examen_psicometrico.sql` — tabla `resultados_psicometricos`, funciones de envío/puntuación y clave de respuestas (sección 11).
 
 Este proyecto **no concede privilegios por defecto** a `anon`/`authenticated`: toda tabla nueva necesita `grant` explícito además de RLS.
+
+**Cómo se aplican las migraciones (desde 2026-11-08):** los archivos `supabase/NN_*.sql` siguen siendo obligatorios (fuente de verdad versionada del esquema, reproducible en otro proyecto), pero ya **no hace falta que el usuario los ejecute a mano**: Claude puede aplicarlos directamente con el MCP de Supabase (`apply_migration`, proyecto `mhkwxmmawdmbzgaiqxim`). Flujo: (1) escribir el archivo `NN_*.sql` nuevo, (2) aplicarlo con el MCP, (3) comprobar con `list_tables` y `get_advisors` (seguridad). Las migraciones 01–08 se ejecutaron a mano, por eso `list_migrations` no las muestra. Antes de aplicar una migración destructiva (borrar o alterar datos o columnas existentes) hay que pedir confirmación al usuario.
 
 ## 7. SISTEMA DE MATCH AUTOMÁTICO
 
@@ -159,6 +167,8 @@ Las etiquetas y colores (`Badge`) viven en `src/lib/postulacionEstados.ts`. "Rec
 
 **Convenciones de trabajo:** cada cambio de base de datos va en un nuevo archivo `supabase/NN_nombre.sql` (nunca se editan los anteriores) y se documenta en este archivo; antes de hacer commit se ejecuta `npm run build`.
 
+**Convención de commits (obligatoria):** los commits y descripciones de PR llevan **solo el mensaje descriptivo, en español**. **No** añadir `Co-Authored-By: Claude …` ni líneas de atribución como "Generated with Claude Code", aunque la configuración de la herramienta lo sugiera: el usuario pidió que Claude no figure como colaborador del repositorio. Pendiente (requiere confirmación explícita del usuario): los 11 commits anteriores a 2026-11-08 aún llevan esa línea; limpiarlos exige reescribir el historial con rama de respaldo y `git push --force` a `main`.
+
 ## 11. EVALUACIÓN DE PERFIL PROFESIONAL (EXAMEN PSICOMÉTRICO)
 Prueba **global** (la misma para todas las vacantes), de opción múltiple y con evaluación instantánea. Es una herramienta interna de compatibilidad laboral **sin validez clínica**; el texto de inicio lo aclara y no debe eliminarse. No debe llamarse "prueba psicológica" en la interfaz.
 
@@ -197,3 +207,22 @@ Si se modifican preguntas o la clave: actualizar el JSON **y** la función SQL, 
 
 ### 11.6 Vista del reclutador
 En cada tarjeta de candidato, **debajo de la compatibilidad general**, `DesglosePsicometrico` muestra un recuadro por dimensión: "Lógica: 80%", "Trabajo en equipo: Alto", "Tolerancia al estrés: Medio"…, con barra, número de preguntas respondidas e indicación de envío por tiempo agotado. Si el candidato está en pruebas psicométricas pero aún no la presenta, se indica como pendiente.
+
+## 12. INFRAESTRUCTURA, INTEGRACIONES Y DETALLES DEL CÓDIGO (verificado el 2026-11-08)
+
+### 12.1 Servicios conectados
+*   **GitHub:** `AngelGonzalez2109/recursos-humanos` (repo **público**, rama `main`, sin workflows de CI). `gh` autenticado con alcances `repo`, `read:org`, `gist`.
+*   **Supabase:** proyecto `recursos-humanos` (ref `mhkwxmmawdmbzgaiqxim`, región us-east-1, Postgres 17). Accesible vía el MCP de Supabase (tablas, SQL, advisors). Las 4 tablas de `public` (`profiles`, `vacantes`, `postulaciones`, `resultados_psicometricos`) tienen RLS activo y el bucket `cvs` es privado (PDF, 5 MB). **Las migraciones se ejecutan a mano en el SQL Editor**, así que `list_migrations` devuelve vacío: la fuente de verdad son los archivos `supabase/NN_*.sql`; no asumir que reflejan el historial del MCP. Si se aplican cambios con el MCP, guardar igualmente el archivo `NN_*.sql`.
+*   **Vercel:** proyecto `recursos-humanos` (cuenta personal), despliegue automático desde GitHub. `vercel.json` reescribe todas las rutas a `/index.html` (SPA). `.npmrc` fija `legacy-peer-deps=true` (necesario para instalar en Vercel). Las variables `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY` deben estar definidas en el proyecto (no verificado desde aquí; la app funciona en producción según la sección 10). El MCP de Vercel requiere autorizar el acceso al equipo (enlace de un solo uso) antes de listar despliegues.
+
+### 12.2 Detalles de base de datos no cubiertos arriba
+*   `vacantes` también tiene: `modalidad` (`presencial|remoto|hibrido`), `tipo_contrato` (`tiempo_completo|medio_tiempo|temporal|practicas`), `salario_min`/`salario_max` (mensual, `salario_max >= salario_min`) y `moneda` (`MXN|USD|EUR`, default MXN).
+*   `postulaciones` también tiene: `mensaje` (opcional, máx. 1000 caracteres) y `postulante_nombre`, copiado de `profiles.full_name` por el trigger `postulaciones_set_nombre` (porque `profiles` solo lo lee su dueño). Un candidato no puede postularse dos veces a la misma vacante.
+*   `postular()` sube el CV a `cvs/{userId}/{uuid}.pdf` y, si el insert falla, **borra el archivo** para no dejar huérfanos.
+*   En la BD existe además la función `rls_auto_enable()` que no proviene de los archivos del repo (viene de la configuración de Supabase); no tocarla.
+*   Advisors de seguridad pendientes (todos WARN, ninguno bloqueante): (1) **Leaked Password Protection desactivada** (se activa en el panel de Supabase Auth); (2) las funciones trigger `handle_new_user`, `postulaciones_set_nombre` y `rls_auto_enable` son ejecutables por `anon` vía RPC — no son llamables con efecto, pero se pueden cerrar con `revoke execute … from anon, authenticated` en un nuevo `09_*.sql`; (3) las funciones `security definer` que usa la app (`current_user_role`, `ha_postulado`, `examenes_completados`, `enviar_examen_psicometrico`) son ejecutables por `authenticated` a propósito.
+
+### 12.3 Estado de verificación del código
+*   `npm run build` (`tsc -b && vite build`) pasa sin errores; el bundle principal pesa ~488 kB (142 kB gzip) y cada página se carga por separado.
+*   Ningún archivo de `src/` supera las 150 líneas (los mayores: `ui/TagInput.tsx` 148, `PostulacionForm.tsx` 141, `VacanteForm.tsx` 128, `lib/match.ts` 127); si alguno crece, dividirlo. Los pesos del match en el código (`PESOS = {edad 15, nivel 20, grado 20, experiencia 20}`, `BONO_HABILIDAD = 2`) coinciden con la sección 7.3.
+*   `README.md` sigue siendo la plantilla de Vite (pendiente, ver "Fuera de alcance").
