@@ -10,8 +10,8 @@ import { homeForRole } from '../lib/roles'
 function DetailSkeleton() {
   return (
     <div className="animate-pulse space-y-6" aria-busy="true">
-      <div className="h-32 rounded-xl bg-slate-200 dark:bg-slate-800" />
-      <div className="h-48 rounded-xl bg-slate-100 dark:bg-slate-900" />
+      <div className="h-32 rounded-sm bg-slate-200 dark:bg-slate-800" />
+      <div className="h-48 rounded-sm bg-slate-100 dark:bg-slate-900" />
     </div>
   )
 }
@@ -49,7 +49,7 @@ export function VacanteDetailPage() {
     <AppLayout>
       <Link
         to={backTo}
-        className="mb-6 inline-flex items-center gap-1 text-sm font-medium text-slate-500 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+        className="eyebrow mb-8 inline-flex items-center gap-1.5 transition-colors hover:text-slate-900 dark:hover:text-cream"
       >
         <span aria-hidden="true">←</span>
         {profile.role === 'publicador' ? 'Volver al panel' : 'Volver a vacantes'}

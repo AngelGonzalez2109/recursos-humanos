@@ -17,7 +17,7 @@ export function PostularPanel({ vacanteId }: { vacanteId: string }) {
   const close = useCallback(() => setOpen(false), [])
 
   if (!profile) return null
-  if (loading) return <div className="mt-6 h-10 animate-pulse rounded-lg bg-slate-200 dark:bg-slate-800" />
+  if (loading) return <div className="mt-6 h-10 animate-pulse rounded-full bg-slate-200 dark:bg-slate-800" />
   if (error) {
     return (
       <div className="mt-6">

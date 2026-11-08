@@ -3,22 +3,22 @@ import { ProgressBar } from '../ui/ProgressBar'
 
 function tone(porcentaje: number) {
   if (porcentaje >= 75) {
-    return { text: 'text-emerald-600 dark:text-emerald-400', bar: 'bg-linear-to-r from-emerald-600 to-emerald-400' }
+    return { text: 'text-emerald-600 dark:text-emerald-400', bar: 'bg-emerald-600 dark:bg-emerald-400' }
   }
   if (porcentaje >= 50) {
-    return { text: 'text-brand-600 dark:text-brand-400', bar: 'bg-linear-to-r from-brand-600 to-brand-400' }
+    return { text: 'text-slate-900 dark:text-slate-100', bar: 'bg-bistre dark:bg-cream' }
   }
-  return { text: 'text-amber-600 dark:text-amber-400', bar: 'bg-linear-to-r from-amber-600 to-amber-400' }
+  return { text: 'text-amber-600 dark:text-amber-400', bar: 'bg-amber-500 dark:bg-amber-400' }
 }
 
 const CHIP =
-  'rounded-md bg-slate-100 px-2 py-0.5 text-xs text-slate-600 dark:bg-slate-800/70 dark:text-slate-300'
+  'rounded-full px-2.5 py-0.5 text-xs text-slate-700 ring-1 ring-bistre/15 ring-inset dark:text-slate-300 dark:ring-white/15'
 
 /** "Cumple con el 85% de los requisitos" + barra animada y desglose por criterio */
 export function MatchIndicator({ match }: { match: MatchResultado }) {
   if (match.porcentaje === null) {
     return (
-      <p className="text-xs text-slate-500 dark:text-slate-400">
+      <p className="text-xs text-slate-600 dark:text-slate-400">
         Esta vacante no define requisitos estructurados, por lo que no se calcula compatibilidad.
       </p>
     )
@@ -27,11 +27,11 @@ export function MatchIndicator({ match }: { match: MatchResultado }) {
   const { text, bar } = tone(match.porcentaje)
 
   return (
-    <div className="space-y-3 rounded-lg bg-slate-50 p-4 dark:bg-slate-950/50">
+    <div className="inset-panel space-y-4 p-5">
       <div className="flex items-center gap-4">
-        <p className={`text-3xl leading-none font-semibold tabular-nums ${text}`}>
+        <p className={`font-serif text-5xl leading-none tabular-nums ${text}`}>
           {match.porcentaje}
-          <span className="text-lg">%</span>
+          <span className="text-2xl">%</span>
         </p>
         <div className="min-w-0 flex-1 space-y-2">
           <p className="text-sm font-medium text-slate-900 dark:text-slate-100">
@@ -43,12 +43,12 @@ export function MatchIndicator({ match }: { match: MatchResultado }) {
       <ul className="flex flex-wrap gap-1.5">
         {match.criterios.map((c) => (
           <li key={c.id} className={CHIP}>
-            {c.label}: <span className="font-semibold">{Math.round(c.score * 100)}%</span>
+            {c.label}: <span className="font-medium tabular-nums">{Math.round(c.score * 100)}%</span>
           </li>
         ))}
         {match.habilidadesRequeridas > 0 && (
           <li className={CHIP}>
-            Habilidades: <span className="font-semibold">{match.habilidadesCoincidentes.length}</span> de{' '}
+            Habilidades: <span className="font-medium tabular-nums">{match.habilidadesCoincidentes.length}</span> de{' '}
             {match.habilidadesRequeridas} (+{match.habilidadesCoincidentes.length * BONO_HABILIDAD}%)
           </li>
         )}

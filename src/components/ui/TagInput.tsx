@@ -77,14 +77,14 @@ export function TagInput({ label, value, onChange, options, max, hint }: TagInpu
           {value.map((tag) => (
             <li
               key={tag}
-              className="inline-flex items-center gap-1 rounded-md bg-brand-50 px-2 py-1 text-xs font-medium text-brand-700 dark:bg-brand-900/40 dark:text-brand-100"
+              className="inline-flex items-center gap-1 rounded-full bg-chartreuse/70 py-1 pr-1.5 pl-3 text-xs font-medium text-bistre ring-1 ring-bistre/15 ring-inset dark:bg-chartreuse/15 dark:text-chartreuse dark:ring-chartreuse/30"
             >
               {tag}
               <button
                 type="button"
                 aria-label={`Quitar ${tag}`}
                 onClick={() => onChange(value.filter((t) => t !== tag))}
-                className="cursor-pointer rounded px-0.5 hover:bg-brand-100 dark:hover:bg-brand-900"
+                className="cursor-pointer rounded-full px-1.5 hover:bg-bistre/10 dark:hover:bg-white/10"
               >
                 ×
               </button>
@@ -116,10 +116,10 @@ export function TagInput({ label, value, onChange, options, max, hint }: TagInpu
         <ul
           id={listId}
           role="listbox"
-          className="absolute z-20 mt-1 max-h-56 w-full animate-fade-in overflow-y-auto rounded-lg border border-slate-200 bg-white py-1 shadow-xl dark:border-slate-700 dark:bg-slate-900"
+          className="absolute z-20 mt-1 max-h-56 w-full animate-fade-in overflow-y-auto rounded-sm border border-bistre/30 bg-white py-1 dark:border-white/25 dark:bg-slate-900"
         >
           {results.length === 0 ? (
-            <li className="px-3 py-2 text-sm text-slate-500 dark:text-slate-400">Sin coincidencias</li>
+            <li className="px-3 py-2 text-sm text-slate-600 dark:text-slate-400">Sin coincidencias</li>
           ) : (
             results.map((option, index) => (
               <li
@@ -133,7 +133,7 @@ export function TagInput({ label, value, onChange, options, max, hint }: TagInpu
                 }}
                 onMouseEnter={() => setActive(index)}
                 className={`cursor-pointer px-3 py-2 text-sm ${
-                  index === active ? 'bg-brand-50 text-brand-700 dark:bg-brand-900/40 dark:text-brand-100' : ''
+                  index === active ? 'bg-slate-100 text-slate-900 dark:bg-white/10 dark:text-slate-100' : ''
                 }`}
               >
                 {option}

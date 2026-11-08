@@ -115,7 +115,7 @@ export function VacanteForm({ vacante, defaultEmpresa, onSaved, onCancel }: Vaca
         }}
       />
 
-      <div className="flex flex-col-reverse gap-3 border-t border-slate-200 pt-5 sm:flex-row sm:justify-end dark:border-slate-800">
+      <div className="hairline-t flex flex-col-reverse gap-3 pt-5 sm:flex-row sm:justify-end">
         <Button variant="secondary" onClick={onCancel} disabled={submitting}>
           Cancelar
         </Button>

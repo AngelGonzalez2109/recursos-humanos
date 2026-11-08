@@ -22,18 +22,18 @@ export function VacantePerfilBuscado({ vacante }: { vacante: Vacante }) {
   if (filas.length === 0 && vacante.habilidades.length === 0) return null
 
   return (
-    <section className="surface p-6">
-      <h2 className="text-base font-semibold">Perfil buscado</h2>
-      <dl className="mt-3 grid gap-3 text-sm sm:grid-cols-2">
+    <section className="surface p-6 sm:p-8">
+      <h2 className="text-3xl">Perfil buscado</h2>
+      <dl className="mt-5 grid gap-5 text-sm sm:grid-cols-2">
         {filas.map(([label, value]) => (
           <div key={label}>
-            <dt className="text-slate-500 dark:text-slate-400">{label}</dt>
-            <dd className="font-medium">{value}</dd>
+            <dt className="eyebrow">{label}</dt>
+            <dd className="mt-1 text-base font-medium">{value}</dd>
           </div>
         ))}
       </dl>
       {vacante.habilidades.length > 0 && (
-        <div className="mt-4 flex flex-wrap gap-1.5">
+        <div className="hairline-t mt-6 flex flex-wrap gap-1.5 pt-5">
           {vacante.habilidades.map((h) => (
             <Badge key={h} variant="brand">
               {h}

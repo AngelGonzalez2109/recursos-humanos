@@ -13,7 +13,7 @@ interface RoleSelectorProps {
 export function RoleSelector({ value, onChange }: RoleSelectorProps) {
   return (
     <fieldset>
-      <legend className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
+      <legend className="mb-1.5 block text-sm font-medium text-slate-800 dark:text-slate-200">
         Tipo de cuenta
       </legend>
       <div className="grid grid-cols-2 gap-3">
@@ -22,10 +22,10 @@ export function RoleSelector({ value, onChange }: RoleSelectorProps) {
           return (
             <label
               key={option.value}
-              className={`cursor-pointer rounded-lg border p-3 transition-all duration-200 has-focus-visible:ring-2 has-focus-visible:ring-brand-500/40 ${
+              className={`cursor-pointer rounded-sm border p-3 transition-[background-color,border-color] duration-200 has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-bistre dark:has-focus-visible:outline-cream ${
                 selected
-                  ? 'border-brand-500 bg-brand-50 ring-1 ring-brand-500 dark:bg-brand-900/30'
-                  : 'border-slate-300 hover:border-slate-400 hover:bg-slate-50 dark:border-slate-700 dark:hover:border-slate-600 dark:hover:bg-slate-800'
+                  ? 'border-bistre bg-bone ring-1 ring-bistre dark:border-cream dark:bg-white/10 dark:ring-cream'
+                  : 'border-slate-400 hover:border-bistre/70 hover:bg-bistre/[0.04] dark:border-slate-600 dark:hover:border-cream/60 dark:hover:bg-white/5'
               }`}
             >
               <input
@@ -38,12 +38,12 @@ export function RoleSelector({ value, onChange }: RoleSelectorProps) {
               />
               <span
                 className={`block text-sm font-medium ${
-                  selected ? 'text-brand-700 dark:text-brand-100' : 'text-slate-900 dark:text-slate-100'
+                  'text-slate-900 dark:text-slate-100'
                 }`}
               >
                 {option.title}
               </span>
-              <span className="mt-0.5 block text-xs text-slate-500 dark:text-slate-400">
+              <span className="mt-0.5 block text-xs text-slate-600 dark:text-slate-400">
                 {option.description}
               </span>
             </label>

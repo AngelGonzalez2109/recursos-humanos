@@ -11,7 +11,7 @@ interface VacantesFeedProps {
   hasQuery: boolean
 }
 
-const GRID = 'grid gap-4 sm:grid-cols-2 lg:grid-cols-3'
+const GRID = 'grid gap-5 sm:grid-cols-2 lg:grid-cols-3'
 
 export function VacantesFeed({ vacantes, loading, error, onRetry, hasQuery }: VacantesFeedProps) {
   if (loading) {

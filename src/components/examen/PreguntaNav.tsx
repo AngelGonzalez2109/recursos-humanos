@@ -23,12 +23,12 @@ export function PreguntaNav({ answers, current, disabled, onGo }: PreguntaNavPro
             onClick={() => onGo(index)}
             aria-label={`Pregunta ${index + 1}${answered ? ', respondida' : ', sin responder'}`}
             aria-current={isCurrent ? 'step' : undefined}
-            className={`h-8 w-8 cursor-pointer rounded-lg text-xs font-semibold transition-all duration-200 disabled:cursor-not-allowed ${
+            className={`h-8 w-8 cursor-pointer rounded-full font-mono text-xs tabular-nums transition-[background-color,color] duration-200 disabled:cursor-not-allowed ${
               isCurrent
-                ? 'bg-brand-600 text-white shadow-md ring-2 ring-brand-500/40'
+                ? 'bg-bistre text-cream ring-2 ring-bistre/25 ring-offset-2 ring-offset-slate-50 dark:bg-cream dark:text-bistre dark:ring-cream/30 dark:ring-offset-slate-900'
                 : answered
-                  ? 'bg-brand-50 text-brand-700 hover:bg-brand-100 dark:bg-brand-900/40 dark:text-brand-100'
-                  : 'bg-slate-100 text-slate-500 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-slate-700'
+                  ? 'bg-chartreuse/70 text-bistre hover:bg-chartreuse dark:bg-chartreuse/15 dark:text-chartreuse dark:hover:bg-chartreuse/25'
+                  : 'text-slate-600 ring-1 ring-bistre/20 ring-inset hover:bg-bistre/[0.06] dark:text-slate-400 dark:ring-white/20 dark:hover:bg-white/5'
             }`}
           >
             {index + 1}

@@ -8,7 +8,7 @@ const CIRCUMFERENCE = 2 * Math.PI * RADIUS
 function colorFor(remainingMs: number): string {
   if (remainingMs <= 60_000) return 'stroke-red-500 text-red-600 dark:text-red-400'
   if (remainingMs <= 5 * 60_000) return 'stroke-amber-500 text-amber-600 dark:text-amber-400'
-  return 'stroke-brand-500 text-brand-700 dark:text-brand-100'
+  return 'stroke-brand-600 text-slate-900 dark:text-slate-100'
 }
 
 /** Rueda de progreso con el tiempo restante en el centro */
@@ -45,13 +45,13 @@ export function TimerRing({ remainingMs }: { remainingMs: number }) {
         />
       </svg>
       <span
-        className={`absolute inset-0 flex flex-col items-center justify-center text-lg font-semibold tabular-nums ${color
+        className={`absolute inset-0 flex flex-col items-center justify-center font-mono text-lg tabular-nums ${color
           .split(' ')
           .slice(1)
           .join(' ')}`}
       >
         {formatMmSs(remainingMs)}
-        <span className="text-[10px] font-medium tracking-wide text-slate-400 uppercase">restante</span>
+        <span className="text-[10px] tracking-[0.1em] text-slate-600 uppercase dark:text-slate-400">restante</span>
       </span>
     </div>
   )

@@ -35,19 +35,19 @@ export function MisVacanteRow({ vacante, onChanged, onEdit }: MisVacanteRowProps
   }
 
   return (
-    <li className="flex flex-col gap-4 p-5 transition-colors hover:bg-slate-50 sm:flex-row sm:items-center dark:hover:bg-white/[0.03]">
+    <li className="flex flex-col gap-4 p-6 transition-colors hover:bg-bone/70 sm:flex-row sm:items-center dark:hover:bg-white/[0.03]">
       <Avatar name={vacante.empresa} shape="square" />
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">
           <Link
             to={`/vacantes/${vacante.id}`}
-            className="truncate font-semibold text-slate-900 transition-colors hover:text-brand-600 dark:text-slate-100 dark:hover:text-brand-400"
+            className="truncate font-serif text-2xl leading-tight text-slate-900 underline-offset-4 transition-colors hover:underline dark:text-slate-100"
           >
             {vacante.titulo}
           </Link>
           <Badge variant={abierta ? 'success' : 'muted'}>{ESTADO_LABELS[vacante.estado]}</Badge>
         </div>
-        <p className="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
+        <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
           {vacante.ubicacion} · {formatSalario(vacante)} · Publicada {formatFechaRelativa(vacante.created_at)}
         </p>
         <div className="mt-2">

@@ -8,13 +8,13 @@ import { Avatar } from '../ui/Avatar'
 import { VacantePerfilBuscado } from './VacantePerfilBuscado'
 import { VacanteBadges } from './VacanteBadges'
 
-const CARD = 'surface p-6'
+const CARD = 'surface p-6 sm:p-8'
 
 function Section({ title, text }: { title: string; text: string }) {
   return (
     <section className={CARD}>
-      <h2 className="text-base font-semibold">{title}</h2>
-      <p className="mt-3 text-sm leading-relaxed whitespace-pre-line">{text}</p>
+      <h2 className="text-3xl">{title}</h2>
+      <p className="mt-4 max-w-prose text-base leading-relaxed whitespace-pre-line">{text}</p>
     </section>
   )
 }
@@ -31,21 +31,17 @@ export function VacanteDetail({ vacante, viewerRole, isOwner }: VacanteDetailPro
   return (
     <div className="grid animate-fade-in gap-6 lg:grid-cols-[1fr_20rem]">
       <div className="space-y-6">
-        <header className={`${CARD} relative overflow-hidden`}>
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -top-24 -right-24 h-56 w-56 rounded-full bg-brand-500/10 blur-3xl dark:bg-brand-400/15"
-          />
-          <div className="relative flex items-start gap-4">
+        <header className={CARD}>
+          <div className="flex items-start gap-4">
             <Avatar name={vacante.empresa} shape="square" />
             <div className="min-w-0">
-              <h1 className="text-2xl font-semibold tracking-tight">{vacante.titulo}</h1>
-              <p className="mt-1 text-slate-500 dark:text-slate-400">
+              <h1 className="text-4xl leading-[1.05] tracking-[-0.025em] sm:text-5xl">{vacante.titulo}</h1>
+              <p className="mt-2 text-slate-600 dark:text-slate-400">
                 {vacante.empresa} · {vacante.ubicacion}
               </p>
             </div>
           </div>
-          <div className="relative mt-4">
+          <div className="mt-5">
             <VacanteBadges vacante={vacante} />
           </div>
         </header>
@@ -55,16 +51,16 @@ export function VacanteDetail({ vacante, viewerRole, isOwner }: VacanteDetailPro
         {isOwner && <PostulacionesRecibidas vacante={vacante} />}
       </div>
 
-      <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">
+      <aside className="space-y-4 lg:sticky lg:top-28 lg:self-start">
         <div className={CARD}>
-          <dl className="space-y-3 text-sm">
+          <dl className="space-y-5 text-sm">
             <div>
-              <dt className="text-slate-500 dark:text-slate-400">Salario</dt>
-              <dd className="font-medium text-slate-900 dark:text-slate-100">{formatSalario(vacante)}</dd>
+              <dt className="eyebrow">Salario</dt>
+              <dd className="mt-1 text-base font-medium text-slate-900 tabular-nums dark:text-slate-100">{formatSalario(vacante)}</dd>
             </div>
             <div>
-              <dt className="text-slate-500 dark:text-slate-400">Publicada</dt>
-              <dd className="font-medium text-slate-900 dark:text-slate-100">
+              <dt className="eyebrow">Publicada</dt>
+              <dd className="mt-1 text-base font-medium text-slate-900 dark:text-slate-100">
                 {formatFechaRelativa(vacante.created_at)}
               </dd>
             </div>

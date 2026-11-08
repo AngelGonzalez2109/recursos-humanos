@@ -12,7 +12,11 @@ export function VacantesPage() {
   const vacantes = useMemo(() => filterVacantes(data ?? [], query), [data, query])
 
   return (
-    <AppLayout title="Vacantes disponibles" description="Encuentra tu próxima oportunidad laboral.">
+    <AppLayout
+      eyebrow="01 · Vacantes"
+      title="Vacantes disponibles"
+      description="Encuentra tu próxima oportunidad laboral."
+    >
       <div className="mb-6 max-w-md">
         <Input
           label="Buscar vacantes"

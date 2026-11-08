@@ -21,19 +21,19 @@ export function AppHeader() {
   }
 
   return (
-    <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/75 backdrop-blur-xl transition-colors duration-300 dark:border-slate-800/80 dark:bg-slate-950/70">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
-        <div className="flex items-center gap-4">
-          <BrandLogo />
-          {profile && <HeaderNav role={profile.role} />}
-        </div>
+    <header className="sticky top-3 z-30 px-3 sm:px-6">
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-4 gap-y-2 rounded-[1.75rem] border border-bistre/10 bg-[#cfcfc8]/75 px-4 py-2.5 shadow-[inset_0_0_10px_rgba(0,0,0,0.08)] backdrop-blur-xl backdrop-saturate-150 transition-colors duration-300 sm:flex-nowrap sm:rounded-full sm:px-6 dark:border-white/10 dark:bg-slate-900/70 dark:shadow-[inset_0_0_10px_rgba(255,255,255,0.04)]">
+        <BrandLogo />
+        {profile && (
+          <div className="order-3 w-full sm:order-none sm:w-auto sm:flex-1 sm:pl-2">
+            <HeaderNav role={profile.role} />
+          </div>
+        )}
         <div className="flex items-center gap-3">
           {profile && (
-            <div className="mr-1 hidden text-right sm:block">
-              <p className="text-sm font-medium text-slate-900 dark:text-slate-100">
-                {profile.full_name}
-              </p>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
+            <div className="mr-1 hidden text-right lg:block">
+              <p className="text-sm font-medium text-slate-900 dark:text-slate-100">{profile.full_name}</p>
+              <p className="eyebrow">
                 {ROLE_LABELS[profile.role]}
                 {profile.company_name ? ` · ${profile.company_name}` : ''}
               </p>

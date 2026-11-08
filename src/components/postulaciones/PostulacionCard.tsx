@@ -47,18 +47,18 @@ export function PostulacionCard({ item: { postulacion, match }, resultado, onCha
   const coincidentes = new Set(match.habilidadesCoincidentes.map(normalize))
 
   return (
-    <li className="surface surface-interactive animate-fade-in space-y-4 p-5">
+    <li className="surface surface-interactive animate-fade-in space-y-5 p-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex min-w-0 items-center gap-3">
           <Avatar name={nombre} />
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">
-              <p className="truncate font-semibold text-slate-900 dark:text-slate-100">{nombre}</p>
+              <p className="truncate font-serif text-2xl leading-tight text-slate-900 dark:text-slate-100">{nombre}</p>
               <Badge variant={ESTADO_POSTULACION_VARIANT[postulacion.estado]}>
                 {ESTADO_POSTULACION_LABELS[postulacion.estado]}
               </Badge>
             </div>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
+            <p className="eyebrow mt-1">
               Se postuló {formatFechaRelativa(postulacion.created_at)}
             </p>
           </div>
@@ -72,7 +72,7 @@ export function PostulacionCard({ item: { postulacion, match }, resultado, onCha
 
       {resultado && <DesglosePsicometrico resultado={resultado} />}
       {!resultado && postulacion.estado === 'pruebas_psicometricas' && (
-        <p className="text-xs text-slate-500 dark:text-slate-400">
+        <p className="text-xs text-slate-600 dark:text-slate-400">
           Evaluación de Perfil Profesional pendiente: el candidato aún no la presenta.
         </p>
       )}
@@ -87,7 +87,7 @@ export function PostulacionCard({ item: { postulacion, match }, resultado, onCha
 
       {postulacion.habilidades.length > 0 && (
         <div>
-          <p className="mb-1.5 text-xs font-medium tracking-wide text-slate-500 uppercase dark:text-slate-400">
+          <p className="eyebrow mb-2">
             Habilidades
           </p>
           <div className="flex flex-wrap gap-1.5">
@@ -105,13 +105,13 @@ export function PostulacionCard({ item: { postulacion, match }, resultado, onCha
       )}
 
       {postulacion.mensaje && (
-        <p className="rounded-lg bg-slate-50 px-3 py-2 text-sm whitespace-pre-line text-slate-600 dark:bg-slate-950/50 dark:text-slate-300">
+        <p className="inset-panel px-4 py-3 text-sm whitespace-pre-line text-slate-700 dark:text-slate-300">
           {postulacion.mensaje}
         </p>
       )}
       {error && <Alert variant="error">{error}</Alert>}
 
-      <div className="border-t border-slate-200 pt-4 dark:border-slate-800">
+      <div className="hairline-t pt-4">
         <EstadoPostulacionSelect postulacion={postulacion} onChanged={onChanged} />
       </div>
     </li>

@@ -86,7 +86,7 @@ export function PostulacionForm({ vacanteId, userId, onSent, onCancel }: Postula
       {submitError && <Alert variant="error">{submitError}</Alert>}
 
       <div>
-        <label htmlFor="cv-file" className="mb-1.5 block text-sm font-medium">
+        <label htmlFor="cv-file" className="mb-1.5 block text-sm font-medium text-slate-800 dark:text-slate-200">
           Currículum (PDF, máx. 5 MB)
         </label>
         <input
@@ -95,13 +95,13 @@ export function PostulacionForm({ vacanteId, userId, onSent, onCancel }: Postula
           accept="application/pdf,.pdf"
           onChange={handleFile}
           aria-invalid={fileError ? true : undefined}
-          className="block w-full cursor-pointer rounded-lg border border-slate-300 bg-white text-sm text-slate-600 file:mr-4 file:cursor-pointer file:border-0 file:bg-slate-100 file:px-4 file:py-2.5 file:text-sm file:font-medium file:text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:file:bg-slate-800 dark:file:text-slate-200"
+          className="block w-full cursor-pointer rounded-sm border border-slate-400 bg-white text-sm text-slate-600 hover:border-bistre/70 file:mr-4 file:cursor-pointer file:border-0 file:bg-bistre file:px-5 file:py-2.5 file:text-sm file:font-medium file:text-cream dark:border-slate-600 dark:bg-slate-950 dark:text-slate-300 dark:file:bg-cream dark:file:text-bistre"
         />
         {fileError && <p className="mt-1.5 text-sm text-red-600 dark:text-red-400">{fileError}</p>}
       </div>
 
-      <fieldset className="space-y-4 rounded-lg border border-slate-200 p-4 dark:border-slate-800">
-        <legend className="px-2 text-sm font-semibold">Tu perfil (para calcular tu compatibilidad)</legend>
+      <fieldset className="space-y-4 rounded-sm border border-dashed border-bistre/25 p-4 dark:border-white/20">
+        <legend className="px-2 font-serif text-xl text-slate-900 dark:text-slate-100">Tu perfil (para calcular tu compatibilidad)</legend>
         <Input
           label="Edad"
           type="number"
@@ -128,7 +128,7 @@ export function PostulacionForm({ vacanteId, userId, onSent, onCancel }: Postula
         onChange={(event) => setField('mensaje', event.target.value)}
       />
 
-      <div className="flex flex-col-reverse gap-3 border-t border-slate-200 pt-5 sm:flex-row sm:justify-end dark:border-slate-800">
+      <div className="hairline-t flex flex-col-reverse gap-3 pt-5 sm:flex-row sm:justify-end">
         <Button variant="secondary" onClick={onCancel} disabled={submitting}>
           Cancelar
         </Button>

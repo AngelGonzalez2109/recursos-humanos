@@ -5,7 +5,7 @@ import { RegisterForm } from '../components/auth/RegisterForm'
 import { Alert } from '../components/ui/Alert'
 
 const LINK_STYLES =
-  'font-medium text-brand-600 transition-colors hover:text-brand-700 dark:text-brand-500 dark:hover:text-brand-100'
+  'font-medium text-slate-900 underline decoration-bistre/30 underline-offset-4 transition-colors hover:decoration-bistre dark:text-slate-100 dark:decoration-white/30 dark:hover:decoration-white'
 
 export function RegisterPage() {
   const [pendingEmail, setPendingEmail] = useState<string | null>(null)
@@ -18,7 +18,7 @@ export function RegisterPage() {
             Enviamos un enlace de confirmación a <strong>{pendingEmail}</strong>. Ábrelo para
             activar tu cuenta.
           </Alert>
-          <p className="text-center text-sm text-slate-500 dark:text-slate-400">
+          <p className="text-center text-sm text-slate-600 dark:text-slate-400">
             ¿Ya confirmaste?{' '}
             <Link to="/login" className={LINK_STYLES}>
               Inicia sesión

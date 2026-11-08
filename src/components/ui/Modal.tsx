@@ -30,22 +30,22 @@ export function Modal({ open, title, onClose, children, size = 'lg' }: ModalProp
   if (!open) return null
 
   return createPortal(
-    <div className="fixed inset-0 z-50 flex justify-center overflow-y-auto bg-slate-950/60 p-4 backdrop-blur-sm animate-overlay-in sm:items-start sm:py-12">
+    <div className="fixed inset-0 z-50 flex justify-center overflow-y-auto bg-bistre/55 p-4 backdrop-blur-sm animate-overlay-in sm:items-start sm:py-12">
       <div
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className={`surface h-fit w-full animate-modal-in ${size === 'md' ? 'max-w-md' : 'max-w-2xl'} shadow-2xl dark:bg-slate-900`}
+        className={`surface h-fit w-full animate-modal-in border-solid border-bistre/30 bg-slate-50 dark:border-white/25 dark:bg-slate-900 ${size === 'md' ? 'max-w-md' : 'max-w-2xl'}`}
       >
-        <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4 dark:border-slate-800">
-          <h2 id={titleId} className="text-lg font-semibold">
+        <div className="hairline-b flex items-center justify-between px-6 py-4">
+          <h2 id={titleId} className="text-2xl">
             {title}
           </h2>
           <button
             type="button"
             onClick={onClose}
             aria-label="Cerrar"
-            className="cursor-pointer rounded-lg p-1.5 text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white"
+            className="cursor-pointer rounded-full p-2 text-slate-600 transition-colors hover:bg-bistre/[0.06] hover:text-bistre dark:text-slate-400 dark:hover:bg-cream/10 dark:hover:text-cream"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-5 w-5" aria-hidden="true">
               <path d="M18 6 6 18M6 6l12 12" strokeLinecap="round" />

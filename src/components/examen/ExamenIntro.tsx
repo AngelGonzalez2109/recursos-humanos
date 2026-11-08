@@ -5,9 +5,9 @@ const CARD = 'surface'
 
 function Fact({ value, label }: { value: string; label: string }) {
   return (
-    <div className="rounded-xl bg-brand-50 px-4 py-5 text-center dark:bg-brand-900/30">
-      <p className="text-3xl font-semibold text-brand-700 dark:text-brand-100">{value}</p>
-      <p className="mt-1 text-xs font-medium text-slate-600 dark:text-slate-300">{label}</p>
+    <div className="inset-panel px-4 py-6 text-center">
+      <p className="font-serif text-5xl leading-none text-slate-900 tabular-nums dark:text-slate-100">{value}</p>
+      <p className="eyebrow mt-3">{label}</p>
     </div>
   )
 }
@@ -16,11 +16,9 @@ function Fact({ value, label }: { value: string; label: string }) {
 export function ExamenIntro({ vacanteTitulo, onStart }: { vacanteTitulo: string | null; onStart: () => void }) {
   return (
     <div className={`${CARD} animate-fade-in overflow-hidden`}>
-      <div className="bg-gradient-to-r from-brand-700 to-brand-500 px-6 py-8 text-white sm:px-10">
-        <p className="text-xs font-semibold tracking-wide uppercase opacity-80">
-          {vacanteTitulo ? `Postulación: ${vacanteTitulo}` : 'Postulación'}
-        </p>
-        <h1 className="mt-1 text-2xl font-semibold tracking-tight sm:text-3xl">{EXAMEN.titulo}</h1>
+      <div className="hairline-b px-6 py-10 sm:px-10">
+        <p className="eyebrow">{vacanteTitulo ? `Postulación: ${vacanteTitulo}` : 'Postulación'}</p>
+        <h1 className="mt-4 text-4xl leading-[1.05] tracking-[-0.025em] sm:text-5xl">{EXAMEN.titulo}</h1>
       </div>
 
       <div className="space-y-6 px-6 py-8 sm:px-10">
@@ -30,11 +28,11 @@ export function ExamenIntro({ vacanteTitulo, onStart }: { vacanteTitulo: string 
           <Fact value="1" label="Único intento" />
         </div>
 
-        <p className="rounded-lg border border-brand-100 bg-brand-50 px-4 py-3 text-sm text-brand-700 dark:border-brand-900/60 dark:bg-brand-900/30 dark:text-brand-100">
+        <p className="rounded-sm border border-dashed border-bistre/25 bg-bone px-4 py-3 text-sm text-slate-800 dark:border-white/20 dark:bg-white/[0.06] dark:text-slate-200">
           {EXAMEN.introduccion}
         </p>
 
-        <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-300">
+        <ul className="space-y-2 text-sm text-slate-700 dark:text-slate-300">
           <li>• El tiempo comienza al presionar «Comenzar» y no se detiene, aunque recargues o salgas de la página.</li>
           <li>• Si recargas por accidente, tus respuestas se conservan en este navegador.</li>
           <li>• Al terminarse el tiempo, la evaluación se envía automáticamente con lo que hayas respondido.</li>

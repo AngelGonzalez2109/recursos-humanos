@@ -3,26 +3,102 @@
 /* Modo oscuro controlado por la clase .dark en <html> */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Sistema de diseño: acento azul cian eléctrico sobre neutros profundos */
+/*
+ * Sistema de diseño "editorial sobre papel cálido" (ver DESIGN.md).
+ * Papel crema sobre lienzo gris cálido, serif en peso 400 para los títulos,
+ * Geist para la interfaz y Geist Mono para marcadores. Casi sin color: un solo
+ * acento chartreuse y tonos apagados (oliva, ocre, arcilla) para los estados.
+ */
 @theme {
-  --font-sans: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'Geist', ui-sans-serif, system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Instrument Serif', 'Noto Serif', Georgia, serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-  --color-brand-50: #eef9ff;
-  --color-brand-100: #d9f1ff;
-  --color-brand-200: #b3e4ff;
-  --color-brand-300: #70ccff;
-  --color-brand-400: #2db4fb;
-  --color-brand-500: #0a93e0;
-  --color-brand-600: #0575b8;
-  --color-brand-700: #045f96;
-  --color-brand-800: #074d78;
-  --color-brand-900: #0a3f61;
-  --color-brand-950: #06263d;
+  /* Paleta fija (no cambia con el tema) */
+  --color-parchment: #d7d7d0;
+  --color-cream: #f7f6f3;
+  --color-bone: #fdfcfa;
+  --color-bistre: #1a1614;
+  --color-ash: #2a2724;
+  --color-graphite: #66635f;
+  --color-flint: #a8a7a1;
+  --color-quill: #e3e3de;
+  --color-chartreuse: #e2e67d;
 
-  --animate-fade-in: fade-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  /* Nunca blanco puro */
+  --color-white: #fdfcfa;
+
+  /* Neutros cálidos (modo claro): de crema a bistre */
+  --color-slate-50: #f7f6f3;
+  --color-slate-100: #efeee9;
+  --color-slate-200: #e3e3de;
+  --color-slate-300: #cfcec7;
+  --color-slate-400: #7a7771;
+  --color-slate-500: #66635f;
+  --color-slate-600: #53504c;
+  --color-slate-700: #3b3835;
+  --color-slate-800: #2a2724;
+  --color-slate-900: #1a1614;
+  --color-slate-950: #120f0d;
+
+  /* "brand" ahora es tinta: acciones, enlaces, foco y progreso en bistre */
+  --color-brand-50: #f7f6f3;
+  --color-brand-100: #efeee9;
+  --color-brand-200: #e3e3de;
+  --color-brand-300: #c9c8c1;
+  --color-brand-400: #a8a7a1;
+  --color-brand-500: #53504c;
+  --color-brand-600: #1a1614;
+  --color-brand-700: #1a1614;
+  --color-brand-800: #2a2724;
+  --color-brand-900: #3b3835;
+  --color-brand-950: #120f0d;
+
+  /* Estados apagados: oliva (éxito), ocre (aviso) y arcilla (error) */
+  --color-emerald-50: #f6f6e4;
+  --color-emerald-100: #ecedc7;
+  --color-emerald-200: #dcdfa0;
+  --color-emerald-300: #c4c870;
+  --color-emerald-400: #a9ae48;
+  --color-emerald-500: #8a8f33;
+  --color-emerald-600: #6c7126;
+  --color-emerald-700: #565a20;
+  --color-emerald-800: #45481d;
+  --color-emerald-900: #3a3d1b;
+  --color-emerald-950: #1f210c;
+
+  --color-amber-50: #fbf3e3;
+  --color-amber-100: #f6e4bf;
+  --color-amber-200: #eecf8f;
+  --color-amber-300: #e4b45c;
+  --color-amber-400: #d79a37;
+  --color-amber-500: #bd7f22;
+  --color-amber-600: #8f5a14;
+  --color-amber-700: #7c4f15;
+  --color-amber-800: #654015;
+  --color-amber-900: #543615;
+  --color-amber-950: #2f1b08;
+
+  --color-red-50: #fbefeb;
+  --color-red-100: #f6d9d1;
+  --color-red-200: #edb9ab;
+  --color-red-300: #e0907d;
+  --color-red-400: #d06d57;
+  --color-red-500: #b9503b;
+  --color-red-600: #9c3d2b;
+  --color-red-700: #7f3223;
+  --color-red-800: #682b20;
+  --color-red-900: #55261e;
+  --color-red-950: #2e120d;
+
+  /* Movimiento: 0.15–0.3 s en estados, 0.6 s en entradas; nunca lineal */
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-enter: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-fade-in: fade-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-overlay-in: overlay-in 0.2s ease-out both;
-  --animate-modal-in: modal-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
-  --animate-bar-fill: bar-fill 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-modal-in: modal-in 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-bar-fill: bar-fill 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
 
   @keyframes fade-in {
     from {
@@ -47,7 +123,7 @@
   @keyframes modal-in {
     from {
       opacity: 0;
-      transform: translateY(12px) scale(0.97);
+      transform: translateY(12px) scale(0.98);
     }
     to {
       opacity: 1;
@@ -63,57 +139,65 @@
   }
 }
 
-/* Neutros del modo oscuro: más profundos y con bordes sutiles (zinc/slate) */
+/* Modo oscuro: mismo papel, pero tinta. Neutros cálidos y casi negros */
 .dark {
-  --color-slate-50: #f5f6f8;
-  --color-slate-100: #eceef2;
-  --color-slate-200: #d9dce4;
-  --color-slate-300: #b7bdca;
-  --color-slate-400: #8c93a4;
-  --color-slate-500: #7b8296;
-  --color-slate-600: #4b5163;
-  --color-slate-700: #2f3442;
-  --color-slate-800: #1f232d;
-  --color-slate-900: #14171e;
-  --color-slate-950: #0a0c10;
+  --color-slate-50: #f7f6f3;
+  --color-slate-100: #efeee9;
+  --color-slate-200: #e3e3de;
+  --color-slate-300: #c9c8c1;
+  --color-slate-400: #a8a7a1;
+  --color-slate-500: #918f89;
+  --color-slate-600: #5c5853;
+  --color-slate-700: #3a3632;
+  --color-slate-800: #2a2623;
+  --color-slate-900: #1c1917;
+  --color-slate-950: #14110f;
+
+  /* La tinta se invierte: acentos claros sobre fondo oscuro */
+  --color-brand-50: #1c1917;
+  --color-brand-100: #efeee9;
+  --color-brand-200: #d9d8d1;
+  --color-brand-300: #e3e3de;
+  --color-brand-400: #efeee9;
+  --color-brand-500: #c9c8c1;
+  --color-brand-600: #efeee9;
+  --color-brand-700: #f7f6f3;
+  --color-brand-800: #fdfcfa;
+  --color-brand-900: #2a2623;
+  --color-brand-950: #14110f;
 }
 
 @layer base {
   html {
     @apply scroll-smooth antialiased;
-    font-feature-settings: 'cv11', 'ss01';
+    font-synthesis-weight: none;
   }
 
   body {
-    @apply bg-slate-50 font-sans text-slate-700 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-300;
+    @apply bg-parchment font-sans text-slate-700 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-300;
+    letter-spacing: -0.01em;
   }
 
-  /* Resplandor de acento al fondo de la página */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background:
-      radial-gradient(900px 420px at 50% -140px, rgb(10 147 224 / 0.09), transparent 70%),
-      radial-gradient(600px 300px at 90% 0, rgb(45 180 251 / 0.05), transparent 70%);
-  }
-
-  .dark body::before {
-    background:
-      radial-gradient(900px 460px at 50% -160px, rgb(10 147 224 / 0.2), transparent 70%),
-      radial-gradient(600px 320px at 92% 0, rgb(45 180 251 / 0.08), transparent 70%);
-  }
-
+  /* Títulos: serif en peso 400, nunca en negrita (la identidad depende de ello) */
   h1,
   h2,
   h3 {
-    @apply tracking-tight text-slate-900 dark:text-slate-100;
+    @apply font-serif font-normal text-slate-900 dark:text-slate-100;
+    letter-spacing: -0.015em;
   }
 
   ::selection {
-    @apply bg-brand-400/30;
+    background: var(--color-chartreuse);
+    color: var(--color-bistre);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-bistre);
+    outline-offset: 2px;
+  }
+
+  .dark :focus-visible {
+    outline-color: var(--color-cream);
   }
 
   .dark {
@@ -122,26 +206,58 @@
 }
 
 @layer components {
-  /* Tarjeta base */
+  /* Tarjeta base: papel crema, plana, con separador punteado (sin sombras) */
   .surface {
-    @apply rounded-xl border border-slate-200 bg-white shadow-sm transition-[border-color,box-shadow,transform,background-color] duration-200 dark:border-slate-800 dark:bg-slate-900/80 dark:shadow-[inset_0_1px_0_0_rgb(255_255_255/0.03),0_12px_32px_-20px_rgb(0_0_0/0.9)];
+    @apply rounded-sm border border-dashed border-bistre/20 bg-slate-50 transition-[border-color,background-color,transform] duration-200 dark:border-white/15 dark:bg-slate-900/80;
   }
 
-  /* Tarjeta clicable: se eleva y se ilumina con el acento */
+  /* Tarjeta clicable: se aclara, se perfila y sube un poco */
   .surface-interactive:hover {
     transform: translateY(-2px);
-    border-color: rgb(10 147 224 / 0.5);
-    box-shadow:
-      0 14px 34px -16px rgb(10 147 224 / 0.45),
-      0 0 0 1px rgb(10 147 224 / 0.12);
+    border-style: solid;
+    border-color: color-mix(in srgb, var(--color-bistre) 55%, transparent);
+    background-color: var(--color-bone);
+  }
+
+  .dark .surface-interactive:hover {
+    border-color: color-mix(in srgb, var(--color-cream) 45%, transparent);
+    background-color: var(--color-slate-900);
   }
 
   .surface-interactive:active {
     transform: translateY(0);
   }
+
+  /* Marcador editorial: "01 · VACANTES" */
+  .eyebrow {
+    @apply font-mono text-[11px] leading-[1.2] font-normal tracking-[0.1em] text-slate-600 uppercase dark:text-slate-400;
+  }
+
+  /* Separador punteado de 1 px: único tipo de línea dentro de la página */
+  .hairline-b {
+    @apply border-b border-dashed border-bistre/20 dark:border-white/15;
+  }
+
+  .hairline-t {
+    @apply border-t border-dashed border-bistre/20 dark:border-white/15;
+  }
+
+  /* Lista con filas separadas por líneas punteadas */
+  .list-hairline > * + * {
+    @apply border-t border-dashed border-bistre/20 dark:border-white/15;
+  }
+
+  /* Panel interior (dato, desglose): un tono más profundo que la tarjeta */
+  .inset-panel {
+    @apply rounded-sm bg-slate-100 dark:bg-slate-950/50;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   .animate-fade-in,
   .animate-overlay-in,
   .animate-modal-in,

@@ -41,7 +41,7 @@ export function LoginPage() {
           ¿No tienes cuenta?{' '}
           <Link
             to="/registro"
-            className="font-medium text-brand-600 transition-colors hover:text-brand-700 dark:text-brand-500 dark:hover:text-brand-100"
+            className="font-medium text-slate-900 underline decoration-bistre/30 underline-offset-4 transition-colors hover:decoration-bistre dark:text-slate-100 dark:decoration-white/30 dark:hover:decoration-white"
           >
             Regístrate
           </Link>

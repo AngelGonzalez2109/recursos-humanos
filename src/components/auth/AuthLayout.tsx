@@ -16,17 +16,16 @@ export function AuthLayout({ title, subtitle, children, footer }: AuthLayoutProp
         <ThemeToggle />
       </div>
       <div className="w-full max-w-md animate-fade-in">
-        <div className="mb-8 flex justify-center">
+        <div className="mb-10 flex justify-center">
           <BrandLogo />
         </div>
-        <div className="surface p-6 sm:p-8">
-          <h1 className="text-xl font-semibold">{title}</h1>
-          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{subtitle}</p>
-          <div className="mt-6">{children}</div>
+        <div className="surface p-6 sm:p-10">
+          <p className="eyebrow mb-4">Acceso</p>
+          <h1 className="text-4xl leading-none tracking-[-0.025em]">{title}</h1>
+          <p className="mt-3 text-sm text-slate-600 dark:text-slate-400">{subtitle}</p>
+          <div className="hairline-t mt-8 pt-8">{children}</div>
         </div>
-        {footer && (
-          <p className="mt-6 text-center text-sm text-slate-500 dark:text-slate-400">{footer}</p>
-        )}
+        {footer && <p className="mt-8 text-center text-sm text-slate-600 dark:text-slate-400">{footer}</p>}
       </div>
     </main>
   )

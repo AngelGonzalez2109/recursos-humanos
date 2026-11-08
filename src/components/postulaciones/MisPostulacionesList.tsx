@@ -15,26 +15,25 @@ interface MisPostulacionesListProps {
   onRetry: () => void
 }
 
-const LIST_CLASS =
-  'surface divide-y divide-slate-200 overflow-hidden dark:divide-slate-800'
+const LIST_CLASS = 'surface list-hairline overflow-hidden'
 
 function Row({ postulacion, examenCompletado }: { postulacion: MiPostulacion; examenCompletado: boolean }) {
   const vacante = postulacion.vacantes
   const pideExamen = postulacion.estado === 'pruebas_psicometricas'
   return (
-    <li className="flex flex-col gap-3 p-5 transition-colors hover:bg-slate-50 sm:flex-row sm:items-center sm:justify-between dark:hover:bg-slate-800/50">
+    <li className="flex flex-col gap-3 p-6 transition-colors hover:bg-bone/70 sm:flex-row sm:items-center sm:justify-between dark:hover:bg-white/[0.03]">
       <div className="min-w-0">
         {vacante ? (
           <Link
             to={`/vacantes/${vacante.id}`}
-            className="font-semibold transition-colors hover:text-brand-600 dark:hover:text-brand-500"
+            className="font-serif text-2xl leading-tight underline-offset-4 transition-colors hover:underline"
           >
             {vacante.titulo}
           </Link>
         ) : (
-          <p className="font-semibold">Vacante no disponible</p>
+          <p className="font-serif text-2xl leading-tight">Vacante no disponible</p>
         )}
-        <p className="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
+        <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
           {vacante ? `${vacante.empresa} · ${vacante.ubicacion} · ` : ''}
           Te postulaste {formatFechaRelativa(postulacion.created_at)}
         </p>
@@ -48,7 +47,7 @@ function Row({ postulacion, examenCompletado }: { postulacion: MiPostulacion; ex
         {pideExamen && !examenCompletado && (
           <Link
             to={`/evaluacion/${postulacion.id}`}
-            className="rounded-lg bg-brand-600 px-3 py-1.5 text-xs font-medium text-white shadow-sm transition-colors hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-600"
+            className="rounded-full bg-bistre px-4 py-2 text-xs font-medium text-cream transition-colors hover:bg-ash dark:bg-cream dark:text-bistre dark:hover:bg-bone"
           >
             Realizar evaluación
           </Link>
@@ -69,7 +68,7 @@ export function MisPostulacionesList({
     return (
       <ul className={LIST_CLASS} aria-busy="true">
         {Array.from({ length: 3 }, (_, i) => (
-          <li key={i} className="animate-pulse space-y-2 p-5">
+          <li key={i} className="animate-pulse space-y-2 p-6">
             <div className="h-5 w-1/3 rounded bg-slate-200 dark:bg-slate-700" />
             <div className="h-4 w-1/2 rounded bg-slate-100 dark:bg-slate-800" />
           </li>
@@ -84,7 +83,7 @@ export function MisPostulacionesList({
         title="Aún no te has postulado"
         description="Cuando te postules a una vacante, aquí podrás seguir el estado de tu solicitud."
         action={
-          <Link to="/vacantes" className="text-sm font-medium text-brand-600 hover:underline dark:text-brand-500">
+          <Link to="/vacantes" className="text-sm font-medium text-slate-900 underline underline-offset-4 dark:text-slate-100">
             Ver vacantes disponibles
           </Link>
         }

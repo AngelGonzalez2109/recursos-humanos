@@ -11,7 +11,11 @@ export function MisPostulacionesPage() {
   const completados = useExamenesCompletados(profile?.id ?? null)
 
   return (
-    <AppLayout title="Mis postulaciones" description="Consulta el estado de las vacantes a las que aplicaste.">
+    <AppLayout
+      eyebrow="02 · Seguimiento"
+      title="Mis postulaciones"
+      description="Consulta el estado de las vacantes a las que aplicaste."
+    >
       <MisPostulacionesList
         postulaciones={data ?? []}
         examenesCompletados={completados.data ?? []}

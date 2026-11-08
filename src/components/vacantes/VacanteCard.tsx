@@ -20,21 +20,21 @@ export function VacanteCard({ vacante, index = 0 }: VacanteCardProps) {
     <Link
       to={`/vacantes/${vacante.id}`}
       style={{ animationDelay: `${Math.min(index, 8) * 45}ms` }}
-      className="group surface surface-interactive flex animate-fade-in flex-col p-5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
+      className="group surface surface-interactive flex animate-fade-in flex-col p-6"
     >
       <div className="flex items-start gap-3">
         <Avatar name={vacante.empresa} shape="square" />
         <div className="min-w-0 flex-1">
-          <h3 className="truncate text-base leading-snug font-semibold transition-colors group-hover:text-brand-600 dark:group-hover:text-brand-400">
+          <h3 className="line-clamp-2 text-2xl leading-tight">
             {vacante.titulo}
           </h3>
-          <p className="truncate text-sm text-slate-500 dark:text-slate-400">
+          <p className="truncate text-sm text-slate-600 dark:text-slate-400">
             {vacante.empresa} · {vacante.ubicacion}
           </p>
         </div>
         <span
           aria-hidden="true"
-          className="mt-1 text-slate-400 transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-brand-500 dark:text-slate-600 dark:group-hover:text-brand-400"
+          className="mt-1 text-slate-500 transition-[transform,color] duration-200 group-hover:translate-x-1 group-hover:text-bistre dark:text-slate-500 dark:group-hover:text-cream"
         >
           →
         </span>
@@ -55,9 +55,9 @@ export function VacanteCard({ vacante, index = 0 }: VacanteCardProps) {
         </div>
       )}
 
-      <div className="mt-auto flex items-end justify-between gap-2 border-t border-slate-100 pt-4 text-sm dark:border-slate-800/80">
-        <span className="font-semibold text-slate-900 dark:text-slate-100">{formatSalario(vacante)}</span>
-        <span className="shrink-0 text-xs text-slate-400 dark:text-slate-500">
+      <div className="hairline-t mt-auto flex items-end justify-between gap-2 pt-4 text-sm">
+        <span className="font-medium text-slate-900 tabular-nums dark:text-slate-100">{formatSalario(vacante)}</span>
+        <span className="eyebrow shrink-0">
           {formatFechaRelativa(vacante.created_at)}
         </span>
       </div>
@@ -67,9 +67,9 @@ export function VacanteCard({ vacante, index = 0 }: VacanteCardProps) {
 
 export function VacanteCardSkeleton() {
   return (
-    <div className="surface animate-pulse p-5">
+    <div className="surface animate-pulse p-6">
       <div className="flex items-start gap-3">
-        <div className="h-10 w-10 rounded-lg bg-slate-200 dark:bg-slate-800" />
+        <div className="h-11 w-11 rounded-sm bg-slate-200 dark:bg-slate-800" />
         <div className="flex-1 space-y-2">
           <div className="h-5 w-3/4 rounded bg-slate-200 dark:bg-slate-700" />
           <div className="h-4 w-1/2 rounded bg-slate-100 dark:bg-slate-800" />

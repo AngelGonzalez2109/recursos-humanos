@@ -17,10 +17,10 @@ export function PostulacionesRecibidas({ vacante }: { vacante: Vacante }) {
   const ordenadas = useMemo(() => (data ? ordenarPorMatch(vacante, data) : []), [vacante, data])
 
   let content
-  if (loading) content = <div className="h-16 animate-pulse rounded-lg bg-slate-100 dark:bg-slate-800" />
+  if (loading) content = <div className="h-16 animate-pulse rounded-sm bg-slate-100 dark:bg-slate-800" />
   else if (error) content = <LoadError message={error} onRetry={reload} />
   else if (ordenadas.length === 0) {
-    content = <p className="text-sm text-slate-500 dark:text-slate-400">Aún no hay postulaciones.</p>
+    content = <p className="text-sm text-slate-600 dark:text-slate-400">Aún no hay postulaciones.</p>
   } else {
     content = (
       <ul className="space-y-4">
@@ -41,10 +41,9 @@ export function PostulacionesRecibidas({ vacante }: { vacante: Vacante }) {
 
   return (
     <section>
-      <h2 className="text-base font-semibold">
-        Postulaciones recibidas{data ? ` (${data.length})` : ''}
-      </h2>
-      <p className="mt-1 mb-4 text-xs text-slate-500 dark:text-slate-400">Ordenadas de mayor a menor compatibilidad.</p>
+      <p className="eyebrow mb-2">Candidatos</p>
+      <h2 className="text-3xl">Postulaciones recibidas{data ? ` (${data.length})` : ''}</h2>
+      <p className="mt-2 mb-6 text-sm text-slate-600 dark:text-slate-400">Ordenadas de mayor a menor compatibilidad.</p>
       {content}
     </section>
   )

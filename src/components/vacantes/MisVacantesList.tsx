@@ -14,15 +14,14 @@ interface MisVacantesListProps {
   onEdit: (vacante: Vacante) => void
 }
 
-const LIST_CLASS =
-  'surface divide-y divide-slate-200 overflow-hidden dark:divide-slate-800'
+const LIST_CLASS = 'surface list-hairline overflow-hidden'
 
 export function MisVacantesList({ vacantes, loading, error, onRetry, onChanged, onCreate, onEdit }: MisVacantesListProps) {
   if (loading) {
     return (
       <ul className={LIST_CLASS} aria-busy="true">
         {Array.from({ length: 3 }, (_, i) => (
-          <li key={i} className="animate-pulse space-y-2 p-5">
+          <li key={i} className="animate-pulse space-y-2 p-6">
             <div className="h-5 w-1/3 rounded bg-slate-200 dark:bg-slate-700" />
             <div className="h-4 w-1/2 rounded bg-slate-100 dark:bg-slate-800" />
           </li>
@@ -44,7 +43,7 @@ export function MisVacantesList({ vacantes, loading, error, onRetry, onChanged, 
   const abiertas = vacantes.filter((v) => v.estado === 'abierta').length
   return (
     <div className="space-y-3">
-      <p className="text-sm text-slate-500 dark:text-slate-400">
+      <p className="eyebrow">
         {vacantes.length} {vacantes.length === 1 ? 'vacante' : 'vacantes'} · {abiertas}{' '}
         {abiertas === 1 ? 'abierta' : 'abiertas'}
       </p>

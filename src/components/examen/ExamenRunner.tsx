@@ -66,7 +66,7 @@ export function ExamenRunner({ postulacionId, userId, vacanteTitulo, onDone }: E
             setProgreso((p) => ({ ...p, answers: { ...p.answers, [pregunta.id]: value } }))
           }
         />
-        <div className="mt-8 flex items-center justify-between gap-3 border-t border-slate-200 pt-5 dark:border-slate-800">
+        <div className="hairline-t mt-8 flex items-center justify-between gap-3 pt-5">
           <Button variant="secondary" disabled={locked || index === 0} onClick={() => go(index - 1)}>
             ← Anterior
           </Button>

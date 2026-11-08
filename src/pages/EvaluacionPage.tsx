@@ -10,7 +10,7 @@ import { useExamenesCompletados, usePostulacionPropia } from '../hooks/useExamen
 
 function Back() {
   return (
-    <Link to="/mis-postulaciones" className="text-sm font-medium text-brand-600 hover:underline dark:text-brand-500">
+    <Link to="/mis-postulaciones" className="text-sm font-medium text-slate-900 underline underline-offset-4 dark:text-slate-100">
       Volver a mis postulaciones
     </Link>
   )
@@ -29,7 +29,7 @@ export function EvaluacionPage() {
 
   let content
   if (postulacion.loading || completados.loading) {
-    content = <div className="h-64 animate-pulse rounded-xl bg-slate-200 dark:bg-slate-800" aria-busy="true" />
+    content = <div className="h-64 animate-pulse rounded-sm bg-slate-200 dark:bg-slate-800" aria-busy="true" />
   } else if (postulacion.error || completados.error) {
     content = (
       <LoadError

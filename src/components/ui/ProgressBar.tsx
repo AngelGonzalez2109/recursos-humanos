@@ -2,7 +2,7 @@ interface ProgressBarProps {
   /** 0–100 */
   value: number
   label: string
-  /** Clases del relleno; por defecto un degradado del acento */
+  /** Clases del relleno; por defecto tinta sólida */
   barClassName?: string
   heightClassName?: string
 }
@@ -11,7 +11,7 @@ interface ProgressBarProps {
 export function ProgressBar({
   value,
   label,
-  barClassName = 'bg-linear-to-r from-brand-600 to-brand-400',
+  barClassName = 'bg-bistre dark:bg-cream',
   heightClassName = 'h-2',
 }: ProgressBarProps) {
   const clamped = Math.min(100, Math.max(0, value))

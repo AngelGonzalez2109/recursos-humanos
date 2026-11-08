@@ -8,11 +8,11 @@
       name="description"
       content="Plataforma de Recursos Humanos: publica vacantes o postúlate con tu CV."
     />
-    <meta name="theme-color" content="#0a0c10" />
+    <meta name="theme-color" content="#d7d7d0" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
       rel="stylesheet"
     />
     <title>Plataforma RH · Vacantes</title>
@@ -21,7 +21,7 @@
       (function () {
         try {
           var stored = localStorage.getItem('theme')
-          var dark = stored ? stored === 'dark' : true
+          var dark = stored === 'dark'
           document.documentElement.classList.toggle('dark', dark)
           document.documentElement.style.colorScheme = dark ? 'dark' : 'light'
         } catch (e) {}

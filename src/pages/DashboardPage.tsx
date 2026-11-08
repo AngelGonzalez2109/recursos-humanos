@@ -37,6 +37,7 @@ export function DashboardPage() {
 
   return (
     <AppLayout
+      eyebrow="01 · Panel"
       title="Panel de vacantes"
       description="Gestiona las ofertas de trabajo que publicas."
       actions={<Button onClick={openForm}>Publicar vacante</Button>}

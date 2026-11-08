@@ -29,19 +29,23 @@ La aplicación debe manejar autenticación y diferenciar estrictamente entre dos
 *   **Despliegue:** Vercel (conectado a GitHub).
 
 ## 3. UI/UX Y DISEÑO VISUAL
-*   **Estilo:** Profesional, serio, corporativo y limpio.
-*   **Paleta de colores:** Tonos de confianza (azules, grises oscuros, blancos, contrastes sutiles).
-*   **Interacciones:** Interfaces altamente intuitivas. Uso de animaciones sutiles mediante las clases de transición de Tailwind (fade-ins, hover states suaves, skeleton loaders durante la carga de datos) sin sobrecargar la vista.
-*   **Componentes:** Minimalistas, con bordes redondeados suaves, sombras ligeras para dar profundidad (cards) y tipografía legible (sans-serif).
+*   **Estilo:** editorial, sobrio y profesional ("observatorio editorial sobre papel crema"), adaptado de `DESIGN.md` (referencia de otra web; **no es la identidad de este proyecto al pie de la letra**, solo su fuente de inspiración).
+*   **Paleta:** casi acromática y cálida; un único acento chartreuse.
+*   **Interacciones:** interfaces intuitivas, animaciones sutiles con transiciones de Tailwind (fade-ins, hover suaves, skeleton loaders) sin sobrecargar la vista.
+*   **Componentes:** planos, sin sombras; la profundidad viene de capas de color y de separadores punteados.
 
-### Sistema de diseño actual (estilo SaaS tipo Linear / Vercel)
-Los tokens viven en `src/index.css`; no hardcodear colores nuevos en los componentes.
-*   **Acento:** escala `brand-*` en azul cian eléctrico (`brand-400` `#2db4fb` es el acento principal en oscuro; `brand-600` en claro). Los botones primarios llevan texto oscuro sobre `brand-400` en modo oscuro (contraste) y texto blanco sobre `brand-600` en claro.
-*   **Neutros:** en modo oscuro la escala `slate-*` se **redefine** bajo `.dark` en `index.css` (fondo `slate-950` `#0a0c10`, tarjetas `slate-900`, bordes `slate-800`). Así los `dark:bg-slate-900`, `dark:border-slate-800`, etc. existentes obtienen la paleta profunda sin tocar cada componente.
-*   **Tema por defecto:** oscuro si el usuario nunca eligió (`index.html`); la elección del toggle se respeta (`localStorage.theme`). Fuente Inter (Google Fonts).
-*   **Tarjetas:** clase `.surface` (borde sutil, sombra interna, fondo) y `.surface-interactive` (se eleva y se ilumina con el acento al pasar el cursor). Usar siempre estas clases para tarjetas nuevas.
-*   **Animaciones** (`animate-fade-in`, `animate-modal-in`, `animate-overlay-in`, `animate-bar-fill`): suaves, ≤ 0.4 s, desactivadas con `prefers-reduced-motion`. Las barras de porcentaje usan `ui/ProgressBar` (relleno animado al aparecer y al cambiar). Las listas de vacantes entran escalonadas.
-*   **Botones** (`ui/Button`): variantes `primary`, `secondary`, `ghost` y `danger` (p. ej. "Cerrar vacante"), con feedback inmediato: hover, `active:scale-[0.97]`, spinner en `loading` y estado deshabilitado. Etiquetas con `ui/Badge` (anillo sutil por variante) y avatares con `ui/Avatar` (iniciales).
+### Sistema de diseño actual (editorial sobre papel cálido, adaptado de DESIGN.md)
+Los tokens viven en `src/index.css`; no hardcodear colores nuevos en los componentes. El rediseño es **solo visual** (clases y marcado): la lógica no cambió.
+*   **Tipografía:** títulos (`h1`–`h3`) en **Instrument Serif peso 400** (sustituye a Test Signifier, que es de pago; nunca en negrita, `font-synthesis-weight: none`); interfaz en **Geist** (400/500); marcadores, metadatos y temporizador en **Geist Mono** (clase `.eyebrow`: 11 px, mayúsculas, tracking 0.1 em, p. ej. "01 · VACANTES"). Fuentes por Google Fonts en `index.html`. No usar `font-semibold`/`font-bold`.
+*   **Paleta fija** (no cambia con el tema): `parchment` `#d7d7d0` (lienzo), `cream` `#f7f6f3` (tarjetas), `bone` `#fdfcfa` (superficie elevada/campos), `bistre` `#1a1614` (texto y acción principal), `ash`, `graphite`, `flint`, `quill`, `chartreuse` `#e2e67d` (único acento). Nunca blanco ni negro puros (`--color-white` se redefine como `bone`).
+*   **Escalas redefinidas en `index.css`** (así los componentes existentes se adaptan sin tocarlos): `slate-*` = neutros cálidos (claro) y casi negros cálidos bajo `.dark`; `brand-*` = **tinta** (bistre en claro, crema en oscuro; ya no es azul); `emerald-*` = oliva (éxito), `amber-*` = ocre (aviso) y `red-*` = arcilla (error). Los estados llevan siempre texto o icono, no solo color.
+*   **Tema:** claro por defecto (`index.html`; antes era oscuro); el modo oscuro es una variante cálida (fondo `slate-950` `#14110f`) y la elección del toggle se respeta (`localStorage.theme`).
+*   **Tarjetas:** clase `.surface` (papel crema, radio 4 px, borde punteado 1 px bistre al 20 %, sin sombra) y `.surface-interactive` (al pasar el cursor sube 2 px, el borde se vuelve sólido y el fondo se aclara). Paneles internos: `.inset-panel`. Separadores: `.hairline-b`, `.hairline-t` y listas con `.list-hairline`; **solo líneas punteadas** dentro de la página (las sólidas son para botones, campos y la cápsula de navegación). Usar siempre estas clases en componentes nuevos.
+*   **Navegación:** cápsula flotante tipo vidrio (`AppHeader`: `backdrop-blur`, saturación, sombra interna, radio completo; en móvil los enlaces pasan a una segunda fila). `AppLayout` acepta `eyebrow` y pinta el título en serif grande con separador punteado.
+*   **Botones** (`ui/Button`): `primary` = píldora oscura (bistre; en oscuro, crema) y es la **única acción rellena por vista**; `secondary` = contorno rectangular de 1 px que la acompaña; `ghost` = solo texto; `danger` = contorno arcilla ("Cerrar vacante"). Feedback inmediato: hover, `active:scale-[0.97]`, spinner en `loading`, deshabilitado al 50 %. Foco global visible (`:focus-visible`, contorno de 2 px).
+*   **Campos** (`ui/fieldStyles`): fondo `bone`, borde sólido de contraste ≥ 3:1, radio 4 px, etiqueta visible siempre. **Etiquetas** `ui/Badge`: píldoras con anillo sutil; la variante `brand` es el toque chartreuse (modalidad, habilidades que coinciden). **Avatares** `ui/Avatar`: iniciales en serif (cuadrado para empresas, redondo para personas). **Barras** `ui/ProgressBar`: relleno de tinta sólida; los niveles del match/examen usan oliva/ocre/arcilla.
+*   **Animaciones** (`animate-fade-in`, `animate-modal-in`, `animate-overlay-in`, `animate-bar-fill`): suaves (≤ 0.5 s), easing `cubic-bezier(0.22, 1, 0.36, 1)`, nunca lineales salvo el temporizador; desactivadas con `prefers-reduced-motion`. Las listas de vacantes entran escalonadas.
+*   **Contraste:** el texto secundario sobre el lienzo `parchment` usa `slate-600` (≥ 4.5:1); `slate-500` solo sobre tarjetas crema. Verificado a mano en claro y oscuro, escritorio y 390 px de ancho.
 
 ## 4. ESTRUCTURA DE DIRECTORIOS (ARQUITECTURA)
 Claude Code debe organizar el código fuente (`src/`) de la siguiente manera:
@@ -160,7 +164,9 @@ Las etiquetas y colores (`Badge`) viven en `src/lib/postulacionEstados.ts`. "Rec
 | `/evaluacion/:postulacionId` | `postulante` | Evaluación de Perfil Profesional (solo con estado `pruebas_psicometricas`) |
 | `/vacantes/:id` | Cualquier usuario autenticado | Detalle; el candidato ve "Postularme", el dueño ve las postulaciones ordenadas por match |
 
-**Funcionalidades completadas y verificadas en producción:** autenticación por roles, publicar/editar/cerrar vacantes, feed y detalle, postulación con CV (PDF), match automático con ordenamiento estricto, autocompletado de habilidades, estados de postulación con confirmación, "Mis postulaciones" y la Evaluación de Perfil Profesional (examen psicométrico global, un intento, 15 minutos) y el rediseño visual SaaS oscuro con acento cian eléctrico (sección 3).
+**Funcionalidades completadas y verificadas en producción:** autenticación por roles, publicar/editar/cerrar vacantes, feed y detalle, postulación con CV (PDF), match automático con ordenamiento estricto, autocompletado de habilidades, estados de postulación con confirmación, "Mis postulaciones" y la Evaluación de Perfil Profesional (examen psicométrico global, un intento, 15 minutos).
+
+**Rediseño visual editorial (sección 3):** implementado y revisado en local (capturas en claro/oscuro y a 390 px), con `npm run build` correcto; **pendiente de commit y de verificar en producción**. Sustituyó al estilo SaaS oscuro con acento cian.
 
 **Fuera de alcance por ahora (no implementar sin pedirlo):** filtros avanzados en el feed y pulido para entrega (README de instalación, ESLint — falla por la incompatibilidad de `typescript-eslint` con TypeScript 7).
 
