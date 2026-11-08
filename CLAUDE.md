@@ -122,7 +122,7 @@ Este proyecto **no concede privilegios por defecto** a `anon`/`authenticated`: t
 
 ### 7.4 Regla de ordenamiento (estricta)
 En el detalle de una vacante propia, "Postulaciones recibidas" **siempre** se ordena de **mayor a menor porcentaje de compatibilidad** (`ordenarPorMatch`). Desempates (y vacantes sin porcentaje): primero la postulación más antigua. No hay otros criterios de orden ni controles para alterarlo.
-Cada candidato muestra "Cumple con el N% de los requisitos", una barra de progreso, el desglose por criterio, sus datos y etiquetas, y el botón "Ver CV" (URL firmada de 60 s).
+Cada candidato es un **desplegable** (`PostulacionCard`, todos cerrados al cargar; el estado abierto vive en `PostulacionesRecibidas`, que añade "Expandir todos / Contraer todos"). La cabecera resume nombre, estado, si la evaluación está completada o pendiente y el % de compatibilidad con su barra; al abrirlo (`PostulacionDetalle`) aparecen "Cumple con el N% de los requisitos", la barra, el desglose por criterio, la evaluación psicométrica, sus datos y etiquetas, el mensaje, el botón "Ver CV" (URL firmada de 60 s) y "Cambiar estado" con su confirmación obligatoria. Abrir o cerrar no altera el orden ni el cálculo.
 
 ## 8. SEGUIMIENTO DE POSTULACIONES
 
@@ -215,7 +215,7 @@ Si se modifican preguntas o la clave: actualizar el JSON **y** la función SQL, 
 7.  Al enviar (manual, con confirmación, o por tiempo) el candidato **solo ve** "Examen enviado con éxito. El reclutador ha sido notificado." — nunca su puntaje.
 
 ### 11.6 Vista del reclutador
-En cada tarjeta de candidato, **debajo de la compatibilidad general**, `DesglosePsicometrico` muestra un recuadro por dimensión: "Lógica: 80%", "Trabajo en equipo: Alto", "Tolerancia al estrés: Medio"…, con barra, número de preguntas respondidas e indicación de envío por tiempo agotado. Si el candidato está en pruebas psicométricas pero aún no la presenta, se indica como pendiente.
+En cada tarjeta de candidato, **debajo de la compatibilidad general**, `DesglosePsicometrico` muestra un recuadro por dimensión: **Lógica** como cifra grande ("80%"), barra y "8 de 10 aciertos"; las dimensiones Likert (**Adaptabilidad, Trabajo en equipo, Liderazgo, Tolerancia al estrés**) como nivel en texto grande ("Alto", "Medio", "Bajo") con un medidor de tres tramos Bajo · Medio · Alto (nunca se muestra su porcentaje), más el número de preguntas respondidas y la indicación de envío por tiempo agotado. Si el candidato está en pruebas psicométricas pero aún no la presenta, se indica como pendiente.
 
 ## 12. INFRAESTRUCTURA, INTEGRACIONES Y DETALLES DEL CÓDIGO (verificado el 2026-11-08)
 

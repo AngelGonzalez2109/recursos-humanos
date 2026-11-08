@@ -1,8 +1,9 @@
-import { useMemo } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useResultadosVacante } from '../../hooks/useExamen'
 import { usePostulaciones } from '../../hooks/usePostulaciones'
 import { ordenarPorMatch } from '../../lib/match'
 import type { Vacante } from '../../types/vacante'
+import { Button } from '../ui/Button'
 import { LoadError } from '../vacantes/LoadError'
 import { PostulacionCard } from './PostulacionCard'
 
@@ -16,6 +17,17 @@ export function PostulacionesRecibidas({ vacante }: { vacante: Vacante }) {
   )
   const ordenadas = useMemo(() => (data ? ordenarPorMatch(vacante, data) : []), [vacante, data])
 
+  // Candidatos desplegados (por id): todos empiezan cerrados para poder recorrer la lista
+  const [abiertos, setAbiertos] = useState<Set<string>>(new Set())
+  const toggle = useCallback((id: string) => {
+    setAbiertos((prev) => {
+      const next = new Set(prev)
+      if (!next.delete(id)) next.add(id)
+      return next
+    })
+  }, [])
+  const todosAbiertos = ordenadas.length > 0 && ordenadas.every((o) => abiertos.has(o.postulacion.id))
+
   let content
   if (loading) content = <div className="h-16 animate-pulse rounded-sm bg-slate-100 dark:bg-slate-800" />
   else if (error) content = <LoadError message={error} onRetry={reload} />
@@ -23,12 +35,14 @@ export function PostulacionesRecibidas({ vacante }: { vacante: Vacante }) {
     content = <p className="text-sm text-slate-600 dark:text-slate-400">Aún no hay postulaciones.</p>
   } else {
     content = (
-      <ul className="space-y-4">
+      <ul className="space-y-3">
         {ordenadas.map((item) => (
           <PostulacionCard
             key={item.postulacion.id}
             item={item}
             resultado={porPostulacion.get(item.postulacion.id)}
+            open={abiertos.has(item.postulacion.id)}
+            onToggle={() => toggle(item.postulacion.id)}
             onChanged={() => {
               reload()
               resultados.reload()
@@ -41,9 +55,21 @@ export function PostulacionesRecibidas({ vacante }: { vacante: Vacante }) {
 
   return (
     <section>
-      <p className="eyebrow mb-2">Candidatos</p>
-      <h2 className="text-3xl">Postulaciones recibidas{data ? ` (${data.length})` : ''}</h2>
-      <p className="mt-2 mb-6 text-sm text-slate-600 dark:text-slate-400">Ordenadas de mayor a menor compatibilidad.</p>
+      <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <p className="eyebrow mb-2">Candidatos</p>
+          <h2 className="text-3xl">Postulaciones recibidas{data ? ` (${data.length})` : ''}</h2>
+          <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">Ordenadas de mayor a menor compatibilidad.</p>
+        </div>
+        {ordenadas.length > 1 && (
+          <Button
+            variant="secondary"
+            onClick={() => setAbiertos(todosAbiertos ? new Set() : new Set(ordenadas.map((o) => o.postulacion.id)))}
+          >
+            {todosAbiertos ? 'Contraer todos' : 'Expandir todos'}
+          </Button>
+        )}
+      </div>
       {content}
     </section>
   )

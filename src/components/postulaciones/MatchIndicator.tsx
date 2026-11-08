@@ -1,15 +1,6 @@
 import { BONO_HABILIDAD, type MatchResultado } from '../../lib/match'
 import { ProgressBar } from '../ui/ProgressBar'
-
-function tone(porcentaje: number) {
-  if (porcentaje >= 75) {
-    return { text: 'text-emerald-600 dark:text-emerald-400', bar: 'bg-emerald-600 dark:bg-emerald-400' }
-  }
-  if (porcentaje >= 50) {
-    return { text: 'text-slate-900 dark:text-slate-100', bar: 'bg-bistre dark:bg-cream' }
-  }
-  return { text: 'text-amber-600 dark:text-amber-400', bar: 'bg-amber-500 dark:bg-amber-400' }
-}
+import { matchTone } from './matchTone'
 
 const CHIP =
   'rounded-full px-2.5 py-0.5 text-xs text-slate-700 ring-1 ring-bistre/15 ring-inset dark:text-slate-300 dark:ring-white/15'
@@ -24,7 +15,7 @@ export function MatchIndicator({ match }: { match: MatchResultado }) {
     )
   }
 
-  const { text, bar } = tone(match.porcentaje)
+  const { text, bar } = matchTone(match.porcentaje)
 
   return (
     <div className="inset-panel space-y-4 p-5">
