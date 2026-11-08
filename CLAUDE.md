@@ -76,6 +76,7 @@ Ejecutar en Supabase (SQL Editor) **en orden**; cada archivo asume los anteriore
 6.  `supabase/06_etiquetas.sql` — amplía el límite de cada etiqueta de habilidad a 1–60 caracteres (el catálogo incluye "C" y etiquetas de 41 caracteres).
 7.  `supabase/07_estados_postulacion.sql` — estado de cada postulación, política de UPDATE para el publicador y lectura de vacantes para quien se postuló (sección 8).
 8.  `supabase/08_examen_psicometrico.sql` — tabla `resultados_psicometricos`, funciones de envío/puntuación y clave de respuestas (sección 11).
+9.  `supabase/09_cerrar_funciones_trigger.sql` — revoca `EXECUTE` de las funciones trigger `handle_new_user`, `postulaciones_set_nombre` y `rls_auto_enable` a `public`/`anon`/`authenticated` (aplicada con el MCP el 2026-11-08; los triggers siguen activos).
 
 Este proyecto **no concede privilegios por defecto** a `anon`/`authenticated`: toda tabla nueva necesita `grant` explícito además de RLS.
 
@@ -220,7 +221,7 @@ En cada tarjeta de candidato, **debajo de la compatibilidad general**, `Desglose
 *   `postulaciones` también tiene: `mensaje` (opcional, máx. 1000 caracteres) y `postulante_nombre`, copiado de `profiles.full_name` por el trigger `postulaciones_set_nombre` (porque `profiles` solo lo lee su dueño). Un candidato no puede postularse dos veces a la misma vacante.
 *   `postular()` sube el CV a `cvs/{userId}/{uuid}.pdf` y, si el insert falla, **borra el archivo** para no dejar huérfanos.
 *   En la BD existe además la función `rls_auto_enable()` que no proviene de los archivos del repo (viene de la configuración de Supabase); no tocarla.
-*   Advisors de seguridad pendientes (todos WARN, ninguno bloqueante): (1) **Leaked Password Protection desactivada** (se activa en el panel de Supabase Auth); (2) las funciones trigger `handle_new_user`, `postulaciones_set_nombre` y `rls_auto_enable` son ejecutables por `anon` vía RPC — no son llamables con efecto, pero se pueden cerrar con `revoke execute … from anon, authenticated` en un nuevo `09_*.sql`; (3) las funciones `security definer` que usa la app (`current_user_role`, `ha_postulado`, `examenes_completados`, `enviar_examen_psicometrico`) son ejecutables por `authenticated` a propósito.
+*   Advisors de seguridad pendientes (todos WARN, ninguno bloqueante): (1) **Leaked Password Protection desactivada** (se activa en el panel de Supabase Auth); (2) las funciones trigger ya se cerraron en la migración 09, así que no deben reaparecer avisos de `anon`; (3) las funciones `security definer` que usa la app (`current_user_role`, `ha_postulado`, `examenes_completados`, `enviar_examen_psicometrico`) son ejecutables por `authenticated` a propósito.
 
 ### 12.3 Estado de verificación del código
 *   `npm run build` (`tsc -b && vite build`) pasa sin errores; el bundle principal pesa ~488 kB (142 kB gzip) y cada página se carga por separado.
