@@ -183,7 +183,19 @@
   h2,
   h3 {
     @apply font-serif font-normal text-slate-900 dark:text-slate-100;
-    letter-spacing: -0.015em;
+  }
+
+  /* Instrument Serif es condensada: se abre un poco el espaciado para que no se amontone */
+  .font-serif,
+  h1,
+  h2,
+  h3 {
+    letter-spacing: 0.02em;
+    word-spacing: 0.06em;
+  }
+
+  h1 {
+    letter-spacing: 0.01em;
   }
 
   ::selection {

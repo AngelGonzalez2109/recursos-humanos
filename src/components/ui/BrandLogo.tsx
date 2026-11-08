@@ -16,7 +16,7 @@ export function BrandLogo() {
           <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18" />
         </svg>
       </span>
-      <span className="font-serif text-xl leading-none tracking-tight text-slate-900 dark:text-slate-100">
+      <span className="font-serif text-xl leading-none text-slate-900 dark:text-slate-100">
         Plataforma <span className="italic">RH</span>
       </span>
     </div>

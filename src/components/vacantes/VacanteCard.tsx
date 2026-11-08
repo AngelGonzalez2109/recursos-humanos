@@ -55,11 +55,11 @@ export function VacanteCard({ vacante, index = 0 }: VacanteCardProps) {
         </div>
       )}
 
-      <div className="hairline-t mt-auto flex items-end justify-between gap-2 pt-4 text-sm">
-        <span className="font-medium text-slate-900 tabular-nums dark:text-slate-100">{formatSalario(vacante)}</span>
-        <span className="eyebrow shrink-0">
-          {formatFechaRelativa(vacante.created_at)}
-        </span>
+      <div className="mt-auto pt-6">
+        <div className="hairline-t flex items-end justify-between gap-2 pt-4 text-sm">
+          <span className="font-medium text-slate-900 tabular-nums dark:text-slate-100">{formatSalario(vacante)}</span>
+          <span className="eyebrow shrink-0">{formatFechaRelativa(vacante.created_at)}</span>
+        </div>
       </div>
     </Link>
   )

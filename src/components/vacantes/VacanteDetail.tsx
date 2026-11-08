@@ -35,7 +35,7 @@ export function VacanteDetail({ vacante, viewerRole, isOwner }: VacanteDetailPro
           <div className="flex items-start gap-4">
             <Avatar name={vacante.empresa} shape="square" />
             <div className="min-w-0">
-              <h1 className="text-4xl leading-[1.05] tracking-[-0.025em] sm:text-5xl">{vacante.titulo}</h1>
+              <h1 className="text-4xl leading-[1.1] sm:text-5xl">{vacante.titulo}</h1>
               <p className="mt-2 text-slate-600 dark:text-slate-400">
                 {vacante.empresa} · {vacante.ubicacion}
               </p>

@@ -18,7 +18,7 @@ export function ExamenIntro({ vacanteTitulo, onStart }: { vacanteTitulo: string 
     <div className={`${CARD} animate-fade-in overflow-hidden`}>
       <div className="hairline-b px-6 py-10 sm:px-10">
         <p className="eyebrow">{vacanteTitulo ? `Postulación: ${vacanteTitulo}` : 'Postulación'}</p>
-        <h1 className="mt-4 text-4xl leading-[1.05] tracking-[-0.025em] sm:text-5xl">{EXAMEN.titulo}</h1>
+        <h1 className="mt-4 text-4xl leading-[1.1] sm:text-5xl">{EXAMEN.titulo}</h1>
       </div>
 
       <div className="space-y-6 px-6 py-8 sm:px-10">
