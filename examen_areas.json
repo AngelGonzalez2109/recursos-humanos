@@ -27,7 +27,7 @@
       "nombre": "Razonamiento lógico y abstracto",
       "nombre_corto": "Lógica",
       "tipo": "Objetivo",
-      "descripcion": "Series, deducciones y relaciones lógicas. Una sola respuesta correcta.",
+      "descripcion": "Series, deducciones y relaciones lógicas.",
       "indicaciones": "Elige la opción correcta."
     },
     {
@@ -36,7 +36,7 @@
       "nombre": "Razonamiento numérico y cuantitativo",
       "nombre_corto": "Numérico",
       "tipo": "Objetivo",
-      "descripcion": "Porcentajes, proporciones y cálculo básico. Una sola respuesta correcta.",
+      "descripcion": "Porcentajes, proporciones y cálculo básico.",
       "indicaciones": "Elige la opción correcta."
     },
     {
@@ -45,7 +45,7 @@
       "nombre": "Razonamiento verbal y comprensión lectora",
       "nombre_corto": "Verbal",
       "tipo": "Objetivo",
-      "descripcion": "Comprensión de textos breves, sinónimos, analogías y redacción. Tres opciones.",
+      "descripcion": "Comprensión de textos breves, sinónimos, analogías y redacción.",
       "indicaciones": "Responde únicamente a partir del texto de cada pregunta; no uses información externa."
     },
     {
@@ -54,7 +54,7 @@
       "nombre": "Aptitud espacial y visoperceptiva",
       "nombre_corto": "Espacial",
       "tipo": "Objetivo",
-      "descripcion": "Giros, reflejos y orientación en el espacio. Una sola respuesta correcta.",
+      "descripcion": "Giros, reflejos y orientación en el espacio.",
       "indicaciones": "Elige la opción correcta."
     },
     {
@@ -63,7 +63,7 @@
       "nombre": "Atención, concentración y memoria de trabajo",
       "nombre_corto": "Atención",
       "tipo": "Objetivo · prototipo",
-      "descripcion": "Búsqueda de detalles y memoria de secuencias breves. Prototipo: no tiene validez clínica.",
+      "descripcion": "Búsqueda de detalles y memoria de secuencias breves.",
       "indicaciones": "Algunas preguntas muestran una secuencia unos segundos y luego la ocultan.",
       "aviso": "Prototipo: las tareas de atención y memoria no tienen validez clínica y no se usa el tiempo de respuesta como puntaje."
     },
@@ -73,7 +73,7 @@
       "nombre": "Rasgos de personalidad (Big Five)",
       "nombre_corto": "Personalidad",
       "tipo": "Escala de acuerdo",
-      "descripcion": "Afirmaciones sobre tu forma de trabajar, sin respuestas correctas ni incorrectas.",
+      "descripcion": "Apertura, responsabilidad, extraversión, amabilidad y estabilidad emocional.",
       "indicaciones": "Indica qué tanto estás de acuerdo con cada afirmación."
     },
     {

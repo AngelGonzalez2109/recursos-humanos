@@ -46,11 +46,7 @@ export function VacanteAreasFieldset({ value, onChange }: VacanteAreasFieldsetPr
               />
               <span className="min-w-0">
                 <span className="block font-medium text-slate-900 dark:text-slate-100">{area.nombre}</span>
-                <span className="eyebrow mt-1 block">{area.tipo}</span>
                 <span className="mt-1 block text-xs text-slate-600 dark:text-slate-400">{area.descripcion}</span>
-                {area.aviso && (
-                  <span className="mt-1 block text-xs text-amber-600 dark:text-amber-400">{area.aviso}</span>
-                )}
               </span>
             </label>
           )
