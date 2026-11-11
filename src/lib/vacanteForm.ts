@@ -18,6 +18,7 @@ export function emptyVacanteForm(defaultEmpresa: string): VacanteFormValues {
     gradoAcademico: '',
     experienciaAnios: '',
     habilidades: [],
+    areasEvaluacion: [],
   }
 }
 
@@ -42,5 +43,6 @@ export function vacanteToFormValues(v: Vacante): VacanteFormValues {
     gradoAcademico: v.grado_academico ?? '',
     experienciaAnios: text(v.experiencia_anios),
     habilidades: v.habilidades,
+    areasEvaluacion: v.areas_evaluacion ?? [],
   }
 }

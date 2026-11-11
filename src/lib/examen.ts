@@ -1,24 +1,28 @@
 import examenData from '../../examen_psicometrico.json'
-import type { DimensionExamen, Examen, NivelExamen, PreguntaExamen, SeccionExamen } from '../types/examen'
+import type { Examen, PreguntaExamen, SesionActiva, SesionExamen } from '../types/examen'
 
 export const EXAMEN = examenData as unknown as Examen
-export const TOTAL_PREGUNTAS = EXAMEN.preguntas.length
 
-/** Duración total de la prueba: 15 minutos */
-export const DURACION_MS = 15 * 60 * 1000
+const PREGUNTAS_POR_ID = new Map(EXAMEN.preguntas.map((p) => [p.id, p]))
 
 export const examenStorageKey = (userId: string, postulacionId: string) =>
   `examen:${userId}:${postulacionId}:v${EXAMEN.version}`
 
-export function seccionDe(pregunta: PreguntaExamen): SeccionExamen {
-  const id = pregunta.tipo === 'opcion_multiple' ? 'logica' : 'personalidad'
-  return EXAMEN.secciones.find((s) => s.id === id) as SeccionExamen
-}
-
-/** Nivel (Bajo / Medio / Alto) que corresponde a un porcentaje en una dimensión */
-export function nivelDe(dimension: DimensionExamen, porcentaje: number): NivelExamen | null {
-  const niveles = [...(dimension.niveles ?? [])].sort((a, b) => b.desde - a.desde)
-  return niveles.find((n) => porcentaje >= n.desde) ?? null
+/**
+ * Convierte la sesión del servidor en un examen listo para mostrar. Las horas
+ * del servidor se pasan al reloj del navegador para que el temporizador no
+ * dependa de que ambos relojes estén sincronizados.
+ */
+export function sesionActiva(sesion: SesionExamen): SesionActiva {
+  const desfase = Date.parse(sesion.ahora) - Date.now()
+  return {
+    areas: sesion.areas,
+    preguntas: sesion.preguntas
+      .map((id) => PREGUNTAS_POR_ID.get(id))
+      .filter((p): p is PreguntaExamen => p !== undefined),
+    startedAt: Date.parse(sesion.iniciado_en) - desfase,
+    duracionMs: sesion.duracion_seg * 1000,
+  }
 }
 
 export function formatMmSs(ms: number): string {

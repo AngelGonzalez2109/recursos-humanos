@@ -42,6 +42,7 @@ export function PostulacionesRecibidas({ vacante }: { vacante: Vacante }) {
             item={item}
             index={index}
             resultado={porPostulacion.get(item.postulacion.id)}
+            sinAreas={(vacante.areas_evaluacion ?? []).length === 0}
             open={abiertos.has(item.postulacion.id)}
             onToggle={() => toggle(item.postulacion.id)}
             onChanged={() => {

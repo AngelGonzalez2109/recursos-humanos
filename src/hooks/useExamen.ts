@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from 'react'
-import { DURACION_MS } from '../lib/examen'
 import { getPostulacionPropia, listExamenesCompletados, listResultadosVacante } from '../lib/examenService'
 import type { RespuestasExamen } from '../types/examen'
 import { useAsyncResource } from './useAsyncResource'
@@ -21,13 +20,13 @@ export function useResultadosVacante(vacanteId: string | null) {
 }
 
 interface Progreso {
-  /** Marca de tiempo (ms) en que el candidato comenzó; null = aún en la pantalla de inicio */
-  startedAt: number | null
   answers: RespuestasExamen
   index: number
+  /** Preguntas de memoria: id → marca de tiempo (ms) en que se mostró la secuencia */
+  memoria: Record<string, number>
 }
 
-const EMPTY: Progreso = { startedAt: null, answers: {}, index: 0 }
+const EMPTY: Progreso = { answers: {}, index: 0, memoria: {} }
 
 function read(key: string): Progreso {
   try {
@@ -35,9 +34,9 @@ function read(key: string): Progreso {
     if (!raw) return EMPTY
     const data = JSON.parse(raw) as Partial<Progreso>
     return {
-      startedAt: typeof data.startedAt === 'number' ? data.startedAt : null,
       answers: data.answers && typeof data.answers === 'object' ? data.answers : {},
       index: typeof data.index === 'number' ? data.index : 0,
+      memoria: data.memoria && typeof data.memoria === 'object' ? data.memoria : {},
     }
   } catch {
     return EMPTY
@@ -46,7 +45,8 @@ function read(key: string): Progreso {
 
 /**
  * Progreso del examen guardado en localStorage (respuestas, pregunta actual y
- * hora de inicio) para sobrevivir a una recarga. Si el almacenamiento no está
+ * secuencias de memoria ya mostradas) para sobrevivir a una recarga. La hora de
+ * inicio no se guarda aquí: la fija el servidor. Si el almacenamiento no está
  * disponible, sigue funcionando en memoria.
  */
 export function useExamenProgreso(key: string) {
@@ -72,14 +72,13 @@ export function useExamenProgreso(key: string) {
 }
 
 /** Milisegundos restantes hasta startedAt + duración; se actualiza cada medio segundo */
-export function useCuentaRegresiva(startedAt: number | null): number | null {
+export function useCuentaRegresiva(startedAt: number, duracionMs: number): number {
   const [now, setNow] = useState(() => Date.now())
 
   useEffect(() => {
-    if (startedAt === null) return
     const id = window.setInterval(() => setNow(Date.now()), 500)
     return () => window.clearInterval(id)
-  }, [startedAt])
+  }, [])
 
-  return startedAt === null ? null : Math.min(DURACION_MS, Math.max(0, startedAt + DURACION_MS - now))
+  return Math.min(duracionMs, Math.max(0, startedAt + duracionMs - now))
 }

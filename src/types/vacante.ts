@@ -22,6 +22,8 @@ export interface Vacante extends DatosPerfil {
   edad_min: number | null
   edad_max: number | null
   estado: EstadoVacante
+  /** Áreas del examen psicométrico que se evalúan a los candidatos (ids de examen_areas.json) */
+  areas_evaluacion: string[]
   created_at: string
   updated_at: string
 }
@@ -40,6 +42,7 @@ export interface VacanteFormValues extends PerfilFormValues {
   moneda: Moneda
   edadMin: string
   edadMax: string
+  areasEvaluacion: string[]
 }
 
 export type VacanteFieldErrors = Partial<Record<keyof VacanteFormValues, string>>

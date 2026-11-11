@@ -1,8 +1,8 @@
 {
-  "version": 1,
-  "titulo": "Evaluación de Perfil Profesional",
+  "version": 2,
   "introduccion": "Esta evaluación es una herramienta interna de compatibilidad laboral. No es una prueba psicológica ni clínica y no tiene validez diagnóstica. Responde con sinceridad: no hay un perfil ideal y tus respuestas solo se usan para valorar tu ajuste con el puesto.",
   "mensaje_final": "Examen enviado con éxito. El reclutador ha sido notificado.",
+  "segundos_memorizar": 5,
   "escala_likert": [
     {
       "valor": 1,
@@ -25,177 +25,372 @@
       "etiqueta": "Totalmente de acuerdo"
     }
   ],
-  "dimensiones": [
-    {
-      "id": "logica",
-      "nombre": "Lógica y resolución de problemas",
-      "nombre_corto": "Lógica",
-      "tipo": "logica",
-      "presentacion": "porcentaje"
-    },
-    {
-      "id": "adaptabilidad",
-      "nombre": "Adaptabilidad",
-      "nombre_corto": "Adaptabilidad",
-      "tipo": "likert",
-      "presentacion": "nivel",
-      "niveles": [
-        {
-          "id": "bajo",
-          "etiqueta": "Bajo",
-          "desde": 0
-        },
-        {
-          "id": "medio",
-          "etiqueta": "Medio",
-          "desde": 50
-        },
-        {
-          "id": "alto",
-          "etiqueta": "Alto",
-          "desde": 75
-        }
-      ]
-    },
-    {
-      "id": "trabajo_equipo",
-      "nombre": "Trabajo en equipo",
-      "nombre_corto": "Trabajo en equipo",
-      "tipo": "likert",
-      "presentacion": "nivel",
-      "niveles": [
-        {
-          "id": "bajo",
-          "etiqueta": "Bajo",
-          "desde": 0
-        },
-        {
-          "id": "medio",
-          "etiqueta": "Medio",
-          "desde": 50
-        },
-        {
-          "id": "alto",
-          "etiqueta": "Alto",
-          "desde": 75
-        }
-      ]
-    },
-    {
-      "id": "liderazgo",
-      "nombre": "Liderazgo",
-      "nombre_corto": "Liderazgo",
-      "tipo": "likert",
-      "presentacion": "nivel",
-      "niveles": [
-        {
-          "id": "bajo",
-          "etiqueta": "Bajo",
-          "desde": 0
-        },
-        {
-          "id": "medio",
-          "etiqueta": "Medio",
-          "desde": 50
-        },
-        {
-          "id": "alto",
-          "etiqueta": "Alto",
-          "desde": 75
-        }
-      ]
-    },
-    {
-      "id": "tolerancia_estres",
-      "nombre": "Tolerancia al estrés",
-      "nombre_corto": "Tolerancia al estrés",
-      "tipo": "likert",
-      "presentacion": "nivel",
-      "niveles": [
-        {
-          "id": "bajo",
-          "etiqueta": "Bajo",
-          "desde": 0
-        },
-        {
-          "id": "medio",
-          "etiqueta": "Medio",
-          "desde": 50
-        },
-        {
-          "id": "alto",
-          "etiqueta": "Alto",
-          "desde": 75
-        }
-      ]
-    }
-  ],
-  "secciones": [
-    {
-      "id": "logica",
-      "titulo": "Parte 1: Lógica y resolución de problemas",
-      "indicaciones": "Elige la única respuesta correcta en cada pregunta."
-    },
-    {
-      "id": "personalidad",
-      "titulo": "Parte 2: Estilo de trabajo",
-      "indicaciones": "Indica qué tan de acuerdo estás con cada afirmación."
-    }
-  ],
   "preguntas": [
     {
-      "id": "L01",
-      "dimension": "logica",
+      "id": "LOG-01",
+      "area": "logico",
       "tipo": "opcion_multiple",
-      "enunciado": "¿Qué número continúa la serie? 2, 6, 18, 54, ...",
+      "enunciado": "Continúa la serie: 2, 4, 8, 16, ...",
       "opciones": [
         {
           "id": "a",
-          "texto": "108"
+          "texto": "24"
         },
         {
           "id": "b",
-          "texto": "162"
+          "texto": "30"
         },
         {
           "id": "c",
-          "texto": "148"
+          "texto": "32"
         },
         {
           "id": "d",
-          "texto": "216"
+          "texto": "36"
         }
       ]
     },
     {
-      "id": "L02",
-      "dimension": "logica",
+      "id": "LOG-02",
+      "area": "logico",
       "tipo": "opcion_multiple",
-      "enunciado": "Compras 15 lapiceros de $12 cada uno y pagas con un billete de $200. ¿Cuánto cambio recibes?",
+      "enunciado": "Continúa: 3, 6, 11, 18, 27, ...",
       "opciones": [
         {
           "id": "a",
-          "texto": "$10"
+          "texto": "36"
         },
         {
           "id": "b",
-          "texto": "$15"
+          "texto": "38"
         },
         {
           "id": "c",
-          "texto": "$20"
+          "texto": "40"
         },
         {
           "id": "d",
-          "texto": "$25"
+          "texto": "42"
         }
       ]
     },
     {
-      "id": "L03",
-      "dimension": "logica",
+      "id": "LOG-03",
+      "area": "logico",
       "tipo": "opcion_multiple",
-      "enunciado": "Si 5 máquinas producen 5 piezas en 5 minutos, ¿cuántas máquinas se necesitan para producir 100 piezas en 5 minutos?",
+      "enunciado": "Todos los robles son árboles. Algunos árboles pierden sus hojas. ¿Qué se deduce necesariamente?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Todos los robles pierden sus hojas"
+        },
+        {
+          "id": "b",
+          "texto": "Ningún roble pierde hojas"
+        },
+        {
+          "id": "c",
+          "texto": "Algunos robles pierden hojas"
+        },
+        {
+          "id": "d",
+          "texto": "No se puede determinar si los robles pierden hojas"
+        }
+      ]
+    },
+    {
+      "id": "LOG-04",
+      "area": "logico",
+      "tipo": "opcion_multiple",
+      "enunciado": "Ana es mayor que Beto; Beto es mayor que Carla. ¿Quién es menor?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Ana"
+        },
+        {
+          "id": "b",
+          "texto": "Beto"
+        },
+        {
+          "id": "c",
+          "texto": "Carla"
+        },
+        {
+          "id": "d",
+          "texto": "No se sabe"
+        }
+      ]
+    },
+    {
+      "id": "LOG-05",
+      "area": "logico",
+      "tipo": "opcion_multiple",
+      "enunciado": "Completa: A, C, F, J, O, ...",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "S"
+        },
+        {
+          "id": "b",
+          "texto": "T"
+        },
+        {
+          "id": "c",
+          "texto": "U"
+        },
+        {
+          "id": "d",
+          "texto": "V"
+        }
+      ]
+    },
+    {
+      "id": "LOG-06",
+      "area": "logico",
+      "tipo": "opcion_multiple",
+      "enunciado": "Si ningún informe incompleto se aprueba y el informe X fue aprobado, entonces X...",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Está incompleto"
+        },
+        {
+          "id": "b",
+          "texto": "No está incompleto"
+        },
+        {
+          "id": "c",
+          "texto": "No fue revisado"
+        },
+        {
+          "id": "d",
+          "texto": "Se entregó tarde"
+        }
+      ]
+    },
+    {
+      "id": "LOG-07",
+      "area": "logico",
+      "tipo": "opcion_multiple",
+      "enunciado": "Sigue: 1, 1, 2, 3, 5, 8, ...",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "11"
+        },
+        {
+          "id": "b",
+          "texto": "12"
+        },
+        {
+          "id": "c",
+          "texto": "13"
+        },
+        {
+          "id": "d",
+          "texto": "15"
+        }
+      ]
+    },
+    {
+      "id": "LOG-08",
+      "area": "logico",
+      "tipo": "opcion_multiple",
+      "enunciado": "Si P implica Q y P es verdadero, ¿qué debe ser verdadero?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Q"
+        },
+        {
+          "id": "b",
+          "texto": "No Q"
+        },
+        {
+          "id": "c",
+          "texto": "No P"
+        },
+        {
+          "id": "d",
+          "texto": "Ninguna conclusión"
+        }
+      ]
+    },
+    {
+      "id": "LOG-09",
+      "area": "logico",
+      "tipo": "opcion_multiple",
+      "enunciado": "Encuentra el intruso: cuadrado, triángulo, círculo, cubo.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Cuadrado"
+        },
+        {
+          "id": "b",
+          "texto": "Triángulo"
+        },
+        {
+          "id": "c",
+          "texto": "Círculo"
+        },
+        {
+          "id": "d",
+          "texto": "Cubo"
+        }
+      ]
+    },
+    {
+      "id": "LOG-10",
+      "area": "logico",
+      "tipo": "opcion_multiple",
+      "enunciado": "Continúa: 81, 27, 9, 3, ...",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "0"
+        },
+        {
+          "id": "b",
+          "texto": "1"
+        },
+        {
+          "id": "c",
+          "texto": "2"
+        },
+        {
+          "id": "d",
+          "texto": "6"
+        }
+      ]
+    },
+    {
+      "id": "LOG-11",
+      "area": "logico",
+      "tipo": "opcion_multiple",
+      "enunciado": "Cuatro personas están en fila. Luis está antes que Marta, Marta antes que Nora y Nora antes que Óscar. ¿Quién está primero entre ellos?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Marta"
+        },
+        {
+          "id": "b",
+          "texto": "Nora"
+        },
+        {
+          "id": "c",
+          "texto": "Luis"
+        },
+        {
+          "id": "d",
+          "texto": "Óscar"
+        }
+      ]
+    },
+    {
+      "id": "LOG-12",
+      "area": "logico",
+      "tipo": "opcion_multiple",
+      "enunciado": "Si hoy NO es lunes, la frase «hoy es lunes y llueve» es...",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Verdadera"
+        },
+        {
+          "id": "b",
+          "texto": "Falsa"
+        },
+        {
+          "id": "c",
+          "texto": "Indeterminada"
+        },
+        {
+          "id": "d",
+          "texto": "Equivalente a «llueve»"
+        }
+      ]
+    },
+    {
+      "id": "LOG-13",
+      "area": "logico",
+      "tipo": "opcion_multiple",
+      "enunciado": "Completa la correspondencia: 2→6, 4→12, 7→21, 9→...",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "18"
+        },
+        {
+          "id": "b",
+          "texto": "24"
+        },
+        {
+          "id": "c",
+          "texto": "27"
+        },
+        {
+          "id": "d",
+          "texto": "30"
+        }
+      ]
+    },
+    {
+      "id": "LOG-14",
+      "area": "logico",
+      "tipo": "opcion_multiple",
+      "enunciado": "Algunos diseñadores programan. Todos los que programan usan una computadora. ¿Qué se sigue?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Algunos diseñadores usan una computadora"
+        },
+        {
+          "id": "b",
+          "texto": "Todos los diseñadores programan"
+        },
+        {
+          "id": "c",
+          "texto": "Ningún diseñador usa una computadora"
+        },
+        {
+          "id": "d",
+          "texto": "Todos los que usan computadora son diseñadores"
+        }
+      ]
+    },
+    {
+      "id": "LOG-15",
+      "area": "logico",
+      "tipo": "opcion_multiple",
+      "enunciado": "Serie alternada: 2, 10, 4, 20, 6, 30, ...",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "8"
+        },
+        {
+          "id": "b",
+          "texto": "12"
+        },
+        {
+          "id": "c",
+          "texto": "32"
+        },
+        {
+          "id": "d",
+          "texto": "40"
+        }
+      ]
+    },
+    {
+      "id": "NUM-01",
+      "area": "numerico",
+      "tipo": "opcion_multiple",
+      "enunciado": "¿Cuánto es 15 % de 200?",
       "opciones": [
         {
           "id": "a",
@@ -207,103 +402,7 @@
         },
         {
           "id": "c",
-          "texto": "100"
-        },
-        {
-          "id": "d",
-          "texto": "500"
-        }
-      ]
-    },
-    {
-      "id": "L04",
-      "dimension": "logica",
-      "tipo": "opcion_multiple",
-      "enunciado": "Un producto cuesta $800 y tiene un descuento del 25%. ¿Cuál es su precio final?",
-      "opciones": [
-        {
-          "id": "a",
-          "texto": "$575"
-        },
-        {
-          "id": "b",
-          "texto": "$650"
-        },
-        {
-          "id": "c",
-          "texto": "$625"
-        },
-        {
-          "id": "d",
-          "texto": "$600"
-        }
-      ]
-    },
-    {
-      "id": "L05",
-      "dimension": "logica",
-      "tipo": "opcion_multiple",
-      "enunciado": "Todos los analistas del equipo dominan Excel. Marta es analista del equipo. ¿Qué conclusión es necesariamente cierta?",
-      "opciones": [
-        {
-          "id": "a",
-          "texto": "Marta domina Excel."
-        },
-        {
-          "id": "b",
-          "texto": "Marta es la mejor analista del equipo."
-        },
-        {
-          "id": "c",
-          "texto": "Solo los analistas dominan Excel."
-        },
-        {
-          "id": "d",
-          "texto": "Marta aprendió Excel en esta empresa."
-        }
-      ]
-    },
-    {
-      "id": "L06",
-      "dimension": "logica",
-      "tipo": "opcion_multiple",
-      "enunciado": "Seis personas terminan un proyecto en 10 días. Con el mismo ritmo de trabajo, ¿cuántos días tardarían 3 personas?",
-      "opciones": [
-        {
-          "id": "a",
-          "texto": "5 días"
-        },
-        {
-          "id": "b",
-          "texto": "15 días"
-        },
-        {
-          "id": "c",
-          "texto": "20 días"
-        },
-        {
-          "id": "d",
-          "texto": "30 días"
-        }
-      ]
-    },
-    {
-      "id": "L07",
-      "dimension": "logica",
-      "tipo": "opcion_multiple",
-      "enunciado": "¿Qué número continúa la serie? 3, 5, 9, 17, ...",
-      "opciones": [
-        {
-          "id": "a",
-          "texto": "25"
-        },
-        {
-          "id": "b",
-          "texto": "31"
-        },
-        {
-          "id": "c",
-          "texto": "33"
+          "texto": "30"
         },
         {
           "id": "d",
@@ -312,196 +411,2955 @@
       ]
     },
     {
-      "id": "L08",
-      "dimension": "logica",
+      "id": "NUM-02",
+      "area": "numerico",
       "tipo": "opcion_multiple",
-      "enunciado": "Ana tiene el doble de la edad de Luis. Hace 5 años, la suma de sus edades era 20. ¿Qué edad tiene Ana hoy?",
+      "enunciado": "Un artículo cuesta $800 y tiene 25 % de descuento. ¿Precio final?",
       "opciones": [
         {
           "id": "a",
-          "texto": "16 años"
+          "texto": "$550"
         },
         {
           "id": "b",
-          "texto": "18 años"
+          "texto": "$600"
         },
         {
           "id": "c",
-          "texto": "20 años"
+          "texto": "$650"
         },
         {
           "id": "d",
-          "texto": "24 años"
+          "texto": "$700"
         }
       ]
     },
     {
-      "id": "L09",
-      "dimension": "logica",
+      "id": "NUM-03",
+      "area": "numerico",
       "tipo": "opcion_multiple",
-      "enunciado": "Un tren sale a las 8:40 y el viaje dura 2 horas con 35 minutos. ¿A qué hora llega?",
+      "enunciado": "Promedio de 4, 6, 8 y 10.",
       "opciones": [
         {
           "id": "a",
-          "texto": "11:05"
+          "texto": "6"
         },
         {
           "id": "b",
-          "texto": "11:15"
+          "texto": "7"
         },
         {
           "id": "c",
-          "texto": "11:25"
+          "texto": "8"
         },
         {
           "id": "d",
-          "texto": "11:35"
+          "texto": "9"
         }
       ]
     },
     {
-      "id": "L10",
-      "dimension": "logica",
+      "id": "NUM-04",
+      "area": "numerico",
       "tipo": "opcion_multiple",
-      "enunciado": "Sofía llegó a la reunión antes que Raúl, y Tomás llegó después de Raúl. ¿Quién llegó primero?",
+      "enunciado": "Si 3 paquetes cuestan $90, ¿cuánto cuestan 5 al mismo precio unitario?",
       "opciones": [
         {
           "id": "a",
-          "texto": "Raúl"
+          "texto": "$120"
         },
         {
           "id": "b",
-          "texto": "Tomás"
+          "texto": "$135"
         },
         {
           "id": "c",
-          "texto": "Sofía"
+          "texto": "$150"
         },
         {
           "id": "d",
-          "texto": "No se puede saber"
+          "texto": "$180"
         }
       ]
     },
     {
-      "id": "P01",
-      "dimension": "adaptabilidad",
-      "tipo": "likert",
-      "enunciado": "Me adapto con facilidad cuando cambian las prioridades de mi trabajo."
+      "id": "NUM-05",
+      "area": "numerico",
+      "tipo": "opcion_multiple",
+      "enunciado": "Una venta sube de 100 a 120 unidades. ¿Aumento porcentual?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "10 %"
+        },
+        {
+          "id": "b",
+          "texto": "15 %"
+        },
+        {
+          "id": "c",
+          "texto": "20 %"
+        },
+        {
+          "id": "d",
+          "texto": "25 %"
+        }
+      ]
     },
     {
-      "id": "P02",
-      "dimension": "trabajo_equipo",
-      "tipo": "likert",
-      "enunciado": "Disfruto colaborar con personas que piensan distinto a mí."
+      "id": "NUM-06",
+      "area": "numerico",
+      "tipo": "opcion_multiple",
+      "enunciado": "¿Cuál es la mediana de 2, 3, 9, 11, 15?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "3"
+        },
+        {
+          "id": "b",
+          "texto": "9"
+        },
+        {
+          "id": "c",
+          "texto": "11"
+        },
+        {
+          "id": "d",
+          "texto": "15"
+        }
+      ]
     },
     {
-      "id": "P03",
-      "dimension": "liderazgo",
-      "tipo": "likert",
-      "enunciado": "Me siento cómodo tomando la iniciativa cuando nadie más la toma."
+      "id": "NUM-07",
+      "area": "numerico",
+      "tipo": "opcion_multiple",
+      "enunciado": "12 trabajadores hacen una tarea en 6 días. Si el rendimiento es igual, ¿cuántos días tardan 6?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "3"
+        },
+        {
+          "id": "b",
+          "texto": "6"
+        },
+        {
+          "id": "c",
+          "texto": "9"
+        },
+        {
+          "id": "d",
+          "texto": "12"
+        }
+      ]
     },
     {
-      "id": "P04",
-      "dimension": "tolerancia_estres",
-      "tipo": "likert",
-      "enunciado": "Mantengo la calma cuando tengo varias fechas límite al mismo tiempo."
+      "id": "NUM-08",
+      "area": "numerico",
+      "tipo": "opcion_multiple",
+      "enunciado": "Se vendieron 25 productos lunes y 35 martes. ¿Qué fracción del total corresponde al martes?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "5/12"
+        },
+        {
+          "id": "b",
+          "texto": "7/12"
+        },
+        {
+          "id": "c",
+          "texto": "3/5"
+        },
+        {
+          "id": "d",
+          "texto": "7/10"
+        }
+      ]
     },
     {
-      "id": "P05",
-      "dimension": "adaptabilidad",
-      "tipo": "likert",
-      "enunciado": "Prefiero que mis tareas sigan siempre el mismo procedimiento, sin cambios."
+      "id": "NUM-09",
+      "area": "numerico",
+      "tipo": "opcion_multiple",
+      "enunciado": "¿Cuál es 3/4 de 64?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "42"
+        },
+        {
+          "id": "b",
+          "texto": "46"
+        },
+        {
+          "id": "c",
+          "texto": "48"
+        },
+        {
+          "id": "d",
+          "texto": "52"
+        }
+      ]
     },
     {
-      "id": "P06",
-      "dimension": "trabajo_equipo",
-      "tipo": "likert",
-      "enunciado": "Prefiero resolver todo por mi cuenta antes que pedir ayuda al equipo."
+      "id": "NUM-10",
+      "area": "numerico",
+      "tipo": "opcion_multiple",
+      "enunciado": "Un presupuesto de $1,000 se reparte 2:3 entre A y B. ¿Cuánto recibe B?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "$400"
+        },
+        {
+          "id": "b",
+          "texto": "$500"
+        },
+        {
+          "id": "c",
+          "texto": "$600"
+        },
+        {
+          "id": "d",
+          "texto": "$700"
+        }
+      ]
     },
     {
-      "id": "P07",
-      "dimension": "liderazgo",
-      "tipo": "likert",
-      "enunciado": "Asumo la responsabilidad de las decisiones del grupo, incluso cuando salen mal."
+      "id": "NUM-11",
+      "area": "numerico",
+      "tipo": "opcion_multiple",
+      "enunciado": "5, 10, 20, 40, ...",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "45"
+        },
+        {
+          "id": "b",
+          "texto": "60"
+        },
+        {
+          "id": "c",
+          "texto": "70"
+        },
+        {
+          "id": "d",
+          "texto": "80"
+        }
+      ]
     },
     {
-      "id": "P08",
-      "dimension": "tolerancia_estres",
-      "tipo": "likert",
-      "enunciado": "La presión me hace perder la concentración con facilidad."
+      "id": "NUM-12",
+      "area": "numerico",
+      "tipo": "opcion_multiple",
+      "enunciado": "Ingresos de $5,000 y gastos de $3,750. ¿Utilidad simple?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "$1,000"
+        },
+        {
+          "id": "b",
+          "texto": "$1,250"
+        },
+        {
+          "id": "c",
+          "texto": "$1,500"
+        },
+        {
+          "id": "d",
+          "texto": "$1,750"
+        }
+      ]
     },
     {
-      "id": "P09",
-      "dimension": "adaptabilidad",
-      "tipo": "likert",
-      "enunciado": "Aprender una herramienta o método nuevo me resulta estimulante."
+      "id": "NUM-13",
+      "area": "numerico",
+      "tipo": "opcion_multiple",
+      "enunciado": "Un proceso tarda 90 minutos. Mejora un 20 % en tiempo. ¿Nueva duración?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "60"
+        },
+        {
+          "id": "b",
+          "texto": "70"
+        },
+        {
+          "id": "c",
+          "texto": "72"
+        },
+        {
+          "id": "d",
+          "texto": "75"
+        }
+      ]
     },
     {
-      "id": "P10",
-      "dimension": "trabajo_equipo",
-      "tipo": "likert",
-      "enunciado": "Comparto información útil con mis compañeros aunque no me la pidan."
+      "id": "NUM-14",
+      "area": "numerico",
+      "tipo": "opcion_multiple",
+      "enunciado": "¿Qué porcentaje representan 18 de 60 casos?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "18 %"
+        },
+        {
+          "id": "b",
+          "texto": "25 %"
+        },
+        {
+          "id": "c",
+          "texto": "30 %"
+        },
+        {
+          "id": "d",
+          "texto": "36 %"
+        }
+      ]
     },
     {
-      "id": "P11",
-      "dimension": "liderazgo",
-      "tipo": "likert",
-      "enunciado": "Evito dirigir o coordinar a otras personas siempre que puedo."
+      "id": "NUM-15",
+      "area": "numerico",
+      "tipo": "opcion_multiple",
+      "enunciado": "Un equipo registra 8, 12 y 10 incidencias durante tres días. ¿Total?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "28"
+        },
+        {
+          "id": "b",
+          "texto": "29"
+        },
+        {
+          "id": "c",
+          "texto": "30"
+        },
+        {
+          "id": "d",
+          "texto": "32"
+        }
+      ]
     },
     {
-      "id": "P12",
-      "dimension": "tolerancia_estres",
-      "tipo": "likert",
-      "enunciado": "Después de cometer un error importante, me recupero rápido y sigo adelante."
+      "id": "VER-01",
+      "area": "verbal",
+      "tipo": "opcion_multiple",
+      "enunciado": "«Todas las solicitudes recibidas antes del viernes se revisan el lunes». Una solicitud llegó el jueves. ¿Se revisa el lunes?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Sí"
+        },
+        {
+          "id": "b",
+          "texto": "No"
+        },
+        {
+          "id": "c",
+          "texto": "No se puede determinar"
+        }
+      ]
     },
     {
-      "id": "P13",
-      "dimension": "adaptabilidad",
-      "tipo": "likert",
-      "enunciado": "Cuando un plan falla, busco de inmediato una alternativa en lugar de detenerme."
+      "id": "VER-02",
+      "area": "verbal",
+      "tipo": "opcion_multiple",
+      "enunciado": "«Algunos empleados trabajan de forma remota». ¿Se concluye que todos lo hacen?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Sí"
+        },
+        {
+          "id": "b",
+          "texto": "No, no se deduce"
+        },
+        {
+          "id": "c",
+          "texto": "Solo los viernes"
+        }
+      ]
     },
     {
-      "id": "P14",
-      "dimension": "trabajo_equipo",
-      "tipo": "likert",
-      "enunciado": "Cuando hay un desacuerdo en el equipo, busco un punto medio que beneficie a todos."
+      "id": "VER-03",
+      "area": "verbal",
+      "tipo": "opcion_multiple",
+      "enunciado": "Antónimo más cercano de «explícito».",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Claro"
+        },
+        {
+          "id": "b",
+          "texto": "Implícito"
+        },
+        {
+          "id": "c",
+          "texto": "Preciso"
+        }
+      ]
     },
     {
-      "id": "P15",
-      "dimension": "liderazgo",
-      "tipo": "likert",
-      "enunciado": "Motivo a los demás cuando el equipo se siente desanimado."
+      "id": "VER-04",
+      "area": "verbal",
+      "tipo": "opcion_multiple",
+      "enunciado": "Sinónimo de «conciso».",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Breve"
+        },
+        {
+          "id": "b",
+          "texto": "Confuso"
+        },
+        {
+          "id": "c",
+          "texto": "Extenso"
+        }
+      ]
     },
     {
-      "id": "P16",
-      "dimension": "tolerancia_estres",
-      "tipo": "likert",
-      "enunciado": "Puedo tomar buenas decisiones aunque tenga muy poco tiempo."
+      "id": "VER-05",
+      "area": "verbal",
+      "tipo": "opcion_multiple",
+      "enunciado": "«El equipo entregó el proyecto después de corregir las pruebas». ¿Qué ocurrió primero?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Entrega"
+        },
+        {
+          "id": "b",
+          "texto": "Corrección de pruebas"
+        },
+        {
+          "id": "c",
+          "texto": "Ambas al mismo tiempo"
+        }
+      ]
     },
     {
-      "id": "P17",
-      "dimension": "adaptabilidad",
-      "tipo": "likert",
-      "enunciado": "Los cambios inesperados en mi rutina me incomodan durante mucho tiempo."
+      "id": "VER-06",
+      "area": "verbal",
+      "tipo": "opcion_multiple",
+      "enunciado": "«Ningún archivo confidencial se publica». ¿Qué puede afirmarse de un archivo publicado?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Era confidencial"
+        },
+        {
+          "id": "b",
+          "texto": "No era confidencial"
+        },
+        {
+          "id": "c",
+          "texto": "Se publicó por error necesariamente"
+        }
+      ]
     },
     {
-      "id": "P18",
-      "dimension": "trabajo_equipo",
-      "tipo": "likert",
-      "enunciado": "Reconozco públicamente las aportaciones de mis compañeros."
+      "id": "VER-07",
+      "area": "verbal",
+      "tipo": "opcion_multiple",
+      "enunciado": "Analogía: libro es a leer como audio es a...",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Escuchar"
+        },
+        {
+          "id": "b",
+          "texto": "Dibujar"
+        },
+        {
+          "id": "c",
+          "texto": "Escribir"
+        }
+      ]
     },
     {
-      "id": "P19",
-      "dimension": "liderazgo",
-      "tipo": "likert",
-      "enunciado": "Delego tareas confiando en las capacidades de los demás."
+      "id": "VER-08",
+      "area": "verbal",
+      "tipo": "opcion_multiple",
+      "enunciado": "«La reunión será el miércoles si la propuesta está lista». La propuesta NO está lista. ¿Se concluye que no habrá reunión?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Sí"
+        },
+        {
+          "id": "b",
+          "texto": "No, no se concluye"
+        },
+        {
+          "id": "c",
+          "texto": "La reunión será el martes"
+        }
+      ]
     },
     {
-      "id": "P20",
-      "dimension": "tolerancia_estres",
+      "id": "VER-09",
+      "area": "verbal",
+      "tipo": "opcion_multiple",
+      "enunciado": "«A pesar de la lluvia, el evento continuó». La expresión «a pesar de» indica...",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Causa"
+        },
+        {
+          "id": "b",
+          "texto": "Contraste"
+        },
+        {
+          "id": "c",
+          "texto": "Secuencia temporal"
+        }
+      ]
+    },
+    {
+      "id": "VER-10",
+      "area": "verbal",
+      "tipo": "opcion_multiple",
+      "enunciado": "Identifica la oración correctamente redactada.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Hubieron tres solicitudes"
+        },
+        {
+          "id": "b",
+          "texto": "Hubo tres solicitudes"
+        },
+        {
+          "id": "c",
+          "texto": "Habían tres solicitudes ayer"
+        }
+      ]
+    },
+    {
+      "id": "VER-11",
+      "area": "verbal",
+      "tipo": "opcion_multiple",
+      "enunciado": "«Los informes urgentes se procesan primero. El informe A es urgente y el B no». ¿Cuál tiene prioridad según la regla?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "A"
+        },
+        {
+          "id": "b",
+          "texto": "B"
+        },
+        {
+          "id": "c",
+          "texto": "Ambos forzosamente igual"
+        }
+      ]
+    },
+    {
+      "id": "VER-12",
+      "area": "verbal",
+      "tipo": "opcion_multiple",
+      "enunciado": "«La empresa no confirmó ni rechazó la propuesta». ¿Qué sabemos?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Fue aceptada"
+        },
+        {
+          "id": "b",
+          "texto": "Fue rechazada"
+        },
+        {
+          "id": "c",
+          "texto": "Sigue sin confirmación ni rechazo"
+        }
+      ]
+    },
+    {
+      "id": "VER-13",
+      "area": "verbal",
+      "tipo": "opcion_multiple",
+      "enunciado": "Analogía: termómetro es a temperatura como reloj es a...",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Peso"
+        },
+        {
+          "id": "b",
+          "texto": "Tiempo"
+        },
+        {
+          "id": "c",
+          "texto": "Distancia"
+        }
+      ]
+    },
+    {
+      "id": "VER-14",
+      "area": "verbal",
+      "tipo": "opcion_multiple",
+      "enunciado": "«La capacitación es opcional para analistas y obligatoria para supervisores». Para una persona supervisora es...",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Opcional"
+        },
+        {
+          "id": "b",
+          "texto": "Obligatoria"
+        },
+        {
+          "id": "c",
+          "texto": "Prohibida"
+        }
+      ]
+    },
+    {
+      "id": "VER-15",
+      "area": "verbal",
+      "tipo": "opcion_multiple",
+      "enunciado": "«El manual nuevo reemplaza al anterior desde el 1 de abril». El 2 de abril, ¿cuál rige según el texto?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "El nuevo"
+        },
+        {
+          "id": "b",
+          "texto": "El anterior"
+        },
+        {
+          "id": "c",
+          "texto": "Ambos necesariamente"
+        }
+      ]
+    },
+    {
+      "id": "ESP-01",
+      "area": "espacial",
+      "tipo": "opcion_multiple",
+      "enunciado": "Una flecha apunta ↑. Al girarla 90° en sentido horario apunta...",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "↑"
+        },
+        {
+          "id": "b",
+          "texto": "→"
+        },
+        {
+          "id": "c",
+          "texto": "↓"
+        },
+        {
+          "id": "d",
+          "texto": "←"
+        }
+      ]
+    },
+    {
+      "id": "ESP-02",
+      "area": "espacial",
+      "tipo": "opcion_multiple",
+      "enunciado": "Una flecha apunta ←. Al girarla 180° apunta...",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "↑"
+        },
+        {
+          "id": "b",
+          "texto": "→"
+        },
+        {
+          "id": "c",
+          "texto": "↓"
+        },
+        {
+          "id": "d",
+          "texto": "←"
+        }
+      ]
+    },
+    {
+      "id": "ESP-03",
+      "area": "espacial",
+      "tipo": "opcion_multiple",
+      "enunciado": "Un cuadrado de lado 2 cm se amplía al doble de lado. ¿Su área final?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "4 cm²"
+        },
+        {
+          "id": "b",
+          "texto": "8 cm²"
+        },
+        {
+          "id": "c",
+          "texto": "12 cm²"
+        },
+        {
+          "id": "d",
+          "texto": "16 cm²"
+        }
+      ]
+    },
+    {
+      "id": "ESP-04",
+      "area": "espacial",
+      "tipo": "opcion_multiple",
+      "enunciado": "Una flecha ↑ reflejada en un espejo vertical (izquierda-derecha) apunta...",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "↑"
+        },
+        {
+          "id": "b",
+          "texto": "→"
+        },
+        {
+          "id": "c",
+          "texto": "↓"
+        },
+        {
+          "id": "d",
+          "texto": "←"
+        }
+      ]
+    },
+    {
+      "id": "ESP-05",
+      "area": "espacial",
+      "tipo": "opcion_multiple",
+      "enunciado": "Una flecha ↗ girada 90° horario apunta...",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "↖"
+        },
+        {
+          "id": "b",
+          "texto": "↘"
+        },
+        {
+          "id": "c",
+          "texto": "↙"
+        },
+        {
+          "id": "d",
+          "texto": "↗"
+        }
+      ]
+    },
+    {
+      "id": "ESP-06",
+      "area": "espacial",
+      "tipo": "opcion_multiple",
+      "enunciado": "Una flecha ↓ girada 270° horario apunta...",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "←"
+        },
+        {
+          "id": "b",
+          "texto": "→"
+        },
+        {
+          "id": "c",
+          "texto": "↑"
+        },
+        {
+          "id": "d",
+          "texto": "↓"
+        }
+      ]
+    },
+    {
+      "id": "ESP-07",
+      "area": "espacial",
+      "tipo": "opcion_multiple",
+      "enunciado": "Un cubo tiene 6 caras. ¿Cuántas caras quedan ocultas cuando se ven exactamente 3?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "2"
+        },
+        {
+          "id": "b",
+          "texto": "3"
+        },
+        {
+          "id": "c",
+          "texto": "4"
+        },
+        {
+          "id": "d",
+          "texto": "5"
+        }
+      ]
+    },
+    {
+      "id": "ESP-08",
+      "area": "espacial",
+      "tipo": "opcion_multiple",
+      "enunciado": "Una figura con forma de L, «└», girada 90° horario queda...",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "┌"
+        },
+        {
+          "id": "b",
+          "texto": "┐"
+        },
+        {
+          "id": "c",
+          "texto": "┘"
+        },
+        {
+          "id": "d",
+          "texto": "└"
+        }
+      ]
+    },
+    {
+      "id": "ESP-09",
+      "area": "espacial",
+      "tipo": "opcion_multiple",
+      "enunciado": "Una flecha ↖ reflejada respecto a un eje vertical apunta...",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "↗"
+        },
+        {
+          "id": "b",
+          "texto": "↙"
+        },
+        {
+          "id": "c",
+          "texto": "↘"
+        },
+        {
+          "id": "d",
+          "texto": "↖"
+        }
+      ]
+    },
+    {
+      "id": "ESP-10",
+      "area": "espacial",
+      "tipo": "opcion_multiple",
+      "enunciado": "En una cuadrícula, avanzas 2 celdas al norte y 3 al este. ¿Dónde quedas respecto al inicio?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Suroeste"
+        },
+        {
+          "id": "b",
+          "texto": "Noreste"
+        },
+        {
+          "id": "c",
+          "texto": "Noroeste"
+        },
+        {
+          "id": "d",
+          "texto": "Sureste"
+        }
+      ]
+    },
+    {
+      "id": "ESP-11",
+      "area": "espacial",
+      "tipo": "opcion_multiple",
+      "enunciado": "Una hoja rectangular se dobla exactamente a la mitad una vez. ¿Cuántas capas hay?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "1"
+        },
+        {
+          "id": "b",
+          "texto": "2"
+        },
+        {
+          "id": "c",
+          "texto": "3"
+        },
+        {
+          "id": "d",
+          "texto": "4"
+        }
+      ]
+    },
+    {
+      "id": "ESP-12",
+      "area": "espacial",
+      "tipo": "opcion_multiple",
+      "enunciado": "Una flecha → girada 90° antihorario apunta...",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "↑"
+        },
+        {
+          "id": "b",
+          "texto": "↓"
+        },
+        {
+          "id": "c",
+          "texto": "←"
+        },
+        {
+          "id": "d",
+          "texto": "→"
+        }
+      ]
+    },
+    {
+      "id": "ESP-13",
+      "area": "espacial",
+      "tipo": "opcion_multiple",
+      "enunciado": "En un cubo ordinario, dos caras opuestas pueden compartir una arista?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Sí, siempre"
+        },
+        {
+          "id": "b",
+          "texto": "Solo si se gira"
+        },
+        {
+          "id": "c",
+          "texto": "No"
+        },
+        {
+          "id": "d",
+          "texto": "Solo en dibujos"
+        }
+      ]
+    },
+    {
+      "id": "ESP-14",
+      "area": "espacial",
+      "tipo": "opcion_multiple",
+      "enunciado": "Una flecha ↙ girada 180° apunta...",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "↖"
+        },
+        {
+          "id": "b",
+          "texto": "↗"
+        },
+        {
+          "id": "c",
+          "texto": "↘"
+        },
+        {
+          "id": "d",
+          "texto": "↙"
+        }
+      ]
+    },
+    {
+      "id": "ESP-15",
+      "area": "espacial",
+      "tipo": "opcion_multiple",
+      "enunciado": "Un objeto visto desde arriba es un círculo perfecto. ¿Cuál podría producir esa vista?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Esfera"
+        },
+        {
+          "id": "b",
+          "texto": "Pirámide triangular sin truncar"
+        },
+        {
+          "id": "c",
+          "texto": "Cubo alineado"
+        },
+        {
+          "id": "d",
+          "texto": "Prisma de base triangular"
+        }
+      ]
+    },
+    {
+      "id": "ATE-01",
+      "area": "atencion",
+      "tipo": "opcion_multiple",
+      "enunciado": "¿Cuántas letras A hay en «CASA AMARILLA»?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "3"
+        },
+        {
+          "id": "b",
+          "texto": "4"
+        },
+        {
+          "id": "c",
+          "texto": "5"
+        },
+        {
+          "id": "d",
+          "texto": "6"
+        }
+      ]
+    },
+    {
+      "id": "ATE-02",
+      "area": "atencion",
+      "tipo": "opcion_multiple",
+      "enunciado": "Encuentra el texto distinto: «AB12», «AB12», «AB21», «AB12».",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "1"
+        },
+        {
+          "id": "b",
+          "texto": "2"
+        },
+        {
+          "id": "c",
+          "texto": "3"
+        },
+        {
+          "id": "d",
+          "texto": "4"
+        }
+      ]
+    },
+    {
+      "id": "ATE-03",
+      "area": "atencion",
+      "tipo": "opcion_multiple",
+      "enunciado": "¿Cuántos 7 hay en «717277371»?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "3"
+        },
+        {
+          "id": "b",
+          "texto": "4"
+        },
+        {
+          "id": "c",
+          "texto": "5"
+        },
+        {
+          "id": "d",
+          "texto": "6"
+        }
+      ]
+    },
+    {
+      "id": "ATE-04",
+      "area": "atencion",
+      "tipo": "opcion_multiple",
+      "enunciado": "¿Cuál coincide exactamente con «K7M-Q2»?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "K7N-Q2"
+        },
+        {
+          "id": "b",
+          "texto": "K7M-O2"
+        },
+        {
+          "id": "c",
+          "texto": "K7M-Q2"
+        },
+        {
+          "id": "d",
+          "texto": "K7M-QZ"
+        }
+      ]
+    },
+    {
+      "id": "ATE-05",
+      "area": "atencion",
+      "tipo": "opcion_multiple",
+      "enunciado": "¿Cuántas X hay en «XXOXOXXXO»?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "4"
+        },
+        {
+          "id": "b",
+          "texto": "5"
+        },
+        {
+          "id": "c",
+          "texto": "6"
+        },
+        {
+          "id": "d",
+          "texto": "7"
+        }
+      ]
+    },
+    {
+      "id": "ATE-06",
+      "area": "atencion",
+      "tipo": "opcion_multiple",
+      "enunciado": "Identifica el código diferente: «MNP8», «MNP8», «MNP8», «MPN8».",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "1"
+        },
+        {
+          "id": "b",
+          "texto": "2"
+        },
+        {
+          "id": "c",
+          "texto": "3"
+        },
+        {
+          "id": "d",
+          "texto": "4"
+        }
+      ]
+    },
+    {
+      "id": "ATE-07",
+      "area": "atencion",
+      "tipo": "opcion_multiple",
+      "enunciado": "¿Cuántas veces aparece «BA» en «BABABA» (permitiendo superposición)?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "2"
+        },
+        {
+          "id": "b",
+          "texto": "3"
+        },
+        {
+          "id": "c",
+          "texto": "4"
+        },
+        {
+          "id": "d",
+          "texto": "5"
+        }
+      ]
+    },
+    {
+      "id": "ATE-08",
+      "area": "atencion",
+      "tipo": "opcion_multiple",
+      "enunciado": "¿Cuál coincide con «5081-AX»?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "508I-AX"
+        },
+        {
+          "id": "b",
+          "texto": "5081-AX"
+        },
+        {
+          "id": "c",
+          "texto": "5801-AX"
+        },
+        {
+          "id": "d",
+          "texto": "5081-XA"
+        }
+      ]
+    },
+    {
+      "id": "ATE-09",
+      "area": "atencion",
+      "tipo": "opcion_multiple",
+      "enunciado": "¿Cuántos dígitos pares hay en «63182475»?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "2"
+        },
+        {
+          "id": "b",
+          "texto": "3"
+        },
+        {
+          "id": "c",
+          "texto": "4"
+        },
+        {
+          "id": "d",
+          "texto": "5"
+        }
+      ]
+    },
+    {
+      "id": "ATE-10",
+      "area": "atencion",
+      "tipo": "opcion_multiple",
+      "enunciado": "¿Qué par es idéntico?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Q0O / QOO"
+        },
+        {
+          "id": "b",
+          "texto": "1Il / 1lI"
+        },
+        {
+          "id": "c",
+          "texto": "p9q / p9q"
+        },
+        {
+          "id": "d",
+          "texto": "Z5S / ZSS"
+        }
+      ]
+    },
+    {
+      "id": "ATE-11",
+      "area": "atencion",
+      "tipo": "opcion_multiple",
+      "enunciado": "¿Cuál era el tercer dígito?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "4"
+        },
+        {
+          "id": "b",
+          "texto": "7"
+        },
+        {
+          "id": "c",
+          "texto": "2"
+        },
+        {
+          "id": "d",
+          "texto": "9"
+        }
+      ],
+      "memorizar": "4-7-2-9"
+    },
+    {
+      "id": "ATE-12",
+      "area": "atencion",
+      "tipo": "opcion_multiple",
+      "enunciado": "¿Cuál era el segundo color?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Gris"
+        },
+        {
+          "id": "b",
+          "texto": "Azul"
+        },
+        {
+          "id": "c",
+          "texto": "Verde"
+        },
+        {
+          "id": "d",
+          "texto": "Rojo"
+        }
+      ],
+      "memorizar": "rojo, azul, verde, gris"
+    },
+    {
+      "id": "ATE-13",
+      "area": "atencion",
+      "tipo": "opcion_multiple",
+      "enunciado": "¿Cuál es el orden inverso?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "6-3-8"
+        },
+        {
+          "id": "b",
+          "texto": "8-6-3"
+        },
+        {
+          "id": "c",
+          "texto": "3-8-6"
+        },
+        {
+          "id": "d",
+          "texto": "6-8-3"
+        }
+      ],
+      "memorizar": "8-3-6"
+    },
+    {
+      "id": "ATE-14",
+      "area": "atencion",
+      "tipo": "opcion_multiple",
+      "enunciado": "¿Cuál era la última letra?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "F"
+        },
+        {
+          "id": "b",
+          "texto": "K"
+        },
+        {
+          "id": "c",
+          "texto": "M"
+        },
+        {
+          "id": "d",
+          "texto": "R"
+        }
+      ],
+      "memorizar": "F-K-M-R"
+    },
+    {
+      "id": "ATE-15",
+      "area": "atencion",
+      "tipo": "opcion_multiple",
+      "enunciado": "¿Cuánto suman primero y último?",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "4"
+        },
+        {
+          "id": "b",
+          "texto": "5"
+        },
+        {
+          "id": "c",
+          "texto": "6"
+        },
+        {
+          "id": "d",
+          "texto": "7"
+        }
+      ],
+      "memorizar": "2-5-1-4"
+    },
+    {
+      "id": "B5-01",
+      "area": "personalidad",
       "tipo": "likert",
-      "enunciado": "Me cuesta desconectarme de los problemas del trabajo después de la jornada."
+      "enunciado": "Disfruto explorar maneras nuevas de resolver un problema."
+    },
+    {
+      "id": "B5-02",
+      "area": "personalidad",
+      "tipo": "likert",
+      "enunciado": "Me interesan ideas que cuestionan mis hábitos habituales."
+    },
+    {
+      "id": "B5-03",
+      "area": "personalidad",
+      "tipo": "likert",
+      "enunciado": "Prefiero evitar cualquier cambio incluso cuando podría mejorar un proceso."
+    },
+    {
+      "id": "B5-04",
+      "area": "personalidad",
+      "tipo": "likert",
+      "enunciado": "Suelo terminar las tareas que me comprometo a realizar."
+    },
+    {
+      "id": "B5-05",
+      "area": "personalidad",
+      "tipo": "likert",
+      "enunciado": "Organizo mis actividades antes de comenzar un proyecto complejo."
+    },
+    {
+      "id": "B5-06",
+      "area": "personalidad",
+      "tipo": "likert",
+      "enunciado": "Frecuentemente dejo tareas importantes para el último momento."
+    },
+    {
+      "id": "B5-07",
+      "area": "personalidad",
+      "tipo": "likert",
+      "enunciado": "Me resulta natural iniciar conversaciones con personas nuevas."
+    },
+    {
+      "id": "B5-08",
+      "area": "personalidad",
+      "tipo": "likert",
+      "enunciado": "Disfruto participar activamente en conversaciones grupales."
+    },
+    {
+      "id": "B5-09",
+      "area": "personalidad",
+      "tipo": "likert",
+      "enunciado": "Prefiero mantenerme al margen de casi todas las interacciones sociales."
+    },
+    {
+      "id": "B5-10",
+      "area": "personalidad",
+      "tipo": "likert",
+      "enunciado": "Procuro comprender los puntos de vista de otras personas."
+    },
+    {
+      "id": "B5-11",
+      "area": "personalidad",
+      "tipo": "likert",
+      "enunciado": "Estoy dispuesto a cooperar para lograr objetivos compartidos."
+    },
+    {
+      "id": "B5-12",
+      "area": "personalidad",
+      "tipo": "likert",
+      "enunciado": "Me cuesta considerar las necesidades de otras personas cuando hay desacuerdos."
+    },
+    {
+      "id": "B5-13",
+      "area": "personalidad",
+      "tipo": "likert",
+      "enunciado": "Suelo recuperar la calma después de una contrariedad cotidiana."
+    },
+    {
+      "id": "B5-14",
+      "area": "personalidad",
+      "tipo": "likert",
+      "enunciado": "Mantengo la serenidad ante contratiempos comunes."
+    },
+    {
+      "id": "B5-15",
+      "area": "personalidad",
+      "tipo": "likert",
+      "enunciado": "Las preocupaciones cotidianas suelen alterarme durante mucho tiempo."
+    },
+    {
+      "id": "SJT-01",
+      "area": "situacional",
+      "tipo": "opcion_multiple",
+      "enunciado": "Una persona reporta un error importante sin información suficiente.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Culpar a quien hizo el último cambio"
+        },
+        {
+          "id": "b",
+          "texto": "Pedir evidencias, verificar impacto y priorizar diagnóstico"
+        },
+        {
+          "id": "c",
+          "texto": "Cerrar el reporte hasta tener certeza"
+        }
+      ]
+    },
+    {
+      "id": "SJT-02",
+      "area": "situacional",
+      "tipo": "opcion_multiple",
+      "enunciado": "Dos tareas urgentes tienen el mismo plazo y no puedes terminarlas ambas.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Confirmar prioridades e impactos con la persona responsable"
+        },
+        {
+          "id": "b",
+          "texto": "Elegir al azar"
+        },
+        {
+          "id": "c",
+          "texto": "Ocultar el retraso"
+        }
+      ]
+    },
+    {
+      "id": "SJT-03",
+      "area": "situacional",
+      "tipo": "opcion_multiple",
+      "enunciado": "Descubres que enviaste información incorrecta a un cliente.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Esperar a que lo note"
+        },
+        {
+          "id": "b",
+          "texto": "Corregir el registro sin avisar"
+        },
+        {
+          "id": "c",
+          "texto": "Informar oportunamente, rectificar y explicar el siguiente paso"
+        }
+      ]
+    },
+    {
+      "id": "SJT-04",
+      "area": "situacional",
+      "tipo": "opcion_multiple",
+      "enunciado": "Tu colega propone un procedimiento contrario a una norma documentada.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Seguirlo para evitar conflicto"
+        },
+        {
+          "id": "b",
+          "texto": "Verificar la norma y plantear una alternativa conforme"
+        },
+        {
+          "id": "c",
+          "texto": "Exponer al colega públicamente"
+        }
+      ]
+    },
+    {
+      "id": "SJT-05",
+      "area": "situacional",
+      "tipo": "opcion_multiple",
+      "enunciado": "Un cliente se molesta por una demora.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Escuchar, reconocer la demora y comunicar un plazo realista"
+        },
+        {
+          "id": "b",
+          "texto": "Prometer entrega inmediata sin confirmación"
+        },
+        {
+          "id": "c",
+          "texto": "Evitar responder"
+        }
+      ]
+    },
+    {
+      "id": "SJT-06",
+      "area": "situacional",
+      "tipo": "opcion_multiple",
+      "enunciado": "Un requisito del proyecto es ambiguo.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Construir según tu primera interpretación"
+        },
+        {
+          "id": "b",
+          "texto": "Copiar el requisito de otro proyecto"
+        },
+        {
+          "id": "c",
+          "texto": "Solicitar aclaración y dejar constancia del acuerdo"
+        }
+      ]
+    },
+    {
+      "id": "SJT-07",
+      "area": "situacional",
+      "tipo": "opcion_multiple",
+      "enunciado": "Aparecen dos fuentes con cifras distintas.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Usar la mayor"
+        },
+        {
+          "id": "b",
+          "texto": "Comparar origen, fecha y definición antes de decidir"
+        },
+        {
+          "id": "c",
+          "texto": "Promediarlas sin revisar"
+        }
+      ]
+    },
+    {
+      "id": "SJT-08",
+      "area": "situacional",
+      "tipo": "opcion_multiple",
+      "enunciado": "Debes ejecutar un cambio que podría interrumpir un servicio.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Evaluar impacto, coordinar ventana y plan de reversión"
+        },
+        {
+          "id": "b",
+          "texto": "Hacerlo sin avisar"
+        },
+        {
+          "id": "c",
+          "texto": "Esperar indefinidamente sin informar"
+        }
+      ]
+    },
+    {
+      "id": "SJT-09",
+      "area": "situacional",
+      "tipo": "opcion_multiple",
+      "enunciado": "Un compañero comete un error que afecta tu entregable.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Corregir sin dejar registro ni hablarlo"
+        },
+        {
+          "id": "b",
+          "texto": "Difundirlo en un chat grupal"
+        },
+        {
+          "id": "c",
+          "texto": "Hablar con él, corregir y acordar prevención"
+        }
+      ]
+    },
+    {
+      "id": "SJT-10",
+      "area": "situacional",
+      "tipo": "opcion_multiple",
+      "enunciado": "Un usuario pide acceso a datos para los que no aparece autorizado.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Otorgarlo por urgencia"
+        },
+        {
+          "id": "b",
+          "texto": "Verificar permisos y canal de autorización"
+        },
+        {
+          "id": "c",
+          "texto": "Pedirle que use la cuenta de otra persona"
+        }
+      ]
+    },
+    {
+      "id": "SJT-11",
+      "area": "situacional",
+      "tipo": "opcion_multiple",
+      "enunciado": "La instrucción verbal contradice una política vigente.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Solicitar aclaración y confirmar procedimiento autorizado"
+        },
+        {
+          "id": "b",
+          "texto": "Ignorar la política sin preguntar"
+        },
+        {
+          "id": "c",
+          "texto": "Fingir que no escuchaste"
+        }
+      ]
+    },
+    {
+      "id": "SJT-12",
+      "area": "situacional",
+      "tipo": "opcion_multiple",
+      "enunciado": "Un proyecto cambia de alcance a mitad de la ejecución.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Mantener calendario original sin revisión"
+        },
+        {
+          "id": "b",
+          "texto": "Rechazar cualquier cambio de inmediato"
+        },
+        {
+          "id": "c",
+          "texto": "Evaluar impacto en recursos, plazos y comunicar alternativas"
+        }
+      ]
+    },
+    {
+      "id": "SJT-13",
+      "area": "situacional",
+      "tipo": "opcion_multiple",
+      "enunciado": "No sabes resolver una incidencia crítica.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Inventar una solución"
+        },
+        {
+          "id": "b",
+          "texto": "Escalar oportunamente con lo investigado y el impacto"
+        },
+        {
+          "id": "c",
+          "texto": "Cerrar el caso"
+        }
+      ]
+    },
+    {
+      "id": "SJT-14",
+      "area": "situacional",
+      "tipo": "opcion_multiple",
+      "enunciado": "Una persona solicita una excepción sin documentación.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Explicar requisitos y encauzar una aprobación formal si procede"
+        },
+        {
+          "id": "b",
+          "texto": "Aprobar por simpatía"
+        },
+        {
+          "id": "c",
+          "texto": "Rechazarla agresivamente"
+        }
+      ]
+    },
+    {
+      "id": "SJT-15",
+      "area": "situacional",
+      "tipo": "opcion_multiple",
+      "enunciado": "Descubres un error en un reporte que aún no se publica.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Publicarlo para cumplir hora"
+        },
+        {
+          "id": "b",
+          "texto": "Ocultarlo y esperar"
+        },
+        {
+          "id": "c",
+          "texto": "Corregirlo, verificar cifras y comunicar ajuste de plazo si hace falta"
+        }
+      ]
+    },
+    {
+      "id": "LID-01",
+      "area": "liderazgo",
+      "tipo": "opcion_multiple",
+      "enunciado": "Una persona nueva necesita ejecutar una tarea crítica.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Entregarla sin instrucciones"
+        },
+        {
+          "id": "b",
+          "texto": "Explicar objetivo, riesgos y punto de seguimiento"
+        },
+        {
+          "id": "c",
+          "texto": "Hacer todo tú sin enseñarle"
+        }
+      ]
+    },
+    {
+      "id": "LID-02",
+      "area": "liderazgo",
+      "tipo": "opcion_multiple",
+      "enunciado": "Dos integrantes discrepan sobre un procedimiento.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Escuchar argumentos, revisar criterios y facilitar acuerdo"
+        },
+        {
+          "id": "b",
+          "texto": "Elegir a quien lleva más tiempo sin analizar"
+        },
+        {
+          "id": "c",
+          "texto": "Posponer indefinidamente"
+        }
+      ]
+    },
+    {
+      "id": "LID-03",
+      "area": "liderazgo",
+      "tipo": "opcion_multiple",
+      "enunciado": "El equipo incumplió un objetivo mensual.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Buscar culpables públicamente"
+        },
+        {
+          "id": "b",
+          "texto": "Manipular la métrica"
+        },
+        {
+          "id": "c",
+          "texto": "Analizar causas con el equipo y acordar acciones"
+        }
+      ]
+    },
+    {
+      "id": "LID-04",
+      "area": "liderazgo",
+      "tipo": "opcion_multiple",
+      "enunciado": "Un colaborador reporta saturación de tareas.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Decirle que trabaje más horas"
+        },
+        {
+          "id": "b",
+          "texto": "Revisar prioridades, carga y recursos"
+        },
+        {
+          "id": "c",
+          "texto": "Quitarle todas las responsabilidades permanentemente"
+        }
+      ]
+    },
+    {
+      "id": "LID-05",
+      "area": "liderazgo",
+      "tipo": "opcion_multiple",
+      "enunciado": "Debes delegar una actividad nueva.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Definir resultado esperado, autonomía y seguimiento"
+        },
+        {
+          "id": "b",
+          "texto": "Delegar sin criterio"
+        },
+        {
+          "id": "c",
+          "texto": "Revisar cada movimiento sin necesidad"
+        }
+      ]
+    },
+    {
+      "id": "LID-06",
+      "area": "liderazgo",
+      "tipo": "opcion_multiple",
+      "enunciado": "Dos personas requieren el mismo recurso limitado.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Favorecer al amigo más cercano"
+        },
+        {
+          "id": "b",
+          "texto": "Negar el recurso a ambas"
+        },
+        {
+          "id": "c",
+          "texto": "Asignarlo por impacto y urgencia, explicando criterios"
+        }
+      ]
+    },
+    {
+      "id": "LID-07",
+      "area": "liderazgo",
+      "tipo": "opcion_multiple",
+      "enunciado": "Una integrante aporta una mejora que contradice tu propuesta.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Descartarla por jerarquía"
+        },
+        {
+          "id": "b",
+          "texto": "Evaluar objetivamente su mérito"
+        },
+        {
+          "id": "c",
+          "texto": "Presentarla como idea propia"
+        }
+      ]
+    },
+    {
+      "id": "LID-08",
+      "area": "liderazgo",
+      "tipo": "opcion_multiple",
+      "enunciado": "El equipo no entiende cómo se medirá el éxito.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Definir criterios observables y confirmar comprensión"
+        },
+        {
+          "id": "b",
+          "texto": "Pedir esfuerzo sin metas claras"
+        },
+        {
+          "id": "c",
+          "texto": "Cambiar las metas al final"
+        }
+      ]
+    },
+    {
+      "id": "LID-09",
+      "area": "liderazgo",
+      "tipo": "opcion_multiple",
+      "enunciado": "Hay retrasos reiterados de una persona.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Reprenderla ante todo el equipo"
+        },
+        {
+          "id": "b",
+          "texto": "Ignorar la situación"
+        },
+        {
+          "id": "c",
+          "texto": "Conversar en privado, conocer causas y acordar seguimiento"
+        }
+      ]
+    },
+    {
+      "id": "LID-10",
+      "area": "liderazgo",
+      "tipo": "opcion_multiple",
+      "enunciado": "Una decisión debe tomarse hoy con información incompleta.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Esperar hasta tener información perfecta"
+        },
+        {
+          "id": "b",
+          "texto": "Documentar supuestos, riesgos y decidir dentro de tu autoridad"
+        },
+        {
+          "id": "c",
+          "texto": "Adivinar sin consultar a nadie"
+        }
+      ]
+    },
+    {
+      "id": "LID-11",
+      "area": "liderazgo",
+      "tipo": "opcion_multiple",
+      "enunciado": "El equipo tiene habilidades diferentes para una tarea compleja.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Distribuir tareas conforme a capacidades y oportunidades de desarrollo"
+        },
+        {
+          "id": "b",
+          "texto": "Asignar todo a una sola persona"
+        },
+        {
+          "id": "c",
+          "texto": "Dar la misma tarea duplicada a todas"
+        }
+      ]
+    },
+    {
+      "id": "LID-12",
+      "area": "liderazgo",
+      "tipo": "opcion_multiple",
+      "enunciado": "Se detecta un fallo grave causado por un proceso mal definido.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Culpar inmediatamente al ejecutor"
+        },
+        {
+          "id": "b",
+          "texto": "Evitar cualquier modificación"
+        },
+        {
+          "id": "c",
+          "texto": "Contener el fallo y mejorar el proceso con responsabilidades claras"
+        }
+      ]
+    },
+    {
+      "id": "LID-13",
+      "area": "liderazgo",
+      "tipo": "opcion_multiple",
+      "enunciado": "Una persona pide retroalimentación sobre su desempeño.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Dar solo comentarios vagos"
+        },
+        {
+          "id": "b",
+          "texto": "Ofrecer ejemplos específicos y acordar mejoras"
+        },
+        {
+          "id": "c",
+          "texto": "Compararla con su compañero como único criterio"
+        }
+      ]
+    },
+    {
+      "id": "LID-14",
+      "area": "liderazgo",
+      "tipo": "opcion_multiple",
+      "enunciado": "Un cambio organizacional afecta al equipo.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Comunicar lo conocido, incertidumbres y canales de preguntas"
+        },
+        {
+          "id": "b",
+          "texto": "Prometer que nada cambiará"
+        },
+        {
+          "id": "c",
+          "texto": "Retener la información disponible"
+        }
+      ]
+    },
+    {
+      "id": "LID-15",
+      "area": "liderazgo",
+      "tipo": "opcion_multiple",
+      "enunciado": "Dos objetivos simultáneos son incompatibles con el presupuesto actual.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Exigir ambos sin recursos"
+        },
+        {
+          "id": "b",
+          "texto": "Ocultar la limitación"
+        },
+        {
+          "id": "c",
+          "texto": "Negociar prioridades y documentar compromisos"
+        }
+      ]
+    },
+    {
+      "id": "PRE-01",
+      "area": "presion",
+      "tipo": "opcion_multiple",
+      "enunciado": "Recibes tres incidencias a la vez y una afecta un servicio esencial.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Priorizar por impacto y notificar tiempos"
+        },
+        {
+          "id": "b",
+          "texto": "Atender por orden de llegada siempre"
+        },
+        {
+          "id": "c",
+          "texto": "Intentar todo simultáneamente sin registrar"
+        }
+      ]
+    },
+    {
+      "id": "PRE-02",
+      "area": "presion",
+      "tipo": "opcion_multiple",
+      "enunciado": "Faltan 30 minutos y el entregable tiene un error importante.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Enviarlo ocultando el error"
+        },
+        {
+          "id": "b",
+          "texto": "Corregir lo crítico y avisar oportunamente del impacto en el plazo"
+        },
+        {
+          "id": "c",
+          "texto": "Culpar al equipo sin investigar"
+        }
+      ]
+    },
+    {
+      "id": "PRE-03",
+      "area": "presion",
+      "tipo": "opcion_multiple",
+      "enunciado": "Un cliente eleva el tono de voz durante una llamada.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Responder del mismo modo"
+        },
+        {
+          "id": "b",
+          "texto": "Cortar sin explicación"
+        },
+        {
+          "id": "c",
+          "texto": "Mantener conversación profesional y establecer límites respetuosos"
+        }
+      ]
+    },
+    {
+      "id": "PRE-04",
+      "area": "presion",
+      "tipo": "opcion_multiple",
+      "enunciado": "Un cambio de prioridad invalida tu plan del día.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Revisar prioridades y ajustar el plan"
+        },
+        {
+          "id": "b",
+          "texto": "Ignorar la nueva instrucción"
+        },
+        {
+          "id": "c",
+          "texto": "Abandonar todas las tareas sin comunicar"
+        }
+      ]
+    },
+    {
+      "id": "PRE-05",
+      "area": "presion",
+      "tipo": "opcion_multiple",
+      "enunciado": "Tu computadora falla antes de una reunión importante.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Inventar datos"
+        },
+        {
+          "id": "b",
+          "texto": "Avisar, usar medio alternativo y compartir material disponible"
+        },
+        {
+          "id": "c",
+          "texto": "Cancelar sin notificar"
+        }
+      ]
+    },
+    {
+      "id": "PRE-06",
+      "area": "presion",
+      "tipo": "opcion_multiple",
+      "enunciado": "Una solicitud urgente carece de datos indispensables.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Resolver con suposiciones críticas"
+        },
+        {
+          "id": "b",
+          "texto": "Rechazarla sin explicar"
+        },
+        {
+          "id": "c",
+          "texto": "Solicitar datos mínimos y comunicar el tiempo estimado para proceder"
+        }
+      ]
+    },
+    {
+      "id": "PRE-07",
+      "area": "presion",
+      "tipo": "opcion_multiple",
+      "enunciado": "Cometiste un error que puede retrasar al equipo.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Comunicarlo y proponer mitigación"
+        },
+        {
+          "id": "b",
+          "texto": "Ocultarlo"
+        },
+        {
+          "id": "c",
+          "texto": "Modificar registros para disimularlo"
+        }
+      ]
+    },
+    {
+      "id": "PRE-08",
+      "area": "presion",
+      "tipo": "opcion_multiple",
+      "enunciado": "Recibes comentarios críticos sobre una presentación.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Discutir sin escuchar"
+        },
+        {
+          "id": "b",
+          "texto": "Pedir ejemplos, distinguir lo útil y ajustar"
+        },
+        {
+          "id": "c",
+          "texto": "Eliminar todo el trabajo sin revisar"
+        }
+      ]
+    },
+    {
+      "id": "PRE-09",
+      "area": "presion",
+      "tipo": "opcion_multiple",
+      "enunciado": "Aparecen interrupciones constantes durante una tarea de concentración.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Responder cada una sin evaluar"
+        },
+        {
+          "id": "b",
+          "texto": "Ignorar solicitudes críticas"
+        },
+        {
+          "id": "c",
+          "texto": "Agrupar interrupciones no urgentes y definir canal para urgencias"
+        }
+      ]
+    },
+    {
+      "id": "PRE-10",
+      "area": "presion",
+      "tipo": "opcion_multiple",
+      "enunciado": "Tu supervisor pide una estimación con datos incompletos.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Dar rango, supuestos y nivel de incertidumbre"
+        },
+        {
+          "id": "b",
+          "texto": "Inventar cifra precisa"
+        },
+        {
+          "id": "c",
+          "texto": "Negarte a dar cualquier orientación"
+        }
+      ]
+    },
+    {
+      "id": "PRE-11",
+      "area": "presion",
+      "tipo": "opcion_multiple",
+      "enunciado": "Dos personas te piden respuesta inmediata.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Elegir a quien más insiste"
+        },
+        {
+          "id": "b",
+          "texto": "Evaluar urgencia e impacto y comunicar orden de atención"
+        },
+        {
+          "id": "c",
+          "texto": "Prometer terminar ambas instantáneamente"
+        }
+      ]
+    },
+    {
+      "id": "PRE-12",
+      "area": "presion",
+      "tipo": "opcion_multiple",
+      "enunciado": "El procedimiento habitual deja de funcionar tras una actualización.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Seguir repitiéndolo sin investigar"
+        },
+        {
+          "id": "b",
+          "texto": "Saltarte controles críticos"
+        },
+        {
+          "id": "c",
+          "texto": "Consultar documentación actual y probar alternativa autorizada"
+        }
+      ]
+    },
+    {
+      "id": "PRE-13",
+      "area": "presion",
+      "tipo": "opcion_multiple",
+      "enunciado": "Un indicador cae inesperadamente.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Verificar datos y causas antes de modificar el proceso"
+        },
+        {
+          "id": "b",
+          "texto": "Alterar registros para mejorar el indicador"
+        },
+        {
+          "id": "c",
+          "texto": "Asumir que no importa"
+        }
+      ]
+    },
+    {
+      "id": "PRE-14",
+      "area": "presion",
+      "tipo": "opcion_multiple",
+      "enunciado": "Una reunión se prolonga y compromete otra obligación.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Salir sin avisar"
+        },
+        {
+          "id": "b",
+          "texto": "Comunicar el conflicto y reorganizar compromisos"
+        },
+        {
+          "id": "c",
+          "texto": "No asistir a la siguiente sin explicación"
+        }
+      ]
+    },
+    {
+      "id": "PRE-15",
+      "area": "presion",
+      "tipo": "opcion_multiple",
+      "enunciado": "Varias personas dependen de un trabajo que no terminarás a tiempo.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Esperar hasta el vencimiento"
+        },
+        {
+          "id": "b",
+          "texto": "Asegurar falsamente que está listo"
+        },
+        {
+          "id": "c",
+          "texto": "Informar pronto y acordar entrega parcial o nuevo plan"
+        }
+      ]
+    },
+    {
+      "id": "INT-01",
+      "area": "integridad",
+      "tipo": "opcion_multiple",
+      "enunciado": "Encuentras datos personales visibles para usuarios no autorizados.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Copiarlos para uso propio"
+        },
+        {
+          "id": "b",
+          "texto": "Reportar y contener la exposición siguiendo el protocolo"
+        },
+        {
+          "id": "c",
+          "texto": "Compartir capturas públicamente"
+        }
+      ]
+    },
+    {
+      "id": "INT-02",
+      "area": "integridad",
+      "tipo": "opcion_multiple",
+      "enunciado": "Un compañero pide tu contraseña para «salir rápido».",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Negarte y buscar una vía de acceso autorizada"
+        },
+        {
+          "id": "b",
+          "texto": "Compartirla si es de confianza"
+        },
+        {
+          "id": "c",
+          "texto": "Anotarla en un chat grupal"
+        }
+      ]
+    },
+    {
+      "id": "INT-03",
+      "area": "integridad",
+      "tipo": "opcion_multiple",
+      "enunciado": "Descubres un error contable que incrementa artificialmente un resultado.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Ignorarlo"
+        },
+        {
+          "id": "b",
+          "texto": "Felicitar a quien hizo el reporte"
+        },
+        {
+          "id": "c",
+          "texto": "Reportarlo y solicitar su corrección"
+        }
+      ]
+    },
+    {
+      "id": "INT-04",
+      "area": "integridad",
+      "tipo": "opcion_multiple",
+      "enunciado": "Un proveedor ofrece un regalo que podría infringir la política interna.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Aceptarlo en secreto"
+        },
+        {
+          "id": "b",
+          "texto": "Consultar la política y declarar el ofrecimiento"
+        },
+        {
+          "id": "c",
+          "texto": "Solicitar otro regalo"
+        }
+      ]
+    },
+    {
+      "id": "INT-05",
+      "area": "integridad",
+      "tipo": "opcion_multiple",
+      "enunciado": "Te piden alterar la fecha de un registro para aparentar cumplimiento.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Negarte y escalar por el canal correspondiente"
+        },
+        {
+          "id": "b",
+          "texto": "Cambiar la fecha sin decirlo"
+        },
+        {
+          "id": "c",
+          "texto": "Borrar el documento"
+        }
+      ]
+    },
+    {
+      "id": "INT-06",
+      "area": "integridad",
+      "tipo": "opcion_multiple",
+      "enunciado": "Recibes por error un archivo confidencial ajeno a tu trabajo.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Reenviarlo por curiosidad"
+        },
+        {
+          "id": "b",
+          "texto": "Descargar una copia personal"
+        },
+        {
+          "id": "c",
+          "texto": "Avisar, no difundirlo y seguir el protocolo"
+        }
+      ]
+    },
+    {
+      "id": "INT-07",
+      "area": "integridad",
+      "tipo": "opcion_multiple",
+      "enunciado": "Tienes un conflicto de interés no declarado en una compra.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Participar sin informar"
+        },
+        {
+          "id": "b",
+          "texto": "Declararlo y seguir la política de recusación aplicable"
+        },
+        {
+          "id": "c",
+          "texto": "Pedir comisión extra"
+        }
+      ]
+    },
+    {
+      "id": "INT-08",
+      "area": "integridad",
+      "tipo": "opcion_multiple",
+      "enunciado": "Un cliente solicita eliminar una evidencia que debe conservarse.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Explicar los requisitos de conservación y canalizar la solicitud"
+        },
+        {
+          "id": "b",
+          "texto": "Borrarla de inmediato"
+        },
+        {
+          "id": "c",
+          "texto": "Ocultarla en un respaldo personal"
+        }
+      ]
+    },
+    {
+      "id": "INT-09",
+      "area": "integridad",
+      "tipo": "opcion_multiple",
+      "enunciado": "Un colega propone usar una licencia de software no autorizada.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Usarla para ahorrar"
+        },
+        {
+          "id": "b",
+          "texto": "Instalarla solo en equipos secundarios"
+        },
+        {
+          "id": "c",
+          "texto": "Solicitar una alternativa con licencia válida"
+        }
+      ]
+    },
+    {
+      "id": "INT-10",
+      "area": "integridad",
+      "tipo": "opcion_multiple",
+      "enunciado": "Observas un acceso inusual a un sistema.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Publicarlo en redes"
+        },
+        {
+          "id": "b",
+          "texto": "Documentar y comunicarlo al canal de seguridad"
+        },
+        {
+          "id": "c",
+          "texto": "Ignorarlo siempre"
+        }
+      ]
+    },
+    {
+      "id": "INT-11",
+      "area": "integridad",
+      "tipo": "opcion_multiple",
+      "enunciado": "Un supervisor pide compartir datos de un candidato con un tercero no autorizado.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Verificar la base de autorización y limitar el acceso"
+        },
+        {
+          "id": "b",
+          "texto": "Enviarlos inmediatamente"
+        },
+        {
+          "id": "c",
+          "texto": "Subirlos a una carpeta pública"
+        }
+      ]
+    },
+    {
+      "id": "INT-12",
+      "area": "integridad",
+      "tipo": "opcion_multiple",
+      "enunciado": "Un compañero te pide registrar horas que no trabajó.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Aceptar por amistad"
+        },
+        {
+          "id": "b",
+          "texto": "Pedir algo a cambio"
+        },
+        {
+          "id": "c",
+          "texto": "Rechazarlo y orientar al registro correcto"
+        }
+      ]
+    },
+    {
+      "id": "INT-13",
+      "area": "integridad",
+      "tipo": "opcion_multiple",
+      "enunciado": "Una métrica de tu equipo es desfavorable.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Excluir silenciosamente casos negativos"
+        },
+        {
+          "id": "b",
+          "texto": "Informar el resultado completo y explicar contexto"
+        },
+        {
+          "id": "c",
+          "texto": "Modificar la fórmula después del periodo"
+        }
+      ]
+    },
+    {
+      "id": "INT-14",
+      "area": "integridad",
+      "tipo": "opcion_multiple",
+      "enunciado": "Te ofrecen información privada de un competidor obtenida indebidamente.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Rechazarla y comunicar el incidente por el canal indicado"
+        },
+        {
+          "id": "b",
+          "texto": "Usarla discretamente"
+        },
+        {
+          "id": "c",
+          "texto": "Difundirla entre colegas"
+        }
+      ]
+    },
+    {
+      "id": "INT-15",
+      "area": "integridad",
+      "tipo": "opcion_multiple",
+      "enunciado": "Se solicita publicar una fotografía de empleados sin autorización necesaria.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Publicarla y retirar si hay quejas"
+        },
+        {
+          "id": "b",
+          "texto": "Suponer consentimiento por ser empleados"
+        },
+        {
+          "id": "c",
+          "texto": "Verificar permisos y no publicarla hasta cumplir requisitos"
+        }
+      ]
+    },
+    {
+      "id": "EMO-01",
+      "area": "empatia",
+      "tipo": "opcion_multiple",
+      "enunciado": "Una colega comenta que una entrega reciente le generó frustración.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Preguntar qué ocurrió y escuchar antes de proponer soluciones"
+        },
+        {
+          "id": "b",
+          "texto": "Decir que no debería sentir eso"
+        },
+        {
+          "id": "c",
+          "texto": "Cambiar de tema inmediatamente"
+        }
+      ]
+    },
+    {
+      "id": "EMO-02",
+      "area": "empatia",
+      "tipo": "opcion_multiple",
+      "enunciado": "Recibes una crítica que te parece injusta.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Responder con un ataque personal"
+        },
+        {
+          "id": "b",
+          "texto": "Pedir ejemplos y expresar tu perspectiva con calma"
+        },
+        {
+          "id": "c",
+          "texto": "Compartir el conflicto en redes"
+        }
+      ]
+    },
+    {
+      "id": "EMO-03",
+      "area": "empatia",
+      "tipo": "opcion_multiple",
+      "enunciado": "Un compañero guarda silencio después de una reunión tensa.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Suponer que es incompetente"
+        },
+        {
+          "id": "b",
+          "texto": "Exigir explicación en público"
+        },
+        {
+          "id": "c",
+          "texto": "Preguntar en privado si necesita aclarar algo, sin presionar"
+        }
+      ]
+    },
+    {
+      "id": "EMO-04",
+      "area": "empatia",
+      "tipo": "opcion_multiple",
+      "enunciado": "Un cliente está molesto porque perdió tiempo por un error.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Reconocer el impacto y explicar pasos concretos de solución"
+        },
+        {
+          "id": "b",
+          "texto": "Decir que es un problema menor"
+        },
+        {
+          "id": "c",
+          "texto": "Discutir quién tiene la culpa"
+        }
+      ]
+    },
+    {
+      "id": "EMO-05",
+      "area": "empatia",
+      "tipo": "opcion_multiple",
+      "enunciado": "Un colega interpreta mal tu mensaje escrito.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Insistir en que su interpretación es absurda"
+        },
+        {
+          "id": "b",
+          "texto": "Aclarar la intención y preguntar qué parte resultó ambigua"
+        },
+        {
+          "id": "c",
+          "texto": "Dejar de comunicarte"
+        }
+      ]
+    },
+    {
+      "id": "EMO-06",
+      "area": "empatia",
+      "tipo": "opcion_multiple",
+      "enunciado": "Durante una discusión notas que estás elevando el tono.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Hablar todavía más fuerte"
+        },
+        {
+          "id": "b",
+          "texto": "Salir sin explicar nada"
+        },
+        {
+          "id": "c",
+          "texto": "Bajar el ritmo, reformular el punto y retomar con respeto"
+        }
+      ]
+    },
+    {
+      "id": "EMO-07",
+      "area": "empatia",
+      "tipo": "opcion_multiple",
+      "enunciado": "Una persona nueva pregunta repetidamente por una tarea.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Averiguar qué parte no quedó clara y ofrecer una guía breve"
+        },
+        {
+          "id": "b",
+          "texto": "Burlarte de sus preguntas"
+        },
+        {
+          "id": "c",
+          "texto": "Evitarla por completo"
+        }
+      ]
+    },
+    {
+      "id": "EMO-08",
+      "area": "empatia",
+      "tipo": "opcion_multiple",
+      "enunciado": "Un integrante no participa en una reunión.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Decidir por él que no tiene ideas"
+        },
+        {
+          "id": "b",
+          "texto": "Invitarlo a aportar sin obligarlo ni exponerlo"
+        },
+        {
+          "id": "c",
+          "texto": "Señalarlo ante todos como poco comprometido"
+        }
+      ]
+    },
+    {
+      "id": "EMO-09",
+      "area": "empatia",
+      "tipo": "opcion_multiple",
+      "enunciado": "Te equivocas y otra persona se ve afectada.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Justificarte sin escuchar"
+        },
+        {
+          "id": "b",
+          "texto": "Minimizar el efecto"
+        },
+        {
+          "id": "c",
+          "texto": "Reconocer el error, escuchar el impacto y reparar lo posible"
+        }
+      ]
+    },
+    {
+      "id": "EMO-10",
+      "area": "empatia",
+      "tipo": "opcion_multiple",
+      "enunciado": "Dos colegas tienen perspectivas opuestas.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Resumir ambas posturas y buscar necesidades compartidas"
+        },
+        {
+          "id": "b",
+          "texto": "Decir que uno es irracional"
+        },
+        {
+          "id": "c",
+          "texto": "Cortar toda discusión sobre el tema"
+        }
+      ]
+    },
+    {
+      "id": "EMO-11",
+      "area": "empatia",
+      "tipo": "opcion_multiple",
+      "enunciado": "Un usuario parece confundido por una explicación técnica.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Repetirla con más tecnicismos"
+        },
+        {
+          "id": "b",
+          "texto": "Preguntar qué necesita aclarar y usar un ejemplo sencillo"
+        },
+        {
+          "id": "c",
+          "texto": "Dar por terminada la atención"
+        }
+      ]
+    },
+    {
+      "id": "EMO-12",
+      "area": "empatia",
+      "tipo": "opcion_multiple",
+      "enunciado": "Una persona pide privacidad para conversar sobre una dificultad laboral.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Exigir que lo explique ante todos"
+        },
+        {
+          "id": "b",
+          "texto": "Prometer secreto absoluto sin considerar obligaciones legales"
+        },
+        {
+          "id": "c",
+          "texto": "Buscar un espacio privado y explicar límites de confidencialidad"
+        }
+      ]
+    },
+    {
+      "id": "EMO-13",
+      "area": "empatia",
+      "tipo": "opcion_multiple",
+      "enunciado": "Te llega un mensaje que interpretas como hostil.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Pedir aclaración antes de atribuir intención"
+        },
+        {
+          "id": "b",
+          "texto": "Responder hostilmente"
+        },
+        {
+          "id": "c",
+          "texto": "Compartir una captura para ridiculizar"
+        }
+      ]
+    },
+    {
+      "id": "EMO-14",
+      "area": "empatia",
+      "tipo": "opcion_multiple",
+      "enunciado": "Una colega pierde una oportunidad profesional y se siente decepcionada.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Afirmar que no importa"
+        },
+        {
+          "id": "b",
+          "texto": "Reconocer su decepción y preguntar si desea hablar o buscar opciones"
+        },
+        {
+          "id": "c",
+          "texto": "Compararla con alguien que lo pasó peor"
+        }
+      ]
+    },
+    {
+      "id": "EMO-15",
+      "area": "empatia",
+      "tipo": "opcion_multiple",
+      "enunciado": "Una discusión grupal deja una tensión evidente.",
+      "opciones": [
+        {
+          "id": "a",
+          "texto": "Ignorarla y asignar castigos"
+        },
+        {
+          "id": "b",
+          "texto": "Elegir culpables sin escuchar"
+        },
+        {
+          "id": "c",
+          "texto": "Acordar un espacio breve para aclarar hechos y expectativas"
+        }
+      ]
     }
   ]
 }

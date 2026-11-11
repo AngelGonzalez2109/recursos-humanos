@@ -1,0 +1,130 @@
+{
+  "version": 2,
+  "titulo": "Evaluación de Perfil Profesional",
+  "niveles": [
+    {
+      "id": "bajo",
+      "etiqueta": "Bajo",
+      "desde": 0
+    },
+    {
+      "id": "medio",
+      "etiqueta": "Medio",
+      "desde": 50
+    },
+    {
+      "id": "alto",
+      "etiqueta": "Alto",
+      "desde": 75
+    }
+  ],
+  "preguntas_por_area": 10,
+  "minutos_por_area": 5,
+  "areas": [
+    {
+      "id": "logico",
+      "prefijo": "LOG",
+      "nombre": "Razonamiento lógico y abstracto",
+      "nombre_corto": "Lógica",
+      "tipo": "Objetivo",
+      "descripcion": "Series, deducciones y relaciones lógicas. Una sola respuesta correcta.",
+      "indicaciones": "Elige la opción correcta."
+    },
+    {
+      "id": "numerico",
+      "prefijo": "NUM",
+      "nombre": "Razonamiento numérico y cuantitativo",
+      "nombre_corto": "Numérico",
+      "tipo": "Objetivo",
+      "descripcion": "Porcentajes, proporciones y cálculo básico. Una sola respuesta correcta.",
+      "indicaciones": "Elige la opción correcta."
+    },
+    {
+      "id": "verbal",
+      "prefijo": "VER",
+      "nombre": "Razonamiento verbal y comprensión lectora",
+      "nombre_corto": "Verbal",
+      "tipo": "Objetivo",
+      "descripcion": "Comprensión de textos breves, sinónimos, analogías y redacción. Tres opciones.",
+      "indicaciones": "Responde únicamente a partir del texto de cada pregunta; no uses información externa."
+    },
+    {
+      "id": "espacial",
+      "prefijo": "ESP",
+      "nombre": "Aptitud espacial y visoperceptiva",
+      "nombre_corto": "Espacial",
+      "tipo": "Objetivo",
+      "descripcion": "Giros, reflejos y orientación en el espacio. Una sola respuesta correcta.",
+      "indicaciones": "Elige la opción correcta."
+    },
+    {
+      "id": "atencion",
+      "prefijo": "ATE",
+      "nombre": "Atención, concentración y memoria de trabajo",
+      "nombre_corto": "Atención",
+      "tipo": "Objetivo · prototipo",
+      "descripcion": "Búsqueda de detalles y memoria de secuencias breves. Prototipo: no tiene validez clínica.",
+      "indicaciones": "Algunas preguntas muestran una secuencia unos segundos y luego la ocultan.",
+      "aviso": "Prototipo: las tareas de atención y memoria no tienen validez clínica y no se usa el tiempo de respuesta como puntaje."
+    },
+    {
+      "id": "personalidad",
+      "prefijo": "B5",
+      "nombre": "Rasgos de personalidad (Big Five)",
+      "nombre_corto": "Personalidad",
+      "tipo": "Escala de acuerdo",
+      "descripcion": "Afirmaciones sobre tu forma de trabajar, sin respuestas correctas ni incorrectas.",
+      "indicaciones": "Indica qué tanto estás de acuerdo con cada afirmación."
+    },
+    {
+      "id": "situacional",
+      "prefijo": "SJT",
+      "nombre": "Juicio situacional y toma de decisiones",
+      "nombre_corto": "Juicio situacional",
+      "tipo": "Situacional · claves provisionales",
+      "descripcion": "Elegir la actuación más adecuada ante una situación laboral.",
+      "indicaciones": "¿Cuál es la actuación más adecuada en este contexto?",
+      "aviso": "Claves provisionales: deben revisarse con especialistas según el puesto."
+    },
+    {
+      "id": "liderazgo",
+      "prefijo": "LID",
+      "nombre": "Liderazgo y supervisión",
+      "nombre_corto": "Liderazgo",
+      "tipo": "Situacional · claves provisionales",
+      "descripcion": "Decisiones de coordinación y supervisión de personas.",
+      "indicaciones": "¿Cuál es la actuación más adecuada en este contexto?",
+      "aviso": "Claves provisionales: deben revisarse con especialistas según el puesto."
+    },
+    {
+      "id": "presion",
+      "prefijo": "PRE",
+      "nombre": "Gestión de presión laboral y adaptación",
+      "nombre_corto": "Presión laboral",
+      "tipo": "Situacional · claves provisionales",
+      "descripcion": "Prioridades, imprevistos y trabajo bajo presión.",
+      "indicaciones": "¿Cuál es la actuación más adecuada en este contexto?",
+      "aviso": "Claves provisionales: deben revisarse con especialistas según el puesto."
+    },
+    {
+      "id": "integridad",
+      "prefijo": "INT",
+      "nombre": "Integridad laboral y decisiones éticas",
+      "nombre_corto": "Integridad",
+      "tipo": "Situacional · claves provisionales",
+      "descripcion": "Confidencialidad, honestidad y cumplimiento de normas.",
+      "indicaciones": "¿Cuál es la actuación más adecuada en este contexto?",
+      "aviso": "Claves provisionales: deben revisarse con especialistas según el puesto."
+    },
+    {
+      "id": "empatia",
+      "prefijo": "EMO",
+      "nombre": "Autorregulación y empatía en el trabajo",
+      "nombre_corto": "Empatía",
+      "tipo": "Situacional · claves provisionales",
+      "descripcion": "Manejo de emociones propias y trato con otras personas.",
+      "indicaciones": "¿Cuál es la actuación más adecuada en este contexto?",
+      "aviso": "Claves provisionales: deben revisarse con especialistas según el puesto."
+    }
+  ]
+}

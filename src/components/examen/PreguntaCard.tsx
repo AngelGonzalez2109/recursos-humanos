@@ -1,11 +1,16 @@
-import { EXAMEN, seccionDe } from '../../lib/examen'
+import { EXAMEN } from '../../lib/examen'
+import { areaPorId } from '../../lib/examenAreas'
 import type { PreguntaExamen } from '../../types/examen'
+import { MemoriaEstimulo, useFaseMemoria } from './MemoriaEstimulo'
 
 interface PreguntaCardProps {
   pregunta: PreguntaExamen
   numero: number
   value: string | number | undefined
   disabled: boolean
+  /** Marca de tiempo (ms) en que se mostró la secuencia de una pregunta de memoria */
+  memoriaInicio?: number
+  onMemoriaStart: () => void
   onAnswer: (value: string | number) => void
 }
 
@@ -16,25 +21,36 @@ const IDLE =
 const SELECTED =
   'animate-pop border-bistre bg-white ring-1 ring-bistre dark:border-cream dark:bg-white/10 dark:ring-cream'
 
-/** Una pregunta: opción múltiple (A-D) o escala Likert (1-5) */
-export function PreguntaCard({ pregunta, numero, value, disabled, onAnswer }: PreguntaCardProps) {
-  const seccion = seccionDe(pregunta)
+/** Una pregunta: opción múltiple (A-D), escala de acuerdo (1-5) o secuencia que se memoriza y se oculta */
+export function PreguntaCard({ pregunta, numero, value, disabled, memoriaInicio, onMemoriaStart, onAnswer }: PreguntaCardProps) {
+  const area = areaPorId(pregunta.area)
+  const secuencia = pregunta.tipo === 'opcion_multiple' ? pregunta.memorizar : undefined
+  const { fase, restanteMs } = useFaseMemoria(memoriaInicio, secuencia !== undefined)
+  const respondible = fase === 'sin_memoria' || fase === 'oculto'
 
   return (
     <section key={pregunta.id} className="animate-fade-in space-y-6" aria-labelledby={`q-${pregunta.id}`}>
       <div>
-        <p className="eyebrow text-slate-800 dark:text-slate-200">
-          {seccion.titulo}
-        </p>
-        <p className="mt-1 text-xs text-slate-600 dark:text-slate-400">{seccion.indicaciones}</p>
+        <p className="eyebrow text-slate-800 dark:text-slate-200">{area?.nombre}</p>
+        <p className="mt-1 text-xs text-slate-600 dark:text-slate-400">{area?.indicaciones}</p>
       </div>
 
       <h2 id={`q-${pregunta.id}`} className="text-2xl leading-snug sm:text-3xl">
         <span className="mr-2 text-slate-500 tabular-nums">{numero}.</span>
-        {pregunta.enunciado}
+        {respondible ? pregunta.enunciado : 'Memoriza la secuencia'}
       </h2>
 
-      {pregunta.tipo === 'opcion_multiple' ? (
+      {!respondible && secuencia !== undefined && (
+        <MemoriaEstimulo
+          fase={fase as 'listo' | 'mostrando'}
+          secuencia={secuencia}
+          restanteMs={restanteMs}
+          disabled={disabled}
+          onMostrar={onMemoriaStart}
+        />
+      )}
+
+      {respondible && pregunta.tipo === 'opcion_multiple' && (
         <div className="grid gap-3 sm:grid-cols-2" role="radiogroup" aria-labelledby={`q-${pregunta.id}`}>
           {pregunta.opciones.map((opcion) => (
             <button
@@ -59,7 +75,9 @@ export function PreguntaCard({ pregunta, numero, value, disabled, onAnswer }: Pr
             </button>
           ))}
         </div>
-      ) : (
+      )}
+
+      {respondible && pregunta.tipo === 'likert' && (
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-5" role="radiogroup" aria-labelledby={`q-${pregunta.id}`}>
           {EXAMEN.escala_likert.map((nivel) => (
             <button

@@ -60,6 +60,7 @@ export function EvaluacionPage() {
         postulacionId={postulacion.data.id}
         userId={profile.id}
         vacanteTitulo={postulacion.data.vacantes?.titulo ?? null}
+        areas={postulacion.data.vacantes?.areas_evaluacion ?? []}
         onDone={handleDone}
       />
     )

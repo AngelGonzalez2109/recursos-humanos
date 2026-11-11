@@ -2,6 +2,7 @@ const DB_ERROR_MESSAGES: Record<string, string> = {
   '42501': 'No tienes permiso para realizar esta acción.',
   '23514': 'Algún dato no cumple las reglas del formulario. Revisa los campos.',
   '23505': 'Este registro ya existe.',
+  '22023': 'La solicitud no es válida. Recarga la página e inténtalo de nuevo.',
   '22P02': 'Algún dato tiene un formato inválido.',
 }
 

@@ -15,11 +15,18 @@ interface PostulacionDetalleProps {
   id: string
   item: PostulacionConMatch
   resultado?: ResultadoPsicometrico
+  sinAreas?: boolean
   onChanged: () => void
 }
 
 /** Contenido desplegable de un candidato: CV, compatibilidad, examen, perfil y cambio de estado */
-export function PostulacionDetalle({ id, item: { postulacion, match }, resultado, onChanged }: PostulacionDetalleProps) {
+export function PostulacionDetalle({
+  id,
+  item: { postulacion, match },
+  resultado,
+  sinAreas,
+  onChanged,
+}: PostulacionDetalleProps) {
   const [opening, setOpening] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -68,6 +75,7 @@ export function PostulacionDetalle({ id, item: { postulacion, match }, resultado
         {!resultado && postulacion.estado === 'pruebas_psicometricas' && (
           <p className="text-xs text-slate-600 dark:text-slate-400">
             Evaluación de Perfil Profesional pendiente: el candidato aún no la presenta.
+            {sinAreas && ' La vacante no tiene áreas a evaluar: edítala y elige al menos una.'}
           </p>
         )}
 
@@ -96,7 +104,7 @@ export function PostulacionDetalle({ id, item: { postulacion, match }, resultado
         {error && <Alert variant="error">{error}</Alert>}
 
         <div className="hairline-t pt-4">
-          <EstadoPostulacionSelect postulacion={postulacion} onChanged={onChanged} />
+          <EstadoPostulacionSelect postulacion={postulacion} sinAreas={sinAreas} onChanged={onChanged} />
         </div>
       </div>
     </div>

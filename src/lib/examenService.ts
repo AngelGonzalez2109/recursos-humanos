@@ -1,8 +1,23 @@
 import { supabase } from './supabaseClient'
+import { detectarDispositivo } from './dispositivo'
 import type { MiPostulacion } from '../types/postulacion'
-import type { RespuestasExamen, ResultadoPsicometrico } from '../types/examen'
+import type { RespuestasExamen, ResultadoPsicometrico, SesionExamen } from '../types/examen'
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+
+/**
+ * Examen asignado a la postulación. Con `iniciar` lo crea si no existe (la base
+ * de datos elige las preguntas al azar y fija la hora de inicio); sin `iniciar`
+ * devuelve null si aún no comenzó.
+ */
+export async function obtenerSesionExamen(postulacionId: string, iniciar: boolean): Promise<SesionExamen | null> {
+  const { data, error } = await supabase.rpc('examen_psicometrico_sesion', {
+    p_postulacion_id: postulacionId,
+    p_iniciar: iniciar,
+  })
+  if (error) throw error
+  return (data ?? null) as SesionExamen | null
+}
 
 /**
  * Envía las respuestas. El puntaje se calcula en la base de datos
@@ -17,6 +32,7 @@ export async function enviarExamen(
     p_postulacion_id: postulacionId,
     p_respuestas: respuestas,
     p_por_tiempo: porTiempo,
+    p_dispositivo: detectarDispositivo(),
   })
   if (error) throw error
 }
@@ -33,7 +49,7 @@ export async function getPostulacionPropia(id: string): Promise<MiPostulacion | 
   if (!UUID_RE.test(id)) return null
   const { data, error } = await supabase
     .from('postulaciones')
-    .select('*, vacantes(id, titulo, empresa, ubicacion, estado)')
+    .select('*, vacantes(id, titulo, empresa, ubicacion, estado, areas_evaluacion)')
     .eq('id', id)
     .maybeSingle<MiPostulacion>()
   if (error) throw error

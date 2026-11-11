@@ -25,5 +25,5 @@ export interface PostulacionFormValues extends PerfilFormValues {
 
 /** Postulación del candidato junto con datos de la vacante (puede ser null si dejó de ser visible) */
 export interface MiPostulacion extends Postulacion {
-  vacantes: Pick<Vacante, 'id' | 'titulo' | 'empresa' | 'ubicacion' | 'estado'> | null
+  vacantes: Pick<Vacante, 'id' | 'titulo' | 'empresa' | 'ubicacion' | 'estado' | 'areas_evaluacion'> | null
 }

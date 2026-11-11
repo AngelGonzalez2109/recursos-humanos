@@ -1,4 +1,5 @@
 import { supabase } from './supabaseClient'
+import { ordenarAreas } from './examenAreas'
 import { parseEntero, parseSalario } from './vacanteValidation'
 import type { EstadoVacante, Vacante, VacanteFormValues } from '../types/vacante'
 
@@ -53,6 +54,7 @@ function toRow(values: VacanteFormValues) {
     grado_academico: values.gradoAcademico || null,
     experiencia_anios: parseEntero(values.experienciaAnios),
     habilidades: values.habilidades,
+    areas_evaluacion: ordenarAreas(values.areasEvaluacion),
   }
 }
 

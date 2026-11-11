@@ -1,7 +1,7 @@
-import { EXAMEN } from '../../lib/examen'
-import type { RespuestasExamen } from '../../types/examen'
+import type { PreguntaExamen, RespuestasExamen } from '../../types/examen'
 
 interface PreguntaNavProps {
+  preguntas: PreguntaExamen[]
   answers: RespuestasExamen
   current: number
   disabled: boolean
@@ -9,10 +9,10 @@ interface PreguntaNavProps {
 }
 
 /** Mapa de preguntas: respondidas, pendientes y la actual */
-export function PreguntaNav({ answers, current, disabled, onGo }: PreguntaNavProps) {
+export function PreguntaNav({ preguntas, answers, current, disabled, onGo }: PreguntaNavProps) {
   return (
     <nav aria-label="Mapa de preguntas" className="flex flex-wrap gap-1.5">
-      {EXAMEN.preguntas.map((pregunta, index) => {
+      {preguntas.map((pregunta, index) => {
         const answered = answers[pregunta.id] !== undefined
         const isCurrent = index === current
         return (

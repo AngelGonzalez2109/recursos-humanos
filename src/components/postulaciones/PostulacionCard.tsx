@@ -16,6 +16,8 @@ interface PostulacionCardProps {
   open: boolean
   onToggle: () => void
   onChanged: () => void
+  /** La vacante no tiene áreas de evaluación: no se puede avanzar a pruebas psicométricas */
+  sinAreas?: boolean
   /** Posición en la lista: escalona la animación de entrada */
   index?: number
 }
@@ -38,7 +40,7 @@ function Chevron({ open }: { open: boolean }) {
 }
 
 /** Candidato desplegable: la cabecera resume (nombre, estado, compatibilidad) y el detalle se abre al pulsarla */
-export function PostulacionCard({ item, resultado, open, onToggle, onChanged, index = 0 }: PostulacionCardProps) {
+export function PostulacionCard({ item, resultado, open, onToggle, onChanged, sinAreas, index = 0 }: PostulacionCardProps) {
   const panelId = useId()
   const { postulacion, match } = item
   const nombre = postulacion.postulante_nombre || 'Candidato'
@@ -89,7 +91,9 @@ export function PostulacionCard({ item, resultado, open, onToggle, onChanged, in
         <Chevron open={open} />
       </button>
 
-      {open && <PostulacionDetalle id={panelId} item={item} resultado={resultado} onChanged={onChanged} />}
+      {open && (
+        <PostulacionDetalle id={panelId} item={item} resultado={resultado} sinAreas={sinAreas} onChanged={onChanged} />
+      )}
     </li>
   )
 }

@@ -6,6 +6,7 @@ import { getDbErrorMessage } from '../../lib/dbErrors'
 import { MODALIDAD_LABELS, MONEDAS, TIPO_CONTRATO_LABELS } from '../../lib/vacanteFormat'
 import type { PerfilFormValues } from '../../types/perfil'
 import type { Vacante, VacanteFieldErrors, VacanteFormValues } from '../../types/vacante'
+import { VacanteAreasFieldset } from './VacanteAreasFieldset'
 import { VacantePerfilFieldset } from './VacantePerfilFieldset'
 import { Alert } from '../ui/Alert'
 import { Button } from '../ui/Button'
@@ -113,6 +114,11 @@ export function VacanteForm({ vacante, defaultEmpresa, onSaved, onCancel }: Vaca
           setValues((prev) => ({ ...prev, [field]: event.target.value }))
           setErrors((prev) => ({ ...prev, [field]: undefined }))
         }}
+      />
+
+      <VacanteAreasFieldset
+        value={values.areasEvaluacion}
+        onChange={(areasEvaluacion) => setValues((prev) => ({ ...prev, areasEvaluacion }))}
       />
 
       <div className="hairline-t flex flex-col-reverse gap-3 pt-5 sm:flex-row sm:justify-end">

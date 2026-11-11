@@ -83,6 +83,7 @@ Ejecutar en Supabase (SQL Editor) **en orden**; cada archivo asume los anteriore
 7.  `supabase/07_estados_postulacion.sql` — estado de cada postulación, política de UPDATE para el publicador y lectura de vacantes para quien se postuló (sección 8).
 8.  `supabase/08_examen_psicometrico.sql` — tabla `resultados_psicometricos`, funciones de envío/puntuación y clave de respuestas (sección 11).
 9.  `supabase/09_cerrar_funciones_trigger.sql` — revoca `EXECUTE` de las funciones trigger `handle_new_user`, `postulaciones_set_nombre` y `rls_auto_enable` a `public`/`anon`/`authenticated` (aplicada con el MCP el 2026-11-08; los triggers siguen activos).
+10. `supabase/10_examen_por_areas.sql` — examen por áreas (versión 2): `vacantes.areas_evaluacion`, tablas `examen_claves` y `examen_intentos`, columnas nuevas en `resultados_psicometricos` y funciones `examen_psicometrico_sesion` / `enviar_examen_psicometrico` (aplicada con el MCP el 2026-11-11; conserva los resultados v1; sección 11).
 
 Este proyecto **no concede privilegios por defecto** a `anon`/`authenticated`: toda tabla nueva necesita `grant` explícito además de RLS.
 
@@ -166,7 +167,7 @@ Las etiquetas y colores (`Badge`) viven en `src/lib/postulacionEstados.ts`. "Rec
 | `/evaluacion/:postulacionId` | `postulante` | Evaluación de Perfil Profesional (solo con estado `pruebas_psicometricas`) |
 | `/vacantes/:id` | Cualquier usuario autenticado | Detalle; el candidato ve "Postularme", el dueño ve las postulaciones ordenadas por match |
 
-**Funcionalidades completadas y verificadas en producción:** autenticación por roles, publicar/editar/cerrar vacantes, feed y detalle, postulación con CV (PDF), match automático con ordenamiento estricto, autocompletado de habilidades, estados de postulación con confirmación, "Mis postulaciones" y la Evaluación de Perfil Profesional (examen psicométrico global, un intento, 15 minutos).
+**Funcionalidades completadas y verificadas en producción:** autenticación por roles, publicar/editar/cerrar vacantes, feed y detalle, postulación con CV (PDF), match automático con ordenamiento estricto, autocompletado de habilidades, estados de postulación con confirmación, "Mis postulaciones" y la Evaluación de Perfil Profesional (examen psicométrico por áreas elegidas por vacante, un intento, 5 min por área; versión 2 aplicada el 2026-11-11, pendiente de commit y de verificar en producción).
 
 **Rediseño visual editorial (sección 3):** implementado y revisado en local (capturas en claro/oscuro y a 390 px), con `npm run build` correcto; **pendiente de commit y de verificar en producción**. Sustituyó al estilo SaaS oscuro con acento cian.
 
@@ -178,50 +179,63 @@ Las etiquetas y colores (`Badge`) viven en `src/lib/postulacionEstados.ts`. "Rec
 
 **Convención de commits (obligatoria):** los commits y descripciones de PR llevan **solo el mensaje descriptivo, en español**. **No** añadir `Co-Authored-By: Claude …` ni líneas de atribución como "Generated with Claude Code", aunque la configuración de la herramienta lo sugiera: el usuario pidió que Claude no figure como colaborador del repositorio. Pendiente (requiere confirmación explícita del usuario): los 11 commits anteriores a 2026-11-08 aún llevan esa línea; limpiarlos exige reescribir el historial con rama de respaldo y `git push --force` a `main`.
 
-## 11. EVALUACIÓN DE PERFIL PROFESIONAL (EXAMEN PSICOMÉTRICO)
-Prueba **global** (la misma para todas las vacantes), de opción múltiple y con evaluación instantánea. Es una herramienta interna de compatibilidad laboral **sin validez clínica**; el texto de inicio lo aclara y no debe eliminarse. No debe llamarse "prueba psicológica" en la interfaz.
+## 11. EVALUACIÓN DE PERFIL PROFESIONAL (EXAMEN PSICOMÉTRICO POR ÁREAS, versión 2)
+Desde 2026-11-11 el examen **ya no es global**: el reclutador elige, **por vacante**, las **áreas a evaluar** y el candidato recibe **10 preguntas al azar por área**, con **5 minutos por área**. Es una herramienta interna de compatibilidad laboral **sin validez clínica**; el texto de inicio lo aclara y no debe eliminarse. No debe llamarse "prueba psicológica" en la interfaz. Fuente del contenido: `indicaciones_psicometrico.md` (reactivos de ejemplo **no validados**; claves de situaciones laborales **provisionales**, a revisar por especialistas según el puesto).
 
-### 11.1 Archivos y reparto de responsabilidades
+### 11.1 Banco: 165 reactivos en 11 áreas de 15
+| Área (id · prefijo) | Tipo | Opciones | Puntuación |
+|---|---|---|---|
+| Razonamiento lógico y abstracto (`logico` · `LOG`) | Objetivo | A–D | % de aciertos |
+| Razonamiento numérico y cuantitativo (`numerico` · `NUM`) | Objetivo | A–D | % de aciertos |
+| Razonamiento verbal y comprensión lectora (`verbal` · `VER`) | Objetivo | **A–C** | % de aciertos (responder solo con el texto) |
+| Aptitud espacial y visoperceptiva (`espacial` · `ESP`) | Objetivo | A–D | % de aciertos |
+| Atención, concentración y memoria de trabajo (`atencion` · `ATE`) | Objetivo, **prototipo** | A–D | % de aciertos. **ATE-11–15 son "memorizar y ocultar"**: la secuencia se muestra una vez (5 s, `segundos_memorizar`) y luego se oculta. **El tiempo de respuesta no puntúa** |
+| Rasgos de personalidad Big Five (`personalidad` · `B5`) | Escala de acuerdo 1–5, **sin clave correcta** | — | `(suma − n) / (4n) · 100`; invertidos (`6 − valor`): B5-03, 06, 09, 12, 15. Se reporta **un solo nivel por bloque** (no por dimensión) |
+| Juicio situacional (`situacional` · `SJT`), Liderazgo (`liderazgo` · `LID`), Presión laboral (`presion` · `PRE`), Integridad (`integridad` · `INT`), Autorregulación y empatía (`empatia` · `EMO`) | Situacional, **claves provisionales** | A–C | % de coincidencia con la clave |
+
+### 11.2 Archivos y reparto de responsabilidades
 | Qué | Dónde |
 |---|---|
-| Preguntas, opciones, escala Likert, dimensiones, niveles, textos | `examen_psicometrico.json` (raíz). **No contiene respuestas correctas ni ítems inversos.** |
-| Clave de respuestas, ítems inversos y fórmulas de puntuación | `supabase/08_examen_psicometrico.sql`, dentro de `enviar_examen_psicometrico()` (nunca llegan al navegador) |
-| Resultados | Tabla `resultados_psicometricos` |
+| Catálogo de áreas (nombre, tipo, descripción, avisos, prefijo), `preguntas_por_area` (10), `minutos_por_area` (5), niveles Bajo/Medio/Alto (0/50/75) | `examen_areas.json` (raíz, pequeño; lo usan el formulario de vacante y la vista del reclutador) |
+| Preguntas, opciones, textos de inicio/fin, escala de acuerdo, `segundos_memorizar`, secuencias `memorizar` | `examen_psicometrico.json` (raíz; **sin claves ni ítems inversos**; solo se carga en la página del examen) |
+| Claves de respuesta e ítems inversos | Tabla `examen_claves` (RLS activo, **sin ningún privilegio** para `anon`/`authenticated`; solo la leen las funciones `security definer`) |
+| Preguntas asignadas a cada postulación y hora de inicio | Tabla `examen_intentos` (mismo blindaje) |
+| Resultados | `resultados_psicometricos` (v1 conservados; v2 añade `areas`, `total_preguntas`, `dispositivo`) |
+| Áreas de la vacante | `vacantes.areas_evaluacion text[]` (validada por `areas_evaluacion_validas()`) |
+| Lógica | `supabase/10_examen_por_areas.sql` (aplicada con el MCP el 2026-11-11): `examen_psicometrico_sesion()` y `enviar_examen_psicometrico()` |
 
-Si se modifican preguntas o la clave: actualizar el JSON **y** la función SQL, y subir `version` en ambos (`v_version` en SQL). Cada resultado guarda la versión con la que se respondió.
+El banco se regeneró desde `indicaciones_psicometrico.md` con un script puntual (no vive en el repo). Si se modifican preguntas o claves: actualizar el JSON **y** `examen_claves` (migración nueva, nunca editar la 10) y subir `version` (JSON y `v_version` en SQL). Cada resultado guarda su versión.
 
-### 11.2 Contenido (30 preguntas, versión 1)
-*   **Parte 1 – Lógica y resolución de problemas (L01–L10):** opción múltiple A–D con una sola correcta.
-*   **Parte 2 – Estilo de trabajo (P01–P20):** escala Likert 1–5 (Totalmente en desacuerdo … Totalmente de acuerdo), 5 ítems por dimensión: **Adaptabilidad, Trabajo en equipo, Liderazgo y Tolerancia al estrés**. 6 ítems están redactados en sentido inverso (puntúan `6 − valor`).
+### 11.3 Formulario de vacante: bloque "Áreas a evaluar"
+Al final de `VacanteForm` (crear y editar), componente `VacanteAreasFieldset`: casillas de las 11 áreas con nombre, tipo, descripción y aviso (prototipo / claves provisionales), y un resumen "N áreas · 10N preguntas · 5N minutos". Se guarda en `areas_evaluacion` (ordenadas con `ordenarAreas`). Opcional al publicar, pero **sin áreas no se puede pasar un candidato a "pruebas psicométricas"**: `EstadoPostulacionSelect` (prop `sinAreas`) lo bloquea con un aviso y `PostulacionDetalle` lo indica. Las vacantes anteriores a la migración quedan sin áreas hasta que se editen.
 
-### 11.3 Puntuación (se calcula en la base de datos)
-*   **Lógica:** `aciertos / 10 · 100` (las preguntas omitidas cuentan como incorrectas). Se muestra como porcentaje ("Lógica: 80%").
-*   **Dimensiones Likert:** `(suma − n) / (4n) · 100`, con `n` = ítems respondidos de la dimensión (si `n = 0`, sin resultado). Se muestran como nivel: **Bajo** < 50 %, **Medio** 50–74 %, **Alto** ≥ 75 % (umbrales en el JSON, `niveles`).
-
-### 11.4 Reglas de acceso (RLS y funciones)
-*   Solo puede presentarla el **dueño de la postulación** y **únicamente si su estado es `pruebas_psicometricas`** (lo valida `enviar_examen_psicometrico`, no la interfaz).
-*   **Un único intento por postulación:** `unique(postulacion_id)`; un segundo envío falla con 23505 y la interfaz lo trata como "ya enviado".
-*   La tabla no tiene políticas ni privilegios de escritura: la **única** vía de escritura es la función `security definer`. El candidato **no puede leer** su resultado; `examenes_completados()` solo devuelve los ids ya enviados.
-*   El **reclutador** de la vacante lee los resultados (`resultados_select_publicador`).
-*   Las respuestas se validan en SQL (preguntas conocidas, letras a–d, valores 1–5).
+### 11.4 Sesión del examen y reglas de acceso (RLS y funciones)
+*   `examen_psicometrico_sesion(postulacion, iniciar)` (`security definer`): solo el **dueño de la postulación** y **solo con estado `pruebas_psicometricas`**. Sin `iniciar` devuelve `null` si aún no comenzó (así recargar no reinicia nada). Con `iniciar` elige **10 preguntas al azar por área** (en el orden canónico de las áreas), las guarda en `examen_intentos` junto con la hora de inicio y `duracion_seg = 300 · áreas`, y devuelve preguntas, hora de inicio, duración y la hora del servidor (`ahora`) para ajustar el reloj. Es idempotente: la selección no cambia al recargar. Falla con 22023 si vacante sin áreas y con 23505 si ya se envió.
+*   `enviar_examen_psicometrico(postulacion, respuestas, por_tiempo, dispositivo)`: exige que el examen se haya iniciado, valida que cada respuesta pertenezca a las preguntas asignadas y sea válida para su tipo (letras a–c o a–d según la pregunta; 1–5 en escala de acuerdo) y calcula el porcentaje **por área** (aciertos sobre las 10 asignadas; las omitidas cuentan como incorrectas). **Un único intento** (`unique(postulacion_id)`; 23505 → la interfaz lo trata como "ya enviado"). El candidato **no puede leer** resultados ni claves; `examenes_completados()` solo devuelve ids.
+*   El **reclutador** de la vacante lee los resultados (`resultados_select_publicador`). El temporizador **no se valida en el servidor** (el envío por tiempo agotado lo dispara el cliente), pero su hora de inicio ya la fija el servidor.
 
 ### 11.5 Flujo del candidato
 1.  El reclutador cambia el estado a "Avanzar a pruebas psicométricas" (con su confirmación habitual).
-2.  En "Mis postulaciones" aparece **"Realizar evaluación"** (o "Evaluación enviada" si ya la presentó) → `/evaluacion/:postulacionId`.
-3.  Pantalla de inicio (`ExamenIntro`): 30 preguntas, 15 minutos, único intento y el aviso de que no tiene validez clínica. El temporizador arranca al pulsar **Comenzar**.
-4.  Una pregunta por pantalla, mapa de preguntas, barra de avance y **rueda de 15 minutos** con el tiempo restante dentro (`TimerRing`; ámbar < 5 min, rojo y parpadeo < 1 min).
-5.  **Temporizador de 15 min para toda la prueba, solo en el cliente** (no se valida en el servidor): se calcula con la hora de inicio guardada, así que recargar o salir no lo reinicia. Al llegar a 0 se dispara el envío automático (`useEnviarExamen`) con lo respondido (`por_tiempo = true`); si falla, hay botón "Reintentar envío" (sin bucle automático).
-6.  **Progreso en `localStorage`** (clave `examen:{usuario}:{postulación}:v{versión}`): hora de inicio, respuestas y pregunta actual; se borra al enviar. Si el navegador no permite almacenamiento, funciona en memoria.
-7.  Al enviar (manual, con confirmación, o por tiempo) el candidato **solo ve** "Examen enviado con éxito. El reclutador ha sido notificado." — nunca su puntaje.
+2.  En "Mis postulaciones" aparece **"Realizar evaluación"** (o "Evaluación enviada") → `/evaluacion/:postulacionId`.
+3.  `ExamenIntro`: áreas de la vacante, N preguntas, 5·N minutos, único intento y el aviso de que no tiene validez clínica. Si la vacante no tiene áreas, lo indica y no deja comenzar. Al pulsar **Comenzar** (`useSesionExamen.iniciar`) la base de datos asigna las preguntas y arranca el reloj.
+4.  `ExamenEnCurso`: una pregunta por pantalla agrupadas por área, mapa de preguntas, barra de avance y **rueda de tiempo** (`TimerRing`; ámbar en el último 25 %, rojo y parpadeo en el último 10 %, máx. 1 min). Las preguntas de memoria (`MemoriaEstimulo`) piden pulsar "Mostrar secuencia", la muestran 5 s y la ocultan; **solo se ve una vez** (se guarda en el progreso).
+5.  **Tiempo = 5 min × áreas, solo en el cliente**: se calcula con la hora de inicio del servidor, así que recargar, salir o cambiar de dispositivo no lo reinicia. Al llegar a 0 se envía solo (`useEnviarExamen`, `por_tiempo = true`); si falla, "Reintentar envío" (sin bucle automático).
+6.  **Progreso en `localStorage`** (clave `examen:{usuario}:{postulación}:v2`): respuestas, pregunta actual y secuencias ya mostradas; se borra al enviar. Sin almacenamiento, funciona en memoria.
+7.  Al enviar se reporta el **tipo de dispositivo** (`lib/dispositivo.ts`: móvil, tableta o computadora). El candidato **solo ve** "Examen enviado con éxito. El reclutador ha sido notificado." — nunca su puntaje.
 
 ### 11.6 Vista del reclutador
-En cada tarjeta de candidato, **debajo de la compatibilidad general**, `DesglosePsicometrico` muestra un recuadro por dimensión: **Lógica** como cifra grande ("80%"), barra y "8 de 10 aciertos"; las dimensiones Likert (**Adaptabilidad, Trabajo en equipo, Liderazgo, Tolerancia al estrés**) como nivel en texto grande ("Alto", "Medio", "Bajo") con un medidor de tres tramos **sin textos "Bajo · Medio · Alto" debajo** (se amontonaban; el nivel ya se dice arriba) (nunca se muestra su porcentaje), más el número de preguntas respondidas y la indicación de envío por tiempo agotado. Si el candidato está en pruebas psicométricas pero aún no la presenta, se indica como pendiente.
+En cada tarjeta de candidato, debajo de la compatibilidad general, `DesglosePsicometrico` muestra un recuadro **por área evaluada** (`NivelTile`): el nivel en texto grande (**Bajo** < 50 %, **Medio** 50–74 %, **Alto** ≥ 75 %) con un medidor de tres tramos y "N de 10 respondidas". **Nunca se muestra el porcentaje.** El encabezado indica preguntas respondidas, el dispositivo y si se envió por tiempo agotado. Los resultados de la **versión 1** (examen global anterior: Lógica, Adaptabilidad, Trabajo en equipo, Liderazgo, Tolerancia al estrés) se siguen mostrando, marcados como "versión anterior" y también como niveles. Si el candidato está en pruebas psicométricas pero aún no la presenta, se indica como pendiente.
+
+### 11.7 Pendiente / notas
+*   El candidato que tenía un examen v1 a medias en su navegador lo pierde (otra clave de `localStorage`); los enviados se conservan.
+*   Las vacantes existentes no tienen áreas: hay que editarlas para poder usar la etapa de pruebas.
+*   Verificado el 2026-11-11 con una transacción de prueba revertida: 30 preguntas para 3 áreas, 900 s, selección estable al recargar, puntaje correcto y rechazo de una pregunta ajena. Falta una prueba manual completa en el navegador y en producción.
 
 ## 12. INFRAESTRUCTURA, INTEGRACIONES Y DETALLES DEL CÓDIGO (verificado el 2026-11-08)
 
 ### 12.1 Servicios conectados
 *   **GitHub:** `AngelGonzalez2109/recursos-humanos` (repo **público**, rama `main`, sin workflows de CI). `gh` autenticado con alcances `repo`, `read:org`, `gist`.
-*   **Supabase:** proyecto `recursos-humanos` (ref `mhkwxmmawdmbzgaiqxim`, región us-east-1, Postgres 17). Accesible vía el MCP de Supabase (tablas, SQL, advisors). Las 4 tablas de `public` (`profiles`, `vacantes`, `postulaciones`, `resultados_psicometricos`) tienen RLS activo y el bucket `cvs` es privado (PDF, 5 MB). **Las migraciones se ejecutan a mano en el SQL Editor**, así que `list_migrations` devuelve vacío: la fuente de verdad son los archivos `supabase/NN_*.sql`; no asumir que reflejan el historial del MCP. Si se aplican cambios con el MCP, guardar igualmente el archivo `NN_*.sql`.
+*   **Supabase:** proyecto `recursos-humanos` (ref `mhkwxmmawdmbzgaiqxim`, región us-east-1, Postgres 17). Accesible vía el MCP de Supabase (tablas, SQL, advisors). Las 6 tablas de `public` (`profiles`, `vacantes`, `postulaciones`, `resultados_psicometricos`, `examen_claves`, `examen_intentos`) tienen RLS activo y el bucket `cvs` es privado (PDF, 5 MB). **Las migraciones se ejecutan a mano en el SQL Editor**, así que `list_migrations` devuelve vacío: la fuente de verdad son los archivos `supabase/NN_*.sql`; no asumir que reflejan el historial del MCP. Si se aplican cambios con el MCP, guardar igualmente el archivo `NN_*.sql`.
 *   **Vercel:** proyecto `recursos-humanos` (cuenta personal), despliegue automático desde GitHub. `vercel.json` reescribe todas las rutas a `/index.html` (SPA). `.npmrc` fija `legacy-peer-deps=true` (necesario para instalar en Vercel). Las variables `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY` deben estar definidas en el proyecto (no verificado desde aquí; la app funciona en producción según la sección 10). El MCP de Vercel requiere autorizar el acceso al equipo (enlace de un solo uso) antes de listar despliegues.
 
 ### 12.2 Detalles de base de datos no cubiertos arriba
@@ -229,7 +243,7 @@ En cada tarjeta de candidato, **debajo de la compatibilidad general**, `Desglose
 *   `postulaciones` también tiene: `mensaje` (opcional, máx. 1000 caracteres) y `postulante_nombre`, copiado de `profiles.full_name` por el trigger `postulaciones_set_nombre` (porque `profiles` solo lo lee su dueño). Un candidato no puede postularse dos veces a la misma vacante.
 *   `postular()` sube el CV a `cvs/{userId}/{uuid}.pdf` y, si el insert falla, **borra el archivo** para no dejar huérfanos.
 *   En la BD existe además la función `rls_auto_enable()` que no proviene de los archivos del repo (viene de la configuración de Supabase); no tocarla.
-*   Advisors de seguridad pendientes (todos WARN, ninguno bloqueante): (1) **Leaked Password Protection desactivada** (se activa en el panel de Supabase Auth); (2) las funciones trigger ya se cerraron en la migración 09, así que no deben reaparecer avisos de `anon`; (3) las funciones `security definer` que usa la app (`current_user_role`, `ha_postulado`, `examenes_completados`, `enviar_examen_psicometrico`) son ejecutables por `authenticated` a propósito.
+*   Advisors de seguridad pendientes (todos WARN, ninguno bloqueante): (1) **Leaked Password Protection desactivada** (se activa en el panel de Supabase Auth); (2) las funciones trigger ya se cerraron en la migración 09, así que no deben reaparecer avisos de `anon`; (3) las funciones `security definer` que usa la app (`current_user_role`, `ha_postulado`, `examenes_completados`, `examen_psicometrico_sesion`, `enviar_examen_psicometrico`) son ejecutables por `authenticated` a propósito.
 
 ### 12.3 Estado de verificación del código
 *   `npm run build` (`tsc -b && vite build`) pasa sin errores; el bundle principal pesa ~488 kB (142 kB gzip) y cada página se carga por separado.
