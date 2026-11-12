@@ -172,6 +172,16 @@ Las etiquetas y colores (`Badge`) viven en `src/lib/postulacionEstados.ts`. "Rec
 
 **Rediseño visual editorial (sección 3):** implementado y revisado en local (capturas en claro/oscuro y a 390 px), con `npm run build` correcto; commiteado y desplegado (commits `2cf5618`, `dd7e588` y anteriores), **pendiente solo de verificar en producción**. Sustituyó al estilo SaaS oscuro con acento cian.
 
+**Vista simple / vista avanzada del examen (sección 11.8):** implementada el 2026-11-12, probada con capturas (1, 2, 3 y 11 áreas, resultado v1, claro/oscuro, 390 px y escritorio) por un subagente; commiteada y desplegada (commit `25ed7a7`), **pendiente solo de verificar en producción con datos reales**.
+
+**REVISIONES PENDIENTES (resumen al 2026-11-12; empezar por aquí en la próxima sesión):**
+1.  **Prueba manual del examen por áreas y de la vista simple/avanzada** en producción: lista completa de 8 puntos en la sección 11.7.
+2.  **Comprobar que el despliegue de `25ed7a7` terminó bien en Vercel** (no se verificó desde Claude Code).
+3.  **Verificar en producción el rediseño visual editorial** (sección 3), en claro/oscuro y a 390 px.
+4.  **Editar las vacantes existentes** para asignarles áreas a evaluar (sin áreas no se puede usar la etapa de pruebas).
+5.  **Activar "Leaked Password Protection"** en el panel de Supabase Auth (advisor WARN, sección 12.2).
+6.  **Decidir si se limpia el historial** de los 11 commits antiguos con `Co-Authored-By: Claude` (requiere confirmación explícita; ver "Convención de commits").
+
 **Fuera de alcance por ahora (no implementar sin pedirlo):** filtros avanzados en el feed y pulido para entrega (README de instalación, ESLint — falla por la incompatibilidad de `typescript-eslint` con TypeScript 7).
 
 **Convenciones de diseño:** toda pantalla o componente nuevo debe seguir el sistema de diseño de la sección 3 (tokens en `src/index.css`, `.surface`, `ui/Button`, `ui/Badge`, `ui/ProgressBar`, `ui/Avatar`); no introducir colores ni sombras sueltas.
