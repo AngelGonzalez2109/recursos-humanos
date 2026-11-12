@@ -1,21 +1,7 @@
 import { CATALOGO, nivelDe } from '../../lib/examenAreas'
-import type { NivelExamen } from '../../types/examen'
-
-type NivelId = NivelExamen['id']
+import { NIVEL_FILL, NIVEL_TEXT, type NivelId } from '../../lib/nivelEstilos'
 
 const NIVELES = CATALOGO.niveles
-
-const NIVEL_TEXT: Record<NivelId, string> = {
-  alto: 'text-emerald-600 dark:text-emerald-400',
-  medio: 'text-amber-600 dark:text-amber-400',
-  bajo: 'text-red-600 dark:text-red-400',
-}
-
-const NIVEL_FILL: Record<NivelId, string> = {
-  alto: 'bg-emerald-600 dark:bg-emerald-400',
-  medio: 'bg-amber-500 dark:bg-amber-400',
-  bajo: 'bg-red-500 dark:bg-red-400',
-}
 
 /** Medidor de tres tramos: se iluminan los alcanzados; el nivel se dice en el texto de la tarjeta */
 function NivelMeter({ nivel, nombre }: { nivel: NivelId | null; nombre: string }) {

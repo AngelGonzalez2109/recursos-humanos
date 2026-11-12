@@ -107,6 +107,7 @@
   --animate-icon-in: icon-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-scale-in: scale-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
   --animate-draw: draw 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+  --animate-radar-in: radar-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
 
   @keyframes fade-in {
     from {
@@ -218,6 +219,18 @@
     from {
       opacity: 0;
       transform: scale(0.4);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Polígono del radar: crece desde el centro hasta los puntajes (sin rebote, para no exagerar valores) */
+  @keyframes radar-in {
+    from {
+      opacity: 0;
+      transform: scale(0.2);
     }
     to {
       opacity: 1;
@@ -378,7 +391,8 @@
   .animate-seg-in,
   .animate-icon-in,
   .animate-scale-in,
-  .animate-draw {
+  .animate-draw,
+  .animate-radar-in {
     animation: none;
   }
 
