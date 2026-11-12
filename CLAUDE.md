@@ -84,6 +84,7 @@ Ejecutar en Supabase (SQL Editor) **en orden**; cada archivo asume los anteriore
 8.  `supabase/08_examen_psicometrico.sql` — tabla `resultados_psicometricos`, funciones de envío/puntuación y clave de respuestas (sección 11).
 9.  `supabase/09_cerrar_funciones_trigger.sql` — revoca `EXECUTE` de las funciones trigger `handle_new_user`, `postulaciones_set_nombre` y `rls_auto_enable` a `public`/`anon`/`authenticated` (aplicada con el MCP el 2026-11-08; los triggers siguen activos).
 10. `supabase/10_examen_por_areas.sql` — examen por áreas (versión 2): `vacantes.areas_evaluacion`, tablas `examen_claves` y `examen_intentos`, columnas nuevas en `resultados_psicometricos` y funciones `examen_psicometrico_sesion` / `enviar_examen_psicometrico` (aplicada con el MCP el 2026-11-11; conserva los resultados v1; sección 11).
+11. `supabase/11_examen_respuestas_nulas.sql` — `enviar_examen_psicometrico` rechaza respuestas `null` (antes `NULL !~ regex` daba NULL y la validación no se disparaba); solo cambia la validación, el resto es idéntico a la 10 (aplicada con el MCP el 2026-11-12).
 
 Este proyecto **no concede privilegios por defecto** a `anon`/`authenticated`: toda tabla nueva necesita `grant` explícito además de RLS.
 
